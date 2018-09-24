@@ -1,0 +1,4 @@
+export GOPATH=~/projects/go
+export PATH=/usr/local/bin:$PATH:$GOPATH/bin
+
+eval $(thefuck --alias)

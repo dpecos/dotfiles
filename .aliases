@@ -1,0 +1,27 @@
+# Detect which `ls` flavor is in use
+if ls --color > /dev/null 2>&1; then # GNU `ls`
+  colorflag="--color"
+else # OS X `ls`
+  colorflag="-G"
+fi
+
+alias ll='ls -lh'
+alias la="ls -lha"
+alias lsd='ls -l | grep "^d"'
+alias ls="command ls ${colorflag}"
+
+alias g='git'
+__git_complete g __git_main
+
+alias gud='g co develop && g pull && g co -'
+alias gum='g co master && g pull && g co -'
+
+alias npm-publish='npm publish --registry=https://payconiq.io/nexus/repository/npm-payconiq/'
+
+alias did="vim +'normal Go' +'r! date' ~/logbook/$(date +'%Y%m%d').txt"
+
+# https://github.com/emilyst/home
+alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
+
+# Rabobank
+alias rabo_dns_fix="echo 145.72.122.11 bt-telewerkportaal-a-vipt.twp.rabobank.nl   webmail.rabobank.com | sudo tee -a /etc/hosts"
