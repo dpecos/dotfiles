@@ -23,5 +23,7 @@ alias did="vim +'normal Go' +'r! date' ~/logbook/$(date +'%Y%m%d').txt"
 # https://github.com/emilyst/home
 alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 
+alias vi='vim'
+
 # Rabobank
 alias rabo_dns_fix="echo 145.72.122.11 bt-telewerkportaal-a-vipt.twp.rabobank.nl   webmail.rabobank.com | sudo tee -a /etc/hosts"
