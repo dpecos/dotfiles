@@ -4,3 +4,13 @@ export GOPATH=~/projects/go
 export PATH=/usr/local/bin:$PATH:$GOPATH/bin
 
 eval $(thefuck --alias)
+
+######
+
+ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOSTART_ONCE=false
+
+plugins=(
+  git
+  tmux
+)

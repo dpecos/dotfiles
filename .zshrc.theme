@@ -54,6 +54,7 @@ POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
 fpath=(/usr/local/share/zsh-completions $fpath)
 
 ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOSTART_ONCE=false
 
 plugins=(
   git

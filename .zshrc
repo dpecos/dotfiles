@@ -1,6 +1,6 @@
-source ~/.zshrc.theme
-
 source ~/.zshrc.user
+
+source ~/.zshrc.theme
 
 
 # tabtab source for serverless package
