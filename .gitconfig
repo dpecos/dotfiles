@@ -1,0 +1,87 @@
+[user]
+  name = Daniel Pecos
+  email = me@danielpecos.com
+
+[alias]
+  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  dl = log --graph --all --decorate --stat --date=iso
+  s = status
+  d = difftool
+  a = add
+  ci = commit
+  co = checkout
+  cp = cherry-pick
+  p = pull
+  pr = pull --rebase
+  f = flow
+  ff = flow feature
+  ffs = flow feature start
+  b = branch
+  amend = commit -a --amend
+
+  unstage = reset HEAD --
+
+  # git change-commits GIT_COMMITTER_NAME "old name" "new name"
+  change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [ \\\"$`echo $VAR`\\\" = '$OLD' ]; then export $VAR='$NEW'; fi\" $@; }; f "
+  # from https://help.github.com/articles/remove-sensitive-data
+  remove-file = "!f() { git filter-branch -f --index-filter \"git rm --cached --ignore-unmatch $1\" --prune-empty --tag-name-filter cat -- --all; }; f"
+
+[core]
+  editor = vim
+  excludesfile = ~/.gitignore_global
+  autocrlf = input
+
+[color]
+  ui = true
+  diff = true
+  grep = true
+  branch = true
+  showbranch = true
+  status = true
+
+[color "diff"]
+  plain = normal dim
+  meta = yellow dim
+  frag = blue bold
+  old = magenta
+  new = cyan
+  whitespace = red reverse
+
+[color "status"]
+  header = normal dim
+  added = yellow
+  untracked = magenta
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = red
+
+[merge]
+  tool = vimdiff
+
+[diff]
+  tool = vimdiff
+  submodule = log
+
+[difftool]
+  prompt = false
+  conflictstyle = diff3
+
+[push]
+  followTags = true
+
+[status]
+  submoduleSummary = true
+
+[fetch]
+  recurseSubmodules = true
+
+[includeIf "gitdir:~/projects_rabo/"]
+  path = ~/projects_rabo/.gitconfig_override
+
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+
+[url "git@gitlab.com:"]
+    insteadOf = https://gitlab.com/
