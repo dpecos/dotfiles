@@ -11,7 +11,7 @@ alias lsd='ls -l | grep "^d"'
 alias ls="command ls ${colorflag}"
 
 alias g='git'
-__git_complete g __git_main
+#__git_complete g __git_main
 
 alias gud='g co develop && g pull && g co -'
 alias gum='g co master && g pull && g co -'
