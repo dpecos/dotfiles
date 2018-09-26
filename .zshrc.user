@@ -14,3 +14,6 @@ plugins=(
   git
   tmux
 )
+
+# 10ms for key sequences 
+KEYTIMEOUT=1
