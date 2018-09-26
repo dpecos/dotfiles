@@ -13,7 +13,7 @@ plugins=(
   git
   tmux
   dotenv
-#  vi-mode
+  vi-mode
 )
 
 # 10ms for key sequences - tmux, vi integration
