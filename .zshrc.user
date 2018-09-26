@@ -1,11 +1,10 @@
 source $HOME/.aliases
 
-export GOPATH=~/projects/go
-export PATH=/usr/local/bin:$PATH:$GOPATH/bin
-
 eval $(thefuck --alias)
 
 ######
+
+fpath=(/usr/local/share/zsh-completions $fpath)
 
 ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOSTART_ONCE=false
@@ -13,7 +12,9 @@ ZSH_TMUX_AUTOSTART_ONCE=false
 plugins=(
   git
   tmux
+  dotenv
+#  vi-mode
 )
 
-# 10ms for key sequences 
+# 10ms for key sequences - tmux, vi integration
 KEYTIMEOUT=1

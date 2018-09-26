@@ -51,14 +51,8 @@ POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
 POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
 POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
 
-fpath=(/usr/local/share/zsh-completions $fpath)
+POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 
-ZSH_TMUX_AUTOSTART=true
-ZSH_TMUX_AUTOSTART_ONCE=false
-
-plugins=(
-  git
-  tmux
-)
+#POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vi_mode context dir vcs)
 
 source $ZSH/oh-my-zsh.sh
