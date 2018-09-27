@@ -25,6 +25,4 @@ alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 
 alias vi='vim'
 
-# Rabobank
-alias rabo_dns_fix="echo 145.72.122.11 bt-telewerkportaal-a-vipt.twp.rabobank.nl   webmail.rabobank.com | sudo tee -a /etc/hosts"
-alias rabo_prj="cd ~/projects_rabo"
+[[ -f ~/.aliases.local ]] && . ~/.aliases.local
