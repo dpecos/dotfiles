@@ -36,24 +36,21 @@ COMPLETION_WAITING_DOTS="true"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 ZSH_THEME="powerlevel9k/powerlevel9k"
-#ZSH_THEME="agnoster"
 
-DEFAULT_USER="dpecos"
-
-#ENABLE_CORRECTION="true"
-
-#POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv vcs)
-#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(ssh status root_indicator background_jobs history load battery time)
-#POWERLEVEL9K_BATTERY_STAGES=($'\u2581 ' $'\u2582 ' $'\u2583 ' $'\u2584 ' $'\u2585 ' $'\u2586 ' $'\u2587 ' $'\u2588 ')
-
-#POWERLEVEL9K_COLOR_SCHEME="light"
 POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
 POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
 POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vi_mode context dir vcs)
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+  POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon ssh vi_mode context dir vcs)
+else
+  POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon vi_mode dir vcs)
+fi
+
+#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history ram_joined time)
 
 # Vi-Mode
 POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND='245'
@@ -61,5 +58,6 @@ POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='blue'
 POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND='white'
 #POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND='236'
 POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='blue'
+
 
 source $ZSH/oh-my-zsh.sh

@@ -14,6 +14,7 @@ plugins=(
   tmux
   dotenv
   vi-mode
+  iterm2
 )
 
 # 10ms for key sequences - tmux, vi integration
