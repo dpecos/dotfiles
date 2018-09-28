@@ -7,6 +7,7 @@
   dl = log --graph --all --decorate --stat --date=iso
   s = status
   d = difftool
+  dm = difftool --tool=meld
   a = add
   ci = commit
   co = checkout
@@ -57,17 +58,6 @@
   local = yellow
   remote = red
 
-[merge]
-  tool = vimdiff
-
-[diff]
-  tool = vimdiff
-  submodule = log
-
-[difftool]
-  prompt = false
-  conflictstyle = diff3
-
 [push]
   followTags = true
 
@@ -77,11 +67,33 @@
 [fetch]
   recurseSubmodules = true
 
-[includeIf "gitdir:~/projects_rabo/"]
-  path = ~/projects_rabo/.gitconfig_override
+[diff]
+  tool = vimdiff
+  submodule = log
+
+[difftool]
+  prompt = false
+  conflictstyle = diff3
+
+[merge]
+  tool = vimdiff
+
+[mergetool]
+  prompt = false
 
 [url "git@github.com:"]
     insteadOf = https://github.com/
 
 [url "git@gitlab.com:"]
     insteadOf = https://gitlab.com/
+
+[difftool "meld"]
+  trustExitCode = true
+  cmd = open -W -a Meld --args \"$LOCAL\" \"$REMOTE\"
+
+[mergetool "meld"]
+  trustExitCode = true
+  cmd = open -W -a Meld --args --auto-merge \"$LOCAL\" \"$BASE\" \"$REMOTE\" --output=\"$MERGED\"
+
+[includeIf "gitdir:~/projects_rabo/"]
+  path = ~/projects_rabo/.gitconfig_override
