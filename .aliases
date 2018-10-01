@@ -24,5 +24,6 @@ alias did="vim +'normal Go' +'r! date' ~/logbook/$(date +'%Y%m%d').txt"
 alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 
 alias vi='vim'
+alias mc='mc -x' # fixes mouse in mc running in tmux
 
 [[ -f ~/.aliases.local ]] && . ~/.aliases.local
