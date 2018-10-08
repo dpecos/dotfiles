@@ -42,11 +42,12 @@
 
 [color "diff"]
   plain = normal dim
-  meta = yellow dim
-  frag = blue bold
-  old = magenta
-  new = cyan
+  meta = yellow
+  frag = magenta bold
+  old = red bold
+  new = green bold
   whitespace = red reverse
+  commit = yellow bold
 
 [color "status"]
   header = normal dim
@@ -95,5 +96,11 @@
   trustExitCode = true
   cmd = open -W -a Meld --args --auto-merge \"$LOCAL\" \"$BASE\" \"$REMOTE\" --output=\"$MERGED\"
 
-[includeIf "gitdir:~/projects_rabo/"]
-  path = ~/projects_rabo/.gitconfig_override
+[includeIf "gitdir:~/projects-rabo/"]
+  path = ~/projects-rabo/.gitconfig_override
+
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
