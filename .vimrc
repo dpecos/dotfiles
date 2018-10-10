@@ -21,6 +21,8 @@ filetype plugin indent on    " required
 map <C-V><Enter> :source $MYVIMRC<CR>
 map <C-V><C-Enter> :tabedit $MYVIMRC<CR>
 
+set clipboard=unnamed
+
 " ===== syntax =====
 set nocompatible 
 set autoindent 
