@@ -20,6 +20,21 @@
 
     :PluginInstall
 
+*Fonts*
+
+    brew tap homebrew/cask-fonts
+    brew cask install font-source-code-pro
+
+*Default Shell*
+
+Add `which zsh` to /etc/shells
+
+    chsh -s $(which zsh)
+
+*ZSH security warning*
+
+    sudo chmod go-w /usr/local/share 
+
 ## Local overrides
 
 Creating any of these files, options can be localized to a local box:
@@ -54,3 +69,8 @@ To update submodules and their git commit which this repo is pointing to:
 
     home submodule foreach 'git pull origin master && git gc --prune --aggressive'
     home commit -av
+
+
+
+
+
