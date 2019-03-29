@@ -5,9 +5,9 @@ else # OS X `ls`
   colorflag="-G"
 fi
 
-alias ll='ls -lh'
-alias la="ls -lha"
-alias lsd='ls -l | grep "^d"'
+alias ll='lsd -lh'
+alias la="lsd -lha"
+#alias lsd='ls -l | grep "^d"'
 alias ls="command ls ${colorflag}"
 
 alias g='git'
