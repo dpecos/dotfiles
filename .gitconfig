@@ -1,9 +1,10 @@
 [user]
   name = Daniel Pecos Martinez
   email = me@danielpecos.com
+  signingKey = E881015C8A55678B
 
 [alias]
-  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  l = log --graph --pretty=format:'%C(yellow)%h%Creset %C(magenta)%G?%Creset -%C(red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   dl = log --graph --all --decorate --stat --date=iso
   s = status
   d = difftool
@@ -96,11 +97,18 @@
   trustExitCode = true
   cmd = open -W -a Meld --args --auto-merge \"$LOCAL\" \"$BASE\" \"$REMOTE\" --output=\"$MERGED\"
 
-[includeIf "gitdir:~/projects-rabo/"]
-  path = ~/projects-rabo/.gitconfig_override
-
 [color "diff-highlight"]
   oldNormal = red bold
   oldHighlight = red bold 52
   newNormal = green bold
   newHighlight = green bold 22
+
+[commit]
+  gpgsign = true
+
+[tag]
+  forceSignAnnotated = true
+
+# This line has to be at the end of the file, otherwise it won't be possible to override configurations defined after it
+[includeIf "gitdir:~/projects-rabo/"]
+  path = ~/projects-rabo/.gitconfig_override
