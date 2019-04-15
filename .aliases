@@ -26,4 +26,6 @@ alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 alias vi='vim'
 alias mc='mc -x' # fixes mouse in mc running in tmux
 
+alias cd='cdls() { cd $1 && ll };cdls' 
+
 [[ -f ~/.aliases.local ]] && . ~/.aliases.local
