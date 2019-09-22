@@ -45,6 +45,23 @@ nnoremap <F3> :set hlsearch!<CR>
 " clear last search
 nnoremap <F4> :let @/ = ""<CR>
 
+
+" ===== change cursor depending on the mode =====
+" underline current editing line
+:autocmd InsertEnter * set cul
+:autocmd InsertLeave * set nocul 
+
+" https://stackoverflow.com/questions/6488683/how-do-i-change-the-vim-cursor-in-insert-normal-mode
+" change cursor depending on the mode
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
+
+" optional reset cursor on start:
+augroup myCmds
+au!
+autocmd VimEnter * silent !echo -ne "\e[2 q"
+augroup END
+
 " ===== other ====
 " improve integration with tmux / zsh
 set timeoutlen=1000 ttimeoutlen=0
