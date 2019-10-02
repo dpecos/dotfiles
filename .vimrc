@@ -45,15 +45,24 @@ nnoremap <F3> :set hlsearch!<CR>
 " clear last search
 nnoremap <F4> :let @/ = ""<CR>
 
-
 " ===== change cursor depending on the mode =====
 " underline current editing line
-:autocmd InsertEnter * set cul
-:autocmd InsertLeave * set nocul 
+":autocmd InsertEnter * set cul
+":autocmd InsertLeave * set nocul 
 
-" https://stackoverflow.com/questions/6488683/how-do-i-change-the-vim-cursor-in-insert-normal-mode
-" change cursor depending on the mode
+"Cursor settings:
+"SI = INSERT mode
+"SR = REPLACE mode
+"EI = NORMAL mode (ELSE)
+"  1 -> blinking block
+"  2 -> solid block
+"  3 -> blinking underscore
+"  4 -> solid underscore
+"  5 -> blinking vertical bar
+"  6 -> solid vertical bar
+
 let &t_SI = "\e[6 q"
+let &t_SR = "\e[4 q"
 let &t_EI = "\e[2 q"
 
 " optional reset cursor on start:
@@ -79,7 +88,6 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:nerdtree_tabs_synchronize_view=0
 let g:nerdtree_tabs_synchronize_focus=0
-
 
 " ===== local settings =====
 " Use local vimrc if available {
