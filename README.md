@@ -36,6 +36,16 @@ Add `which zsh` to /etc/shells
 
     sudo chmod go-w /usr/local/share 
 
+*Other apps*
+
+Config based on having this packages / applications installed:
+
+- lsd
+- zsh-syntax-highlighting
+- zsh-autosuggestions
+- zsh-completions
+- neofetch
+
 ## Local overrides
 
 Creating any of these files, options can be localized to a local box:
