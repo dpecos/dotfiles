@@ -1,3 +1,5 @@
+export TERM=xterm-256color
+export COLORTERM=truecolor
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
