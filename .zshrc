@@ -102,4 +102,4 @@ neofetch
 
 # --------
 
-[ -f ~/.zshrc.local ] && . ~/.zshrc.local
+[ -f ~/.zshrc.local ] && . ~/.zshrc.local || true
