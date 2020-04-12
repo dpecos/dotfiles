@@ -4,6 +4,8 @@
   signingKey = E881015C8A55678B
 
 [alias]
+  l = log --graph --pretty=format:'%C(yellow)%h%Creset %C(magenta)%G?%Creset -%C(red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --first-parent
+  lb = log --graph --pretty=format:'%C(yellow)%h%Creset %C(magenta)%G?%Creset -%C(red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   l = log --graph --pretty=format:'%C(yellow)%h%Creset %C(magenta)%G?%Creset -%C(red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   dl = log --graph --all --decorate --stat --date=iso
   s = status
