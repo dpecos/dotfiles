@@ -29,6 +29,7 @@ plugins=(
   docker
   mvn
   ssh-agent
+  nvm
 )
 
 # --------
