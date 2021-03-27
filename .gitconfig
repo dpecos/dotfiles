@@ -6,13 +6,13 @@
 [alias]
   l = log --graph --pretty=format:'%C(yellow)%h%Creset %C(magenta)%G?%Creset -%C(red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --first-parent
   lb = log --graph --pretty=format:'%C(yellow)%h%Creset %C(magenta)%G?%Creset -%C(red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-  l = log --graph --pretty=format:'%C(yellow)%h%Creset %C(magenta)%G?%Creset -%C(red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   dl = log --graph --all --decorate --stat --date=iso
   s = status
   d = difftool
   dm = difftool --tool=meld
   a = add
   ci = commit
+  ca = commit --amend
   co = checkout
   cp = cherry-pick
   p = pull
@@ -29,6 +29,8 @@
   change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [ \\\"$`echo $VAR`\\\" = '$OLD' ]; then export $VAR='$NEW'; fi\" $@; }; f "
   # from https://help.github.com/articles/remove-sensitive-data
   remove-file = "!f() { git filter-branch -f --index-filter \"git rm --cached --ignore-unmatch $1\" --prune-empty --tag-name-filter cat -- --all; }; f"
+
+  wip = for-each-ref --sort='authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
 
 [core]
   editor = vim
