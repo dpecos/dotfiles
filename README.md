@@ -2,6 +2,8 @@
 
 ## On a fresh box
 
+IMPORTANT: before initializing the home directory, setup ssh keys for GitLab and GitHub.
+
     alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
     home init
     home remote add origin git@gitlab.com:dpecos/dotfiles.git
@@ -25,6 +27,8 @@
     brew tap homebrew/cask-fonts
     brew cask install font-source-code-pro
     brew cask install font-hack-nerd-font
+
+Setup `iterm2` to use font-hack-nerd-font: Preferences > Profiles > Text > Font
 
 *Default Shell*
 
