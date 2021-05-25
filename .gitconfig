@@ -64,6 +64,9 @@
   local = yellow
   remote = red
 
+[pull]
+  rebase = false
+
 [push]
   followTags = true
 
@@ -114,5 +117,5 @@
   forceSignAnnotated = true
 
 # This line has to be at the end of the file, otherwise it won't be possible to override configurations defined after it
-[includeIf "gitdir:~/projects-rabo/"]
-  path = ~/projects-rabo/.gitconfig_override
+#[includeIf "gitdir:~/projects-rabo/"]
+  #path = ~/projects-rabo/.gitconfig_override
