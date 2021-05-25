@@ -39,6 +39,8 @@ Add `which zsh` to /etc/shells
 *ZSH security warning*
 
     sudo chmod go-w /usr/local/share 
+    sudo chmod go-w /usr/local/share/zsh
+    sudo chmod go-w /usr/local/share/zsh/site-functions
 
 *Other apps*
 
