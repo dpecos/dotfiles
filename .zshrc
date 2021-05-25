@@ -17,7 +17,7 @@ KEYTIMEOUT=1
 
 plugins=(
   git
-  git-flow
+  #git-flow
   tmux
   dotenv
   vi-mode
