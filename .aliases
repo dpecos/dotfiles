@@ -7,16 +7,14 @@ fi
 
 alias ll='lsd -lh'
 alias la="lsd -lha"
-#alias lsd='ls -l | grep "^d"'
 alias ls="command ls ${colorflag}"
 
 alias g='git'
-#__git_complete g __git_main
 
 alias gud='g co develop && g pull && g co -'
 alias gum='g co master && g pull && g co -'
 
-alias did="vim +'normal Go' +'r! date' ~/logbook/$(date +'%Y%m%d').txt"
+#alias did="vim +'normal Go' +'r! date' ~/logbook/$(date +'%Y%m%d').txt"
 
 # https://github.com/emilyst/home
 alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
@@ -25,5 +23,12 @@ alias vi='vim'
 alias mc='mc -x' # fixes mouse in mc running in tmux
 
 alias cd='cdls() { cd $1 && ll };cdls' 
+
+
+if [ "$(uname)" = "Darwin" ]; then
+elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
+  alias pbcopy='xclip -selection clipboard'
+  alias pbpaste='xclip -selection clipboard -o'
+fi
 
 [[ -f ~/.aliases.local ]] && . ~/.aliases.local
