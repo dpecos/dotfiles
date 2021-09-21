@@ -15,6 +15,10 @@ KEYTIMEOUT=1
 
 # --------
 
+[ -f ~/.zshrc.pre.local ] && . ~/.zshrc.pre.local || true
+
+# --------
+
 plugins=(
   git
   #git-flow
@@ -99,7 +103,8 @@ bindkey '^e' edit-command-line
 # --------
 
 echo
-neofetch
+#neofetch
+fastfetch
 
 # --------
 

@@ -50,7 +50,7 @@ Config based on having this packages / applications installed:
 - zsh-syntax-highlighting
 - zsh-autosuggestions
 - zsh-completions
-- neofetch
+- ~~neofetch~~ fastfetch
 
 ## Local overrides
 
