@@ -1,7 +1,9 @@
-export TERM=xterm-256color
-export COLORTERM=truecolor
+export TERM="xterm-256color"
+export COLORTERM="truecolor"
+export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
 
-fpath=(/usr/local/share/zsh-completions $fpath)
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
 
 ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOSTART_ONCE=false
@@ -10,8 +12,6 @@ ZSH_TMUX_AUTOCONNECT=false
 
 # 10ms for key sequences - tmux, vi integration
 KEYTIMEOUT=1
-
-#export GPG_TTY=$(tty)
 
 # --------
 
@@ -53,7 +53,6 @@ bindkey "\033[3~" delete-char
 
 # aliases
 source $HOME/.aliases
-eval $(thefuck --alias)
 
 # --------
 

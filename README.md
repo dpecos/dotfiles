@@ -46,7 +46,7 @@ Add `which zsh` to /etc/shells
 
 Config based on having this packages / applications installed:
 
-- lsd
+- ~~lsd~~ exa
 - zsh-syntax-highlighting
 - zsh-autosuggestions
 - zsh-completions
