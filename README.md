@@ -24,6 +24,7 @@ IMPORTANT: before initializing the home directory, setup ssh keys for GitLab and
 
 *VIM*
 
+     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     :PluginInstall
 
 *Fonts*
