@@ -17,6 +17,11 @@ IMPORTANT: before initializing the home directory, setup ssh keys for GitLab and
     git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
     git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 
+*tmux*
+
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    prefix + I
+
 *VIM*
 
     :PluginInstall
