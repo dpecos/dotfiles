@@ -21,20 +21,32 @@ KEYTIMEOUT=1
 
 plugins=(
   git
-  #git-flow
   tmux
   dotenv
   vi-mode
-  iterm2
-  osx
   golang
+  node
+  nvm
   npm
   yarn
   docker
   mvn
   ssh-agent
-  nvm
+  cargo
+  rust
+  thefuck
 )
+
+if [ "$(uname)" = "Darwin" ]; then
+  plugins+=(
+    iterm2
+    macos
+  )
+else
+  plugins+=(
+    systemd
+  )
+fi
 
 # --------
 
@@ -48,7 +60,6 @@ bindkey "\033[4~" end-of-line
 bindkey "\033[3~" delete-char
 
 # env variables - this needs to be used for GUI apps (like vscode) to work properly
-
 [ -f ~/.env ] && . ~/.env
 
 # aliases
@@ -84,18 +95,17 @@ bindkey '^e' edit-command-line
 
 # --------
 
-# -- macosx
-[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && . /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-[ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# -- linux
-[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [ "$(uname)" = "Darwin" ]; then
+    . /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    . /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+else
+    . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    . /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
 
 # --------
 
 echo
-#neofetch
 fastfetch
 
 # --------
