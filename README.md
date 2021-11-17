@@ -65,6 +65,7 @@ Creating any of these files, options can be localized to a local box:
 - `~/.vimrc.local`
 - `~/.zshrc.pre.local`
 - `~/.zshrc.local`
+- `~/.gitconfig.local`
 
 # Adding new content
 
