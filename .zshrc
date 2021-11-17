@@ -95,18 +95,21 @@ bindkey '^e' edit-command-line
 
 # --------
 
+echo
+
 if [ "$(uname)" = "Darwin" ]; then
-    . /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-    . /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    . $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    . $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+    neofetch
 else
     . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     . /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+    fastfetch
 fi
 
-# --------
 
-echo
-fastfetch
 
 # --------
 
