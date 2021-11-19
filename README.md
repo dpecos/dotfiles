@@ -15,7 +15,8 @@ IMPORTANT: before initializing the home directory, setup ssh keys for GitLab and
 *ZSH*
 
     git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
-    git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+    #git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+    git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 
 *tmux*
 
@@ -32,6 +33,8 @@ IMPORTANT: before initializing the home directory, setup ssh keys for GitLab and
     brew tap homebrew/cask-fonts
     brew cask install font-source-code-pro
     brew cask install font-hack-nerd-font
+
+    yay -S nerd-fonts-source-code-prod source-code-pro
 
 Setup `iterm2` to use font-hack-nerd-font: Preferences > Profiles > Text > Font
 

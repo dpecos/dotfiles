@@ -14,6 +14,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'mhinz/vim-startify'
+Plugin 'morhetz/gruvbox'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -31,6 +32,8 @@ set smartindent
 syntax on
 
 " ===== theme =====
+autocmd vimenter * ++nested colorscheme gruvbox
+
 let g:airline_powerline_fonts = 1
 "let g:airline_theme='bubblegum'
 
