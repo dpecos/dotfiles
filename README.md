@@ -56,8 +56,15 @@ Config based on having this packages / applications installed:
 - zsh-autosuggestions
 - zsh-completions
 - ~~lsd~~ exa
-- ~~neofetch~~ fastfetch
+- neofetch (MacOSX) / fastfetch
 
+
+MacOS:
+```
+brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions exa neofetch
+```
+
+Linux:
 ```
 yay -S zsh-syntax-highlighting zsh-autosuggestions zsh-completions exa fastfetch
 ```
@@ -85,6 +92,25 @@ Creating any of these files, options can be localized to a local box:
 - `~/.zshrc.local`
 - `~/.gitconfig.local`
 
+### Disable GPG signing git commits:
+
+.gitconfig.local:
+```
+[commit]
+  gpgsign = false
+
+[tag]
+  forceSignedAnnotated = false
+```
+
+### Load SSH identities
+
+.zshrc.pre.local:
+```
+zstyle :omz:plugins:ssh-agent identities darkmatter-github darkmatter-gitlab
+zstyle :omz:plugins:ssh-agent lifetime 4h
+zstyle :omz:plugins:ssh-agent helper ksshaskpass
+```
 # Adding new content
 
 ## Files & directories
