@@ -95,7 +95,7 @@ bindkey '^e' edit-command-line
 
 # --------
 
-echo
+echo 
 
 if [ "$(uname)" = "Darwin" ]; then
     . $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -109,7 +109,7 @@ else
     fastfetch
 fi
 
-
+echo
 
 # --------
 
