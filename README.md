@@ -34,9 +34,7 @@ IMPORTANT: before initializing the home directory, setup ssh keys for GitLab and
     brew cask install font-source-code-pro
     brew cask install font-hack-nerd-font
 
-    yay -S nerd-fonts-source-code-prod source-code-pro
-
-Setup `iterm2` to use font-hack-nerd-font: Preferences > Profiles > Text > Font
+    yay -S nerd-fonts-source-code-pro adobe-source-code-pro-fonts
 
 *Default Shell*
 
@@ -54,11 +52,28 @@ Add `which zsh` to /etc/shells
 
 Config based on having this packages / applications installed:
 
-- ~~lsd~~ exa
 - zsh-syntax-highlighting
 - zsh-autosuggestions
 - zsh-completions
+- ~~lsd~~ exa
 - ~~neofetch~~ fastfetch
+
+```
+yay -S zsh-syntax-highlighting zsh-autosuggestions zsh-completions exa fastfetch
+```
+
+## Terminal apps configuration
+
+### iTerm2
+
+Setup `iterm2` to use font-hack-nerd-font: Preferences > Profiles > Text > Font
+
+### Konsole
+
+Create a new profile in order to edit Appearance:
+
+- Color scheme: `Breeze`
+- Set Font to `SauceCodePro Nerd Font 10pt` (not a typo, it's called `Sauce`)
 
 ## Local overrides
 
