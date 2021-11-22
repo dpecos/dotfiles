@@ -30,6 +30,7 @@ set clipboard=unnamed
 set autoindent 
 set smartindent
 syntax on
+set number
 
 " ===== theme =====
 autocmd vimenter * ++nested colorscheme gruvbox
