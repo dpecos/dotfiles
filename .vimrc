@@ -28,7 +28,7 @@ map <C-V><C-Enter> :tabedit $MYVIMRC<CR>
 set clipboard=unnamed
 
 " ===== syntax =====
-set autoindent 
+set autoindent
 set smartindent
 syntax on
 set number
@@ -54,7 +54,7 @@ nnoremap <F4> :let @/ = ""<CR>
 " ===== change cursor depending on the mode =====
 " underline current editing line
 ":autocmd InsertEnter * set cul
-":autocmd InsertLeave * set nocul 
+":autocmd InsertLeave * set nocul
 
 "Cursor settings:
 "SI = INSERT mode
@@ -94,6 +94,11 @@ map <C-n> :NERDTreeToggle<CR>
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:nerdtree_tabs_synchronize_view=0
 let g:nerdtree_tabs_synchronize_focus=0
+
+" ===== gVim =====
+if has("gui_running")
+  set lines=50 columns=150
+endif
 
 " ===== local settings =====
 " Use local vimrc if available {
