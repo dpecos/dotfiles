@@ -1,16 +1,16 @@
-# Installation
+# dotfiles
 
-## On a fresh box
+## Installing on a fresh box
 
 IMPORTANT: before initializing the home directory, setup ssh keys for GitLab and GitHub.
 
     alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
     home init
-    home remote add origin git@gitlab.com:dpecos/dotfiles.git
+    home remote add origin git@github.com:dpecos/dotfiles.git
     home fetch --all
     home reset --hard origin/master
 
-## Manual steps after installation
+### Manual steps after installation
 
 *ZSH*
 
@@ -122,14 +122,14 @@ zstyle :omz:plugins:ssh-agent identities darkmatter-github darkmatter-gitlab
 zstyle :omz:plugins:ssh-agent lifetime 4h
 zstyle :omz:plugins:ssh-agent helper ksshaskpass
 ```
-# Adding new content
 
-## Files & directories
+## Adding new content
+
+### Files & directories
 
 You have to add the new content *forcing* it because everything is matched by git-ignore:
 
 ```
 home add -f FILE
 ```
-
 
