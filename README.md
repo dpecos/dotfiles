@@ -25,8 +25,12 @@ IMPORTANT: before initializing the home directory, setup ssh keys for GitLab and
 
 *VIM*
 
-     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-    :PluginInstall
+    ~~git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim~~
+    ~~:PluginInstall~~
+
+    ln -s ~/.vimrc ~/.config/nvim/init.vim
+    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    :PlugInstall
 
 *Fonts*
 
@@ -52,23 +56,26 @@ Add `which zsh` to /etc/shells
 
 Config based on having this packages / applications installed:
 
-- 'zsh-syntax-highlighting'
-- 'zsh-autosuggestions'
-- 'zsh-completions'
-- ~~'lsd'~~ 'exa'
-- 'neofetch' (MacOSX) / 'fastfetch'
-- 'fzf'
-- 'the_silver_searcher'
+- `zsh-syntax-highlighting`
+- `zsh-autosuggestions`
+- `zsh-completions`
+- ~~`lsd`~~ `exa`
+- `neofetch` (MacOSX) / `fastfetch`
+- `fzf`
+- `the_silver_searcher`
+- `neovim`
 
 
 MacOS:
+
 ```
-brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions exa neofetch
+brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions exa neofetch fzf the_silver_searcher neovim
 ```
 
 Linux:
+
 ```
-yay -S zsh-syntax-highlighting zsh-autosuggestions zsh-completions exa fastfetch
+yay -S zsh-syntax-highlighting zsh-autosuggestions zsh-completions exa fastfetch fzf the_silver_searcher neovim neovim-symlinks
 ```
 
 ## Terminal apps configuration
@@ -97,6 +104,7 @@ Creating any of these files, options can be localized to a local box:
 ### Disable GPG signing git commits:
 
 .gitconfig.local:
+
 ```
 [commit]
   gpgsign = false
@@ -108,6 +116,7 @@ Creating any of these files, options can be localized to a local box:
 ### Load SSH identities
 
 .zshrc.pre.local:
+
 ```
 zstyle :omz:plugins:ssh-agent identities darkmatter-github darkmatter-gitlab
 zstyle :omz:plugins:ssh-agent lifetime 4h
@@ -119,4 +128,8 @@ zstyle :omz:plugins:ssh-agent helper ksshaskpass
 
 You have to add the new content *forcing* it because everything is matched by git-ignore:
 
-    home add -f FILE
+```
+home add -f FILE
+```
+
+

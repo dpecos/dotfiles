@@ -1,3 +1,7 @@
+# neovim
+alias vi='nvim'
+alias vim='nvim'
+
 # Changing "ls" to "exa"
 alias ls='exa --color=always --group-directories-first'
 alias la='exa -a --color=always --group-directories-first'
@@ -23,7 +27,7 @@ alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 alias vi='vim'
 alias mc='mc -x' # fixes mouse in mc running in tmux
 
-alias cd='cdls() { cd $1 && ll };cdls' 
+alias cd='cdls() { cd $1 && ll };cdls'
 
 if [ "$(uname)" = "Darwin" ]; then
 elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then

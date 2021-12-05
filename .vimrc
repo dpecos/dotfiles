@@ -2,34 +2,32 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " ===== plugins =====
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+if !exists('g:vscode')
+  call plug#begin('~/.vim/plugged')
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'scrooloose/nerdtree'
-Plugin 'ryanoasis/vim-devicons'
-Plugin 'mhinz/vim-startify'
-Plugin 'morhetz/gruvbox'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plugin 'junegunn/fzf.vim'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'morhetz/gruvbox'
+  Plug 'editorconfig/editorconfig-vim'
+  Plug 'junegunn/fzf'
+  Plug 'junegunn/fzf.vim'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+  if has('nvim')
+    Plug 'neovim/nvim-lspconfig'
+  endif
+
+  call plug#end()
+endif
 
 " ===== vim settings =====
 let mapleader=","
 
 map <C-V><Enter> :source $MYVIMRC<CR>
-map <C-V><C-Enter> :tabedit $MYVIMRC<CR>
+map <C-V><leader> :tabedit $MYVIMRC<CR>
 
-set clipboard=unnamed
+set clipboard+=unnamedplus
 
 " ===== syntax =====
 set autoindent
