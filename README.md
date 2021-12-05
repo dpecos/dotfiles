@@ -44,7 +44,7 @@ Add `which zsh` to /etc/shells
 
 *ZSH security warning*
 
-    sudo chmod go-w /usr/local/share 
+    sudo chmod go-w /usr/local/share
     sudo chmod go-w /usr/local/share/zsh
     sudo chmod go-w /usr/local/share/zsh/site-functions
 
@@ -52,11 +52,13 @@ Add `which zsh` to /etc/shells
 
 Config based on having this packages / applications installed:
 
-- zsh-syntax-highlighting
-- zsh-autosuggestions
-- zsh-completions
-- ~~lsd~~ exa
-- neofetch (MacOSX) / fastfetch
+- 'zsh-syntax-highlighting'
+- 'zsh-autosuggestions'
+- 'zsh-completions'
+- ~~'lsd'~~ 'exa'
+- 'neofetch' (MacOSX) / 'fastfetch'
+- 'fzf'
+- 'the_silver_searcher'
 
 
 MacOS:
