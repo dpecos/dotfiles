@@ -35,12 +35,14 @@ plugins=(
   cargo
   rust
   thefuck
+  autojump
 )
 
 if [ "$(uname)" = "Darwin" ]; then
   plugins+=(
     iterm2
     macos
+    brew
   )
 else
   plugins+=(
@@ -67,7 +69,7 @@ source $HOME/.aliases
 
 # --------
 
-# https://gist.github.com/LukeSmithxyz/e62f26e55ea8b0ed41a65912fbebbe52 
+# https://gist.github.com/LukeSmithxyz/e62f26e55ea8b0ed41a65912fbebbe52
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
   if [[ ${KEYMAP} == vicmd ]] ||
@@ -95,7 +97,7 @@ bindkey '^e' edit-command-line
 
 # --------
 
-echo 
+echo
 
 if [ "$(uname)" = "Darwin" ]; then
     . $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

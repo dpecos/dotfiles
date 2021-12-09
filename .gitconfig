@@ -33,7 +33,7 @@
   wip = for-each-ref --sort='authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
 
 [core]
-  editor = vim
+  editor = nvim
   excludesfile = ~/.gitignore_global
   autocrlf = input
 

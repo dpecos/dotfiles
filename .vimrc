@@ -5,14 +5,16 @@ filetype off                  " required
 if !exists('g:vscode')
   call plug#begin('~/.vim/plugged')
 
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-  Plug 'ryanoasis/vim-devicons'
-  Plug 'morhetz/gruvbox'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'junegunn/fzf'
   Plug 'junegunn/fzf.vim'
+
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'morhetz/gruvbox'
+
+  Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+  Plug 'ryanoasis/vim-devicons'
 
   if has('nvim')
     Plug 'neovim/nvim-lspconfig'
