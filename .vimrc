@@ -1,5 +1,5 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible
+filetype off
 
 " ===== plugins =====
 if !exists('g:vscode')
@@ -13,21 +13,19 @@ if !exists('g:vscode')
   Plug 'vim-airline/vim-airline-themes'
   Plug 'morhetz/gruvbox'
 
-  Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-  Plug 'ryanoasis/vim-devicons'
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'williamboman/nvim-lsp-installer'
 
-  if has('nvim')
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'williamboman/nvim-lsp-installer'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'hrsh7th/cmp-vsnip'
+  Plug 'hrsh7th/vim-vsnip'
 
-    Plug 'hrsh7th/cmp-nvim-lsp'
-    Plug 'hrsh7th/cmp-buffer'
-    Plug 'hrsh7th/cmp-path'
-    Plug 'hrsh7th/cmp-cmdline'
-    Plug 'hrsh7th/nvim-cmp'
-    Plug 'hrsh7th/cmp-vsnip'
-    Plug 'hrsh7th/vim-vsnip'
-  endif
+  Plug 'kyazdani42/nvim-web-devicons' " for file icons
+  Plug 'kyazdani42/nvim-tree.lua'
 
   call plug#end()
 endif
@@ -103,31 +101,76 @@ vnoremap < <gv
 nnoremap <silent> <C-f> :Files<CR>
 nnoremap <silent> <Leader>f :Ag<CR>
 
-" ===== NERDTree =====
-" Check if NERDTree is open or active
-function! IsNERDTreeOpen()
-  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
-endfunction
+" ===== nvim-tree =====
+lua << EOF
+require'nvim-tree'.setup {
+  disable_netrw       = true,
+  hijack_netrw        = true,
+  open_on_setup       = false,
+  ignore_ft_on_setup  = {},
+  auto_close          = false,
+  open_on_tab         = false,
+  hijack_cursor       = false,
+  update_cwd          = false,
+  update_to_buf_dir   = {
+    enable = true,
+    auto_open = true,
+  },
+  diagnostics = {
+    enable = false,
+    icons = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
+    }
+  },
+  update_focused_file = {
+    enable      = false,
+    update_cwd  = false,
+    ignore_list = {}
+  },
+  system_open = {
+    cmd  = nil,
+    args = {}
+  },
+  filters = {
+    dotfiles = false,
+    custom = {}
+  },
+  git = {
+    enable = true,
+    ignore = true,
+    timeout = 500,
+  },
+  view = {
+    width = 30,
+    height = 30,
+    hide_root_folder = false,
+    side = 'left',
+    auto_resize = false,
+    mappings = {
+      custom_only = false,
+      list = {}
+    },
+    number = false,
+    relativenumber = false
+  },
+  trash = {
+    cmd = "trash",
+    require_confirm = true
+  }
+}
+EOF
 
-" Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
-" file, and we're not in vimdiff
-function! SyncTree()
-  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
-    NERDTreeFind
-    wincmd p
-  endif
-endfunction
+nnoremap <C-n> :NvimTreeToggle<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
 
-" Highlight currently open buffer in NERDTree
-autocmd BufRead * call SyncTree()
+set termguicolors " this variable must be enabled for colors to be applied properly
 
-" trigger sync when switching buffers
-nnoremap <silent> <C-k> :bnext<CR>:call SyncTree()<CR>
-nnoremap <silent> <C-j> :bprev<CR>:call SyncTree()<CR>
-
-" trigger sync when opening nerdtree
-nnoremap <silent> <C-n> :NERDTreeToggle<cr><c-w>l:call SyncTree()<cr><c-w>h
-nnoremap <C-m> :NERDTreeFocus<CR>
+" a list of groups can be found at `:help nvim_tree_highlight`
+highlight NvimTreeFolderIcon guibg=Blue
 
 " ===== CMP - autocomplete =====
 
