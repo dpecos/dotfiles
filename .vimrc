@@ -11,6 +11,8 @@ if !exists('g:vscode')
   Plug 'vim-airline/vim-airline-themes'
   Plug 'morhetz/gruvbox'
 
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
   Plug 'neovim/nvim-lspconfig'
   Plug 'williamboman/nvim-lsp-installer'
 
@@ -45,6 +47,16 @@ set autoindent
 set smartindent
 syntax on
 set number
+
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
+  sync_install = false,
+  highlight = {
+    enable = true
+  },
+}
+EOF
 
 " ===== theme =====
 autocmd vimenter * ++nested colorscheme gruvbox
