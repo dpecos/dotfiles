@@ -6,8 +6,6 @@ if !exists('g:vscode')
   call plug#begin('~/.vim/plugged')
 
   Plug 'editorconfig/editorconfig-vim'
-  Plug 'junegunn/fzf'
-  Plug 'junegunn/fzf.vim'
 
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
@@ -26,6 +24,10 @@ if !exists('g:vscode')
 
   Plug 'kyazdani42/nvim-web-devicons' " for file icons
   Plug 'kyazdani42/nvim-tree.lua'
+
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
   call plug#end()
 endif
@@ -97,16 +99,12 @@ set timeoutlen=1000 ttimeoutlen=0
 vnoremap > >gv
 vnoremap < <gv
 
-" ===== fzf search =====
-nnoremap <silent> <C-f> :Files<CR>
-nnoremap <silent> <Leader>f :Ag<CR>
-
 " ===== nvim-tree =====
 lua << EOF
 require'nvim-tree'.setup {
   disable_netrw       = true,
   hijack_netrw        = true,
-  open_on_setup       = false,
+  open_on_setup       = true,
   ignore_ft_on_setup  = {},
   auto_close          = false,
   open_on_tab         = false,
@@ -173,7 +171,6 @@ set termguicolors " this variable must be enabled for colors to be applied prope
 highlight NvimTreeFolderIcon guibg=Blue
 
 " ===== CMP - autocomplete =====
-
 set completeopt=menu,menuone,noselect
 
 lua << EOF
@@ -299,6 +296,12 @@ lsp_installer.on_server_ready(function(server)
 end)
 
 EOF
+
+" ===== telescope =====
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " ===== gVim =====
 if has("gui_running")

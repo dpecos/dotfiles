@@ -63,6 +63,7 @@ Config based on having this packages / applications installed:
 - ~~`lsd`~~ `exa`
 - `neofetch` (MacOSX) / `fastfetch`
 - `fzf`
+- `ripgrep`
 - `the_silver_searcher`
 - `neovim`
 
@@ -70,13 +71,13 @@ Config based on having this packages / applications installed:
 MacOS:
 
 ```
-brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions exa neofetch fzf the_silver_searcher neovim
+brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions exa neofetch fzf ripgrep the_silver_searcher neovim
 ```
 
 Linux:
 
 ```
-yay -S zsh-syntax-highlighting zsh-autosuggestions zsh-completions exa fastfetch fzf the_silver_searcher neovim neovim-symlinks
+yay -S zsh-syntax-highlighting zsh-autosuggestions zsh-completions exa fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks
 ```
 
 ## Terminal apps configuration
