@@ -118,6 +118,7 @@ nnoremap <silent> <C-j> :bprev<CR>:call SyncTree()<CR>
 
 " trigger sync when opening nerdtree
 nnoremap <silent> <C-n> :NERDTreeToggle<cr><c-w>l:call SyncTree()<cr><c-w>h
+nnoremap <C-m> :NERDTreeFocus<CR>
 
 " ===== gVim =====
 if has("gui_running")
