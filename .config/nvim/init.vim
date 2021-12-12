@@ -85,13 +85,16 @@ nnoremap J mzJ`z
 nmap <leader>x :!xdg-open %<cr><cr>
 
 " Quicky escape to normal mode
-imap jj <esc>
+imap jk <esc>
 
 " Easy insertion of a trailing ; or , from insert mode
 imap ;; <Esc>A;<Esc>
 imap ,, <Esc>A,<Esc>
 
 cmap w!! %!sudo tee > /dev/null %
+
+" Select pasted text
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 
 "--------------------------------------------------------------------------
