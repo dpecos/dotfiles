@@ -9,8 +9,8 @@ call plug#begin(data_dir . '/plugins')
 source ~/.config/nvim/plugins/editorconfig-vim.vim
 
 if !exists('g:vscode')
-  source ~/.config/nvim/plugins/vim-airline.vim
-  source ~/.config/nvim/plugins/gruvbox.vim
+  source ~/.config/nvim/plugins/lualine-nvim.vim
+  source ~/.config/nvim/plugins/vscode-nvim.vim
 
   source ~/.config/nvim/plugins/nvim-tree.vim
   source ~/.config/nvim/plugins/telescope.vim
