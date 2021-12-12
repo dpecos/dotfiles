@@ -19,6 +19,7 @@ endif
 source ~/.config/nvim/plugins/nvim-treesitter.vim
 source ~/.config/nvim/plugins/nvim-lsp.vim
 source ~/.config/nvim/plugins/nvim-cmp.vim
+source ~/.config/nvim/plugins/neoformat.vim
 
 call plug#end()
 doautocmd User PlugLoaded
