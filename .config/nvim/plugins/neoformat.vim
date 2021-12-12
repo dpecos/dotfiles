@@ -1,12 +1,10 @@
 Plug 'sbdchd/neoformat'
 
-augroup fmt
-  autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
-augroup END
+autocmd BufWritePre * Neoformat
 
 " Enable alignment
-let g:neoformat_basic_format_align = 1
+" DPM: it messes up nested languages, like lua in vim
+" let g:neoformat_basic_format_align = 1
 
 " Enable tab to spaces conversion
 let g:neoformat_basic_format_retab = 1

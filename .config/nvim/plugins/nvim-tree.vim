@@ -8,7 +8,7 @@ require'nvim-tree'.setup {
   hijack_netrw        = true,
   open_on_setup       = false,
   ignore_ft_on_setup  = {},
-  auto_close          = false,
+  auto_close          = true,
   open_on_tab         = false,
   hijack_cursor       = false,
   update_cwd          = false,
@@ -18,15 +18,9 @@ require'nvim-tree'.setup {
   },
   diagnostics = {
     enable = false,
-    icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
-    }
   },
   update_focused_file = {
-    enable      = false,
+    enable      = true,
     update_cwd  = false,
     ignore_list = {}
   },
@@ -55,10 +49,6 @@ require'nvim-tree'.setup {
     },
     number = false,
     relativenumber = false
-  },
-  trash = {
-    cmd = "trash",
-    require_confirm = true
   }
 }
 EOF
@@ -67,8 +57,6 @@ nnoremap <C-n> :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
 nnoremap <leader>n :NvimTreeFindFile<CR>
 
-" a list of groups can be found at `:help nvim_tree_highlight`
-highlight NvimTreeFolderIcon guibg=Blue
 endfunction
 
 augroup TreeSetup
