@@ -26,6 +26,7 @@ IMPORTANT: before initializing the home directory, setup ssh keys for GitLab and
 *NeoVim*
 
     :PlugInstall
+    :LspInstallInfo
 
 *Fonts*
 
