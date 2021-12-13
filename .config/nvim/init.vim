@@ -18,7 +18,7 @@ set signcolumn=yes:2
 set relativenumber
 set number
 set termguicolors
-set undofile
+"set undofile
 set spell
 set title
 set ignorecase
