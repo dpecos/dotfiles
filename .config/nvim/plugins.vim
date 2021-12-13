@@ -24,6 +24,7 @@ source ~/.config/nvim/plugins/nvim-cmp.vim
 source ~/.config/nvim/plugins/neoformat.vim
 source ~/.config/nvim/plugins/vim-commentary.vim
 source ~/.config/nvim/plugins/vim-surround.vim
+source ~/.config/nvim/plugins/nvim-autopairs.vim
 
 call plug#end()
 doautocmd User PlugLoaded
