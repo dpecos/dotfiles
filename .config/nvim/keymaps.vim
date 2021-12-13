@@ -44,8 +44,11 @@ nmap <leader>x :!xdg-open %<cr><cr>
 imap jk <esc>
 
 " Easy insertion of a trailing ; or , from insert mode
-map ;; <Esc>A;<Esc>
-map ,, <Esc>A,<Esc>
+function! ToggleEndChar(charToMatch)
+    s/\v(.)$/\=submatch(1)==a:charToMatch ? '' : submatch(1).a:charToMatch
+endfunction
+map ;; :call ToggleEndChar(';')<CR>
+map ,, :call ToggleEndChar(',')<CR>
 
 " Select pasted text
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
@@ -55,10 +58,6 @@ nnoremap <M-j>    :resize -2<CR>
 nnoremap <M-k>    :resize +2<CR>
 nnoremap <M-h>    :vertical resize -2<CR>
 nnoremap <M-l>    :vertical resize +2<CR>
-
-" Easy CAPS
-inoremap <c-u> <ESC>viwUi
-nnoremap <c-u> viwU<ESC>
 
 " TAB in general mode will move to text buffer
 nnoremap <TAB> :bnext<CR>
