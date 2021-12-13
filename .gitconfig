@@ -85,7 +85,7 @@
   conflictstyle = diff3
 
 [merge]
-  tool = vimdiff
+	tool = fugitive
 
 [mergetool]
   prompt = false
@@ -124,3 +124,5 @@
 
 [includeIf "gitdir:~/projects/"]
   path = ~/projects/.gitconfig
+[mergetool "fugitive"]
+	cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
