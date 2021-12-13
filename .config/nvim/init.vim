@@ -15,7 +15,7 @@ set shiftwidth=2
 set tabstop=2
 set hidden
 set signcolumn=yes:2
-set relativenumber
+" set relativenumber
 set number
 set termguicolors
 "set undofile
@@ -88,8 +88,8 @@ nmap <leader>x :!xdg-open %<cr><cr>
 imap jk <esc>
 
 " Easy insertion of a trailing ; or , from insert mode
-imap ;; <Esc>A;<Esc>
-imap ,, <Esc>A,<Esc>
+map ;; <Esc>A;<Esc>
+map ,, <Esc>A,<Esc>
 
 cmap w!! %!sudo tee > /dev/null %
 
