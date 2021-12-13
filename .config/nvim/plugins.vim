@@ -14,6 +14,7 @@ if !exists('g:vscode')
 
   source ~/.config/nvim/plugins/nvim-tree.vim
   source ~/.config/nvim/plugins/telescope.vim
+  source ~/.config/nvim/plugins/vim-fugitive.vim
 endif
 
 source ~/.config/nvim/plugins/nvim-treesitter.vim
