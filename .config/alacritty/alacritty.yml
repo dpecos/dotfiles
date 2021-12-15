@@ -11,7 +11,7 @@ font:
   size: 12
 
 env:
-  WINIT_X11_SCALE_FACTOR: '0.7'
+  WINIT_X11_SCALE_FACTOR: '0.8'
 
 key_bindings:
   - { key: F11, action: ToggleFullscreen }
