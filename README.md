@@ -31,8 +31,7 @@ IMPORTANT: before initializing the home directory, setup ssh keys for GitLab and
 *Fonts*
 
     brew tap homebrew/cask-fonts
-    brew cask install font-source-code-pro
-    brew cask install font-hack-nerd-font
+    brew install font-source-code-pro font-hack-nerd-font font-sauce-code-pro-nerd-font
 
     yay -S nerd-fonts-source-code-pro adobe-source-code-pro-fonts
 
