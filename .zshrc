@@ -1,4 +1,3 @@
-export TERM="xterm-256color"
 export COLORTERM="truecolor"
 export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
 
