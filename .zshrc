@@ -31,7 +31,6 @@ plugins=(
   docker
   mvn
   ssh-agent
-  cargo
   rust
   thefuck
   autojump
