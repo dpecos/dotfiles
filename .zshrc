@@ -37,12 +37,23 @@ plugins=(
 )
 
 if [ "$(uname)" = "Darwin" ]; then
+  if [ -z "$HOMEBREW_PREFIX" ]
+  then
+    export HOMEBREW_PREFIX=/usr/local
+  fi
+
+  . $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  . $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
   plugins+=(
     iterm2
     macos
     brew
   )
 else
+  . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  . /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
   plugins+=(
     systemd
   )
@@ -98,15 +109,9 @@ bindkey '^e' edit-command-line
 echo
 
 if [ "$(uname)" = "Darwin" ]; then
-    . $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-    . $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-    neofetch
+  neofetch
 else
-    . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-    . /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-    fastfetch
+  fastfetch
 fi
 
 echo
