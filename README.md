@@ -31,9 +31,9 @@ IMPORTANT: before initializing the home directory, setup ssh keys for GitLab and
 *Fonts*
 
     brew tap homebrew/cask-fonts
-    brew install font-source-code-pro font-hack-nerd-font font-sauce-code-pro-nerd-font
+    brew install font-source-code-pro font-hack-nerd-font font-sauce-code-pro-nerd-font font-ubuntu
 
-    yay -S nerd-fonts-source-code-pro adobe-source-code-pro-fonts
+    yay -S nerd-fonts-source-code-pro adobe-source-code-pro-fonts ttf-ubuntu-font-family
 
 *Default Shell*
 
