@@ -17,6 +17,7 @@ if !exists('g:vscode')
   source ~/.config/nvim/plugins/vim-fugitive.vim
   source ~/.config/nvim/plugins/indent-blankline.vim
   source ~/.config/nvim/plugins/barbar.vim
+  source ~/.config/nvim/plugins/diffview.vim
 endif
 
 source ~/.config/nvim/plugins/nvim-treesitter.vim
