@@ -19,4 +19,4 @@ set nojoinspaces
 set confirm
 set exrc
 set redrawtime=10000 " Allow more time for loading syntax on large files:set
-
+set clipboard+=unnamedplus
