@@ -8,7 +8,7 @@ nmap <leader>vp :edit ~/.config/nvim/plugins.vim<cr>
 nmap <leader>vs :edit ~/.config/nvim/settings.vim<cr>
 
 nmap <leader>k :nohlsearch<CR>
-nmap <leader>Q :bufdo bdelete<cr>
+nmap <leader>C :BufferClose<CR>
 
 " Allow gf to open non-existent files
 map gf :edit <cfile><cr>
