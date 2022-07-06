@@ -69,6 +69,7 @@
 
 [push]
   followTags = true
+  autoSetupRemote = true
 
 [status]
   submoduleSummary = true
