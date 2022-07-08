@@ -3,6 +3,9 @@ Plug 'kyazdani42/nvim-tree.lua'
 
 function TreeSetup()
 lua << EOF
+local nvim_tree_config = require'nvim-tree.config'
+local tree_cb = nvim_tree_config.nvim_tree_callback
+
 require'nvim-tree'.setup {
   auto_reload_on_write = true,
   disable_netrw = false,
@@ -27,7 +30,7 @@ require'nvim-tree'.setup {
     mappings = {
       custom_only = false,
       list = {
-        -- user mappings go here
+        { key = "v", cb = tree_cb("vsplit") },
       },
     },
   },
@@ -114,6 +117,18 @@ require'nvim-tree'.setup {
     },
   }
 }
+
+local nvim_tree_events = require('nvim-tree.events')
+local bufferline_state = require('bufferline.state')
+
+nvim_tree_events.on_tree_open(function ()
+  bufferline_state.set_offset(51, "File Tree")
+end)
+
+nvim_tree_events.on_tree_close(function ()
+  bufferline_state.set_offset(0)
+end)
+
 EOF
 
 nnoremap <C-n> :NvimTreeToggle<CR>

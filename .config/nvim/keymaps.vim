@@ -66,11 +66,6 @@ nnoremap <S-TAB> :bprevious<CR>
 
 cmap w!! %!sudo tee > /dev/null %
 
-" Alternate way to save
-nnoremap <C-s> :w<CR>
-" Alternate way to quit
-nnoremap <C-Q> :wq!<CR>
-
 " Better window navigation
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
