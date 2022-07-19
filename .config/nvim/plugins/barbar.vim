@@ -33,10 +33,10 @@ nnoremap <silent>    <A-c> :BufferClose<CR>
 " Magic buffer-picking mode
 nnoremap <silent> <C-p>    :BufferPick<CR>
 " Sort automatically by...
-nnoremap <silent> <Space>bb :BufferOrderByBufferNumber<CR>
-nnoremap <silent> <Space>bd :BufferOrderByDirectory<CR>
-nnoremap <silent> <Space>bl :BufferOrderByLanguage<CR>
-nnoremap <silent> <Space>bw :BufferOrderByWindowNumber<CR>
+" nnoremap <silent> <Space>bb :BufferOrderByBufferNumber<CR>
+" nnoremap <silent> <Space>bd :BufferOrderByDirectory<CR>
+" nnoremap <silent> <Space>bl :BufferOrderByLanguage<CR>
+" nnoremap <silent> <Space>bw :BufferOrderByWindowNumber<CR>
 
 " Other:
 " :BarbarEnable - enables barbar (enabled by default)

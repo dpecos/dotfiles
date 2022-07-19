@@ -64,6 +64,11 @@ nnoremap <TAB> :bnext<CR>
 " SHIFT-TAB will go back
 nnoremap <S-TAB> :bprevious<CR>
 
+nnoremap <leader>bd :BufferDelete<CR>
+nnoremap <leader>bc :BufferClose<CR>
+nnoremap <leader>bp :BufferPin<CR>
+nnoremap <leader>bn :BufferNext<CR>
+
 cmap w!! %!sudo tee > /dev/null %
 
 " Better window navigation
