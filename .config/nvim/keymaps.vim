@@ -66,6 +66,7 @@ nnoremap <S-TAB> :bprevious<CR>
 
 nnoremap <leader>bd :BufferDelete<CR>
 nnoremap <leader>bc :BufferClose<CR>
+nnoremap <leader>bo :BufferCloseAllButCurrent<CR>
 nnoremap <leader>bp :BufferPin<CR>
 nnoremap <leader>bn :BufferNext<CR>
 
