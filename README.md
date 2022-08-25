@@ -56,6 +56,7 @@ Config based on having this packages / applications installed:
 - `zsh-completions`
 - ~~`lsd`~~ `exa`
 - `neofetch` (MacOSX) / `fastfetch`
+- `fd`
 - `fzf`
 - `ripgrep`
 - `the_silver_searcher`
