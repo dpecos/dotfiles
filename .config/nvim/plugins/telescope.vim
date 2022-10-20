@@ -9,6 +9,7 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fk <cmd>Telescope keymaps<cr>
 nnoremap <leader>fr <cmd>Telescope lsp_references<cr>
 nnoremap <leader>fm <cmd>Telescope marks<cr>
+nnoremap <leader>fd <cmd>Telescope diagnostics<cr>
 nnoremap <leader>gs <cmd>Telescope git_status<cr>
 nnoremap <leader>gl <cmd>Telescope git_commits<cr>
 nnoremap <leader>gh <cmd>Telescope git_bcommits<cr>

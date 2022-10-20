@@ -13,6 +13,9 @@ nmap <leader>C :BufferClose<CR>
 " Allow gf to open non-existent files
 map gf :edit <cfile><cr>
 
+" Select pasted text
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+
 " Better tabbing: reselect visual selection after indenting
 vnoremap < <gv
 vnoremap > >gv
@@ -49,9 +52,6 @@ function! ToggleEndChar(charToMatch)
 endfunction
 map ;; :call ToggleEndChar(';')<CR>
 map ,, :call ToggleEndChar(',')<CR>
-
-" Select pasted text
-nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Use alt + hjkl to resize windows
 nnoremap <M-j>    :resize -2<CR>
