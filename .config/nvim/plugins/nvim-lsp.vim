@@ -1,5 +1,4 @@
 Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/nvim-lsp-installer'
 
 function LSPSetup()
 lua << EOF
@@ -43,36 +42,24 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', ']e', '<cmd>lua vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR})<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
   --buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  --buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
 end
 
--- lsp-installer setup
 
-local lsp_installer = require("nvim-lsp-installer")
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-lsp_installer.settings({
-    ui = {
-        icons = {
-            server_installed = "✓",
-            server_pending = "➜",
-            server_uninstalled = "✗"
-        }
-    }
-})
-
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-lsp_installer.on_server_ready(function(server)
-    local opts = {
+require("mason-lspconfig").setup_handlers {
+  function (server_name)
+    nvim_lsp[server_name].setup {
       on_attach = on_attach,
       flags = {
         debounce_text_changes = 150,
       },
       capabilities = capabilities
     }
+  end
+}
 
-    server:setup(opts)
-end)
 
 EOF
 endfunction
