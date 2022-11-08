@@ -19,14 +19,18 @@ if !exists('g:vscode')
   source ~/.config/nvim/plugins/barbar.vim
   source ~/.config/nvim/plugins/diffview.vim
 
+  source ~/.config/nvim/plugins/mason.vim
+
   source ~/.config/nvim/plugins/nvim-treesitter.vim
+  source ~/.config/nvim/plugins/nvim-treesitter-textobjects.vim
   source ~/.config/nvim/plugins/nvim-lsp.vim
   source ~/.config/nvim/plugins/nvim-cmp.vim
 
   source ~/.config/nvim/plugins/vimux.vim
 endif
 
-source ~/.config/nvim/plugins/neoformat.vim
+"source ~/.config/nvim/plugins/neoformat.vim
+source ~/.config/nvim/plugins/formatter.vim
 source ~/.config/nvim/plugins/vim-commentary.vim
 source ~/.config/nvim/plugins/vim-surround.vim
 source ~/.config/nvim/plugins/nvim-autopairs.vim
