@@ -16,7 +16,7 @@ require("mason").setup({
 })
 
 require("mason-lspconfig").setup({
-  ensure_installed = { "sumneko_lua", "vimls", "rust_analyzer", "gopls", "graphql", "html", "jsonls", "tsserver", "remark_ls", "terraformls", "yamlls"},
+  ensure_installed = { "sumneko_lua", "vimls", "rust_analyzer", "gopls", "graphql", "html", "jsonls", "tsserver", "remark_ls", "terraformls", "yamlls" },
   automatic_installation = true,
 })
 

@@ -14,7 +14,7 @@ lua << EOF
 -- Utilities for creating configurations
 local util = require "formatter.util"
 
-local prettier = require('formatter.defaults.prettier')
+local prettierd = require('formatter.defaults.prettierd')
 local prettiereslint = require('formatter.defaults.prettiereslint')
 
 local lua = require('formatter.filetypes.lua')
@@ -31,22 +31,22 @@ require("formatter").setup {
   filetype = {
     lua = { lua.luaformat },
 
-    javascript = { prettiereslint, prettier },
-    typescript =  { prettiereslint, prettier },
-    javascriptreact = { prettier },
-    typescriptreact = { prettier },
-    vue = { prettier },
-    ['javascript.jsx'] = { prettier },
-    ['typescript.tsx'] = { prettier },
-    markdown = { prettier },
-    css = { prettier },
-    json = { prettier },
-    jsonc = { prettier },
-    scss = { prettier },
-    less = { prettier },
-    yaml = { prettier },
-    graphql = { prettier },
-    html = { prettier },
+    javascript = { prettierd },
+    typescript =  { prettierd },
+    javascriptreact = { prettierd },
+    typescriptreact = { prettierd },
+    vue = { prettierd },
+    ['javascript.jsx'] = { prettierd },
+    ['typescript.tsx'] = { prettierd },
+    markdown = { prettierd },
+    css = { prettierd },
+    json = { prettierd },
+    jsonc = { prettierd },
+    scss = { prettierd },
+    less = { prettierd },
+    yaml = { prettierd },
+    graphql = { prettierd },
+    html = { prettierd },
 
     go = { go.gofmt },
     rust = { rust.rustfmt },
