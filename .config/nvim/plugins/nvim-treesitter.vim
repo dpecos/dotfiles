@@ -16,3 +16,4 @@ augroup TreeSitterSetup
   autocmd!
   autocmd User PlugLoaded call TreeSitterSetup()
 augroup END
+
