@@ -8,6 +8,9 @@ call plug#begin(data_dir . '/plugins')
 
 source ~/.config/nvim/plugins/editorconfig-vim.vim
 
+source ~/.config/nvim/plugins/nvim-treesitter.vim
+source ~/.config/nvim/plugins/nvim-treesitter-textobjects.vim
+
 if !exists('g:vscode')
   source ~/.config/nvim/plugins/lualine-nvim.vim
   source ~/.config/nvim/plugins/vscode-nvim.vim
@@ -21,8 +24,6 @@ if !exists('g:vscode')
 
   source ~/.config/nvim/plugins/mason.vim
 
-  source ~/.config/nvim/plugins/nvim-treesitter.vim
-  source ~/.config/nvim/plugins/nvim-treesitter-textobjects.vim
   source ~/.config/nvim/plugins/nvim-lsp.vim
   source ~/.config/nvim/plugins/nvim-cmp.vim
 

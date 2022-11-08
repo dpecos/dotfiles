@@ -11,13 +11,14 @@ require'nvim-treesitter.configs'.setup {
       lookahead = true,
 
       keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
         ["af"] = "@function.outer",
         ["if"] = "@function.inner",
         ["ac"] = "@class.outer",
-        -- You can optionally set descriptions to the mappings (used in the desc parameter of
-        -- nvim_buf_set_keymap) which plugins like which-key display
         ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+        ["ab"] = "@block.outer",
+        ["ib"] = "@block.inner",
+        ["ai"] = "@call.outer",
+        ["ii"] = "@call.inner",
       },
       -- You can choose the select mode (default is charwise 'v')
       --
