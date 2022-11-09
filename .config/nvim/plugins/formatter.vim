@@ -1,13 +1,5 @@
 Plug 'mhartington/formatter.nvim'
 
-nnoremap <silent> <leader>f :Format<CR>
-nnoremap <silent> <leader>F :FormatWrite<CR>
-
-augroup FormatAutogroup
-  autocmd!
-  autocmd BufWritePost * FormatWrite
-augroup END
-
 function FormatterSetup()
 lua << EOF
 
@@ -24,7 +16,7 @@ local rust = require('formatter.filetypes.rust')
 -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
 require("formatter").setup {
   -- Enable or disable logging
-  logging = true,
+  logging = false,
   -- Set the log level
   log_level = vim.log.levels.WARN,
   -- All formatter configurations are opt-in
@@ -66,3 +58,13 @@ augroup FormatterSetup
   autocmd!
   autocmd User PlugLoaded call FormatterSetup()
 augroup END
+
+nnoremap <silent> <leader>f :Format<CR>
+nnoremap <silent> <leader>F :FormatWrite<CR>
+
+augroup FormatAutogroup
+  autocmd!
+  autocmd BufWritePost * FormatWrite
+augroup END
+
+
