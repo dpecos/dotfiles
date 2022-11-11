@@ -20,6 +20,9 @@ alias g='git'
 alias gud='g co develop && g pull && g co -'
 alias gum='g co master && g pull && g co -'
 
+alias gb='git b | fzf --height=~20 | xargs git co'
+alias gbd='git b | fzf --height=~20 | xargs git b -D'
+
 #alias did="vim +'normal Go' +'r! date' ~/logbook/$(date +'%Y%m%d').txt"
 
 # https://github.com/emilyst/home
