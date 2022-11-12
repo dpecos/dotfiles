@@ -28,6 +28,7 @@ if !exists('g:vscode')
   source ~/.config/nvim/plugins/nvim-cmp.vim
 
   source ~/.config/nvim/plugins/vimux.vim
+  source ~/.config/nvim/plugins/vim-tmux-navigator.vim
 endif
 
 "source ~/.config/nvim/plugins/neoformat.vim
