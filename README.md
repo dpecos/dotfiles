@@ -12,42 +12,41 @@ IMPORTANT: before initializing the home directory, setup ssh keys for GitLab and
 
 ### Manual steps after installation
 
-*ZSH*
+_ZSH_
 
     git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
     #git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
     git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 
-*tmux*
+_tmux_
 
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     prefix + I
 
-*NeoVim*
+_NeoVim_
 
     :PlugInstall
-    :LspInstallInfo
 
-*Fonts*
+_Fonts_
 
     brew tap homebrew/cask-fonts
     brew install font-source-code-pro font-hack-nerd-font font-sauce-code-pro-nerd-font font-ubuntu
 
     yay -S nerd-fonts-source-code-pro adobe-source-code-pro-fonts ttf-ubuntu-font-family
 
-*Default Shell*
+_Default Shell_
 
 Add `which zsh` to /etc/shells
 
     chsh -s $(which zsh)
 
-*ZSH security warning*
+_ZSH security warning_
 
     sudo chmod go-w /usr/local/share
     sudo chmod go-w /usr/local/share/zsh
     sudo chmod go-w /usr/local/share/zsh/site-functions
 
-*Other apps*
+_Other apps_
 
 Config based on having this packages / applications installed:
 
@@ -61,18 +60,18 @@ Config based on having this packages / applications installed:
 - `ripgrep`
 - `the_silver_searcher`
 - `neovim`
-
+- `bat`
 
 MacOS:
 
 ```
-brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions exa neofetch fzf ripgrep the_silver_searcher neovim dust fd
+brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions exa neofetch fzf ripgrep the_silver_searcher neovim dust fd bat
 ```
 
 Linux:
 
 ```
-yay -S zsh-syntax-highlighting zsh-autosuggestions zsh-completions exa fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf
+yay -S zsh-syntax-highlighting zsh-autosuggestions zsh-completions exa fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf bat
 ```
 
 ## Terminal apps configuration
@@ -124,9 +123,8 @@ zstyle :omz:plugins:ssh-agent helper ksshaskpass
 
 ### Files & directories
 
-You have to add the new content *forcing* it because everything is matched by git-ignore:
+You have to add the new content _forcing_ it because everything is matched by git-ignore:
 
 ```
 home add -f FILE
 ```
-

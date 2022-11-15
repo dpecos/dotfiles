@@ -5,10 +5,12 @@ alias v='fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs nvi
 
 # Changing "ls" to "exa"
 alias ls='exa --color=always --group-directories-first'
-alias la='exa -a --color=always --group-directories-first'
-alias ll='exa -l --color=always --group-directories-first'
-alias lt='exa -aT --color=always --group-directories-first'
-alias l.='exa -a | egrep "^\."'
+alias la='ls -a'
+alias ll='ls -l'
+alias lt='exa -abghHliS --long --tree'
+
+# "bat" instead of "cat"
+alias cat='bat'
 
 # Colorize grep output (good for log files)
 alias grep='grep --color=auto'
