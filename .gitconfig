@@ -8,8 +8,7 @@
   lb = log --graph --pretty=format:'%C(yellow)%h%Creset %C(magenta)%G?%Creset -%C(red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   dl = log --graph --all --decorate --stat --date=iso
   s = status
-  d = difftool
-  dm = difftool --tool=meld
+  d = diff
   a = add
   ci = commit
   ca = commit --amend
@@ -36,6 +35,35 @@
   editor = nvim
   excludesfile = ~/.gitignore_global
   autocrlf = input
+
+[init]
+  defaultBranch = master
+
+[pull]
+  rebase = false
+
+[push]
+  followTags = true
+  autoSetupRemote = true
+
+[status]
+  submoduleSummary = true
+
+[fetch]
+  recurseSubmodules = true
+
+[diff]
+  external = difft
+  submodule = log
+
+[pager]
+  difftool = true
+
+[commit]
+  gpgsign = true
+
+[tag]
+  forceSignAnnotated = true
 
 [color]
   ui = true
@@ -64,61 +92,17 @@
   local = yellow
   remote = red
 
-[pull]
-  rebase = false
-
-[push]
-  followTags = true
-  autoSetupRemote = true
-
-[status]
-  submoduleSummary = true
-
-[fetch]
-  recurseSubmodules = true
-
-[diff]
-  tool = vimdiff
-  submodule = log
-
-[difftool]
-  prompt = false
-  conflictstyle = diff3
-
-[merge]
-  tool = fugitive
-
-[mergetool]
-  prompt = false
-
-#[url "git@github.com:"]
-#    insteadOf = https://github.com/
-
-#[url "git@gitlab.com:"]
-#    insteadOf = https://gitlab.com/
-
-[difftool "meld"]
-  trustExitCode = true
-  cmd = open -W -a Meld --args \"$LOCAL\" \"$REMOTE\"
-
-[mergetool "meld"]
-  trustExitCode = true
-  cmd = open -W -a Meld --args --auto-merge \"$LOCAL\" \"$BASE\" \"$REMOTE\" --output=\"$MERGED\"
-
 [color "diff-highlight"]
   oldNormal = red bold
   oldHighlight = red bold 52
   newNormal = green bold
   newHighlight = green bold 22
 
-[commit]
-  gpgsign = true
+#[url "git@github.com:"]
+#    insteadOf = https://github.com/
 
-[tag]
-  forceSignAnnotated = true
-
-[init]
-  defaultBranch = master
+#[url "git@gitlab.com:"]
+#    insteadOf = https://gitlab.com/
 
 [include]
   path = ~/.gitconfig.local
@@ -128,6 +112,3 @@
 
 [includeIf "gitdir:~/projects-abcam/"]
   path = ~/projects-abcam/.gitconfig
-
-[mergetool "fugitive"]
-  cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"

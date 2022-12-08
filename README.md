@@ -65,13 +65,13 @@ Config based on having this packages / applications installed:
 MacOS:
 
 ```
-brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions exa neofetch fzf ripgrep the_silver_searcher neovim dust fd bat
+brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions exa neofetch fzf ripgrep the_silver_searcher neovim dust fd bat difftastic lfs tokei tealdeer
 ```
 
 Linux:
 
 ```
-yay -S zsh-syntax-highlighting zsh-autosuggestions zsh-completions exa fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf bat
+yay -S zsh-syntax-highlighting zsh-autosuggestions zsh-completions exa fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf bat difftastic lfs tokei tealdeer
 ```
 
 ## Terminal apps configuration
