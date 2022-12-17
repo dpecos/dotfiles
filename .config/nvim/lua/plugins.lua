@@ -17,7 +17,19 @@ local packer = require('packer')
 packer.startup(function(use)
   use 'wbthomason/packer.nvim' -- lua plugin manager
 
-  --use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } -- syntax highlight
+
+  use { -- Highlight, edit, and navigate code
+    'nvim-treesitter/nvim-treesitter',
+    run = function()
+      pcall(require('nvim-treesitter.install').update { with_sync = true })
+    end,
+  }
+
+  use { -- Additional text objects via treesitter
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    after = 'nvim-treesitter',
+  }
+
   --use 'neovim/nvim-lspconfig'
   
   if packer_bootstrap then
