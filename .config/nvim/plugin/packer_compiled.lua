@@ -79,6 +79,12 @@ _G.packer_plugins = {
     path = "/Users/dani/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
+  ["barbar.nvim"] = {
+    loaded = true,
+    path = "/Users/dani/.local/share/nvim/site/pack/packer/start/barbar.nvim",
+    url = "https://github.com/romgrk/barbar.nvim",
+    wants = { "nvim-tree/nvim-web-devicons" }
+  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/Users/dani/.local/share/nvim/site/pack/packer/start/cmp-buffer",
@@ -184,6 +190,22 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/dani/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
+  },
+  ["vim-tmux-navigator"] = {
+    loaded = true,
+    path = "/Users/dani/.local/share/nvim/site/pack/packer/start/vim-tmux-navigator",
+    url = "https://github.com/christoomey/vim-tmux-navigator"
+  },
+  vimux = {
+    loaded = true,
+    path = "/Users/dani/.local/share/nvim/site/pack/packer/start/vimux",
+    url = "https://github.com/preservim/vimux"
+  },
+  ["vimux-jest-test"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/dani/.local/share/nvim/site/pack/packer/opt/vimux-jest-test",
+    url = "https://github.com/tyewang/vimux-jest-test"
   },
   ["vscode.nvim"] = {
     loaded = true,
