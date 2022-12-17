@@ -20,6 +20,10 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 vnoremap < <gv
 vnoremap > >gv
 
+" Move selected lines up and down
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
 " Maintain the cursor position when yanking a visual selection
 " http://ddrscott.github.io/blog/2016/yank-without-jank/
 vnoremap y myy`y
@@ -35,7 +39,7 @@ vnoremap <leader>p "_dP
 " Make Y behave like the other capitals
 nnoremap Y y$
 
-" Keep it centered
+" Keep movements centered
 nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap J mzJ`z
