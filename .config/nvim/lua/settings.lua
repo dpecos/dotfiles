@@ -1,8 +1,12 @@
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 
+-- disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Set highlight on search
-vim.opt.hlsearch = false
+vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
 -- Make line numbers default
@@ -22,7 +26,6 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.opt.termguicolors = true
---vim.cmd [[colorscheme onedark]]
 vim.opt.colorcolumn = "80"
 
 -- Set completeopt to have a better completion experience

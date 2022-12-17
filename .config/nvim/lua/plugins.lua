@@ -17,7 +17,6 @@ local packer = require('packer')
 packer.startup(function(use)
   use 'wbthomason/packer.nvim' -- lua plugin manager
 
-
   use { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     run = function()
@@ -52,8 +51,21 @@ packer.startup(function(use)
     }
   }
 
-  use 'nvim-lualine/lualine.nvim' -- Fancier statusline
+  use {
+    'nvim-tree/nvim-tree.lua',
+    requires = {
+      'nvim-tree/nvim-web-devicons', opt = true
+    },
+  }
 
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = {
+      'kyazdani42/nvim-web-devicons', opt = true
+    },
+  }
+
+  use { 'Mofiqul/vscode.nvim' } -- Theme
 
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } } -- Fuzzy Finder (files, lsp, etc)
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
