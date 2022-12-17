@@ -52,6 +52,7 @@ packer.startup(function(use)
   }
 }
 
+  use 'nvim-lualine/lualine.nvim' -- Fancier statusline
   
   if packer_bootstrap then
     require('packer').sync()
