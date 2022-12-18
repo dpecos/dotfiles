@@ -90,6 +90,8 @@ packer.startup(function(use)
     },
   }
 
+  use 'tpope/vim-commentary'
+
   if packer_bootstrap then
     require('packer').sync()
   end

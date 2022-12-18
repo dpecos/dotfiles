@@ -83,7 +83,7 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/dani/.local/share/nvim/site/pack/packer/start/barbar.nvim",
     url = "https://github.com/romgrk/barbar.nvim",
-    wants = { "nvim-tree/nvim-web-devicons" }
+    wants = { "nvim-web-devicons" }
   },
   ["cmp-buffer"] = {
     loaded = true,
@@ -163,9 +163,8 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
   },
   ["nvim-web-devicons"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "/Users/dani/.local/share/nvim/site/pack/packer/opt/nvim-web-devicons",
+    loaded = true,
+    path = "/Users/dani/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
   ["packer.nvim"] = {
@@ -199,12 +198,21 @@ _G.packer_plugins = {
   vimux = {
     loaded = true,
     path = "/Users/dani/.local/share/nvim/site/pack/packer/start/vimux",
-    url = "https://github.com/preservim/vimux"
+    url = "https://github.com/preservim/vimux",
+    wants = { { "vimux-cargo",
+        opt = true
+      }, { "vimux-jest-test",
+        opt = true
+      } }
+  },
+  ["vimux-cargo"] = {
+    loaded = true,
+    path = "/Users/dani/.local/share/nvim/site/pack/packer/start/vimux-cargo",
+    url = "https://github.com/jtdowney/vimux-cargo"
   },
   ["vimux-jest-test"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "/Users/dani/.local/share/nvim/site/pack/packer/opt/vimux-jest-test",
+    loaded = true,
+    path = "/Users/dani/.local/share/nvim/site/pack/packer/start/vimux-jest-test",
     url = "https://github.com/tyewang/vimux-jest-test"
   },
   ["vscode.nvim"] = {
