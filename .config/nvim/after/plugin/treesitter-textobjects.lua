@@ -1,7 +1,3 @@
-Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-
-function TreeSitterTextObjectsSetup()
-lua << EOF
 require'nvim-treesitter.configs'.setup {
   textobjects = {
     select = {
@@ -82,12 +78,3 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
-EOF
-endfunction
-
-augroup TreeSitterTextObjectsSetup
-  autocmd!
-  autocmd User PlugLoaded call TreeSitterTextObjectsSetup()
-augroup END
-
-

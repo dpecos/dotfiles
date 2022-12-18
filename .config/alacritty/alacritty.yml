@@ -6,7 +6,8 @@ window:
 
 font:
   normal:
-    family: SauceCodePro Nerd Font
+    family: Hack Nerd Font
+    # family: SauceCodePro Nerd Font
     style: Regular
   size: 12
 
@@ -60,4 +61,3 @@ colors:
     magenta: '0x614a73'
     cyan: '0x186c60'
     white: '0x63686d'
-

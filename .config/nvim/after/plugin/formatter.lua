@@ -1,8 +1,3 @@
-Plug 'mhartington/formatter.nvim'
-
-function FormatterSetup()
-lua << EOF
-
 -- Utilities for creating configurations
 local util = require "formatter.util"
 
@@ -24,7 +19,7 @@ require("formatter").setup {
     lua = { lua.luaformat },
 
     javascript = { prettierd },
-    typescript =  { prettierd },
+    typescript = { prettierd },
     javascriptreact = { prettierd },
     typescriptreact = { prettierd },
     vue = { prettierd },
@@ -50,21 +45,3 @@ require("formatter").setup {
     }
   }
 }
-
-EOF
-endfunction
-
-augroup FormatterSetup
-  autocmd!
-  autocmd User PlugLoaded call FormatterSetup()
-augroup END
-
-nnoremap <silent> <leader>f :Format<CR>
-nnoremap <silent> <leader>F :FormatWrite<CR>
-
-augroup FormatAutogroup
-  autocmd!
-  autocmd BufWritePost * FormatWrite
-augroup END
-
-
