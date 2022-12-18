@@ -25,14 +25,14 @@ _tmux_
 
 _NeoVim_
 
-    :PlugInstall
+    :PackerInstall
 
 _Fonts_
 
     brew tap homebrew/cask-fonts
     brew install font-source-code-pro font-hack-nerd-font font-sauce-code-pro-nerd-font font-ubuntu
 
-    yay -S nerd-fonts-source-code-pro adobe-source-code-pro-fonts ttf-ubuntu-font-family
+    yay -S adobe-source-code-pro-fonts ttf-ubuntu-font-family ttf-hack ttf-sourcecodepro-nerd
 
 _Default Shell_
 
