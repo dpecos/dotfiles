@@ -2,26 +2,14 @@ local nvim_tree_config = require 'nvim-tree.config'
 local tree_cb = nvim_tree_config.nvim_tree_callback
 
 require 'nvim-tree'.setup {
-  auto_reload_on_write = true,
-  disable_netrw = true,
-  hijack_cursor = false,
-  hijack_netrw = true,
-  hijack_unnamed_buffer_when_opening = false,
-  ignore_buffer_on_setup = false,
+  hijack_cursor = true,
   open_on_setup = true,
   open_on_setup_file = true,
-  sort_by = "name",
-  update_cwd = false,
   view = {
     width = 50,
-    side = "left",
-    preserve_window_proportions = false,
-    number = false,
-    relativenumber = false,
-    signcolumn = "yes",
     mappings = {
-      custom_only = false,
       list = {
+        { key = "u", action = "dir_up" },
         { key = "v", cb = tree_cb("vsplit") },
       },
     },
@@ -29,117 +17,69 @@ require 'nvim-tree'.setup {
   tab = {
     sync = {
       open = true,
+      close = true,
     },
   },
   renderer = {
-    indent_markers = {
-      enable = false,
-      icons = {
-        corner = "└ ",
-        edge = "│ ",
-        none = "  ",
-      },
-    },
-    icons = {
-      webdev_colors = true,
-    },
+    group_empty = true,
   },
-  hijack_directories = {
-    enable = true,
-    auto_open = true,
+  filters = {
+    dotfiles = true,
   },
   update_focused_file = {
     enable = true,
     update_cwd = false,
-    ignore_list = {},
-  },
-  ignore_ft_on_setup = {},
-  system_open = {
-    cmd = nil,
-    args = {},
-  },
-  diagnostics = {
-    enable = false,
-    show_on_dirs = false,
-    icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
-    },
-  },
-  filters = {
-    dotfiles = false,
-    custom = {},
-    exclude = {},
-  },
-  git = {
-    enable = true,
-    ignore = false,
-    timeout = 400,
   },
   actions = {
     use_system_clipboard = true,
-    change_dir = {
-      enable = true,
-      global = false,
-    },
     open_file = {
-      quit_on_open = false,
-      resize_window = false,
       window_picker = {
         enable = false,
-        chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
-        exclude = {
-          filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
-          buftype = { "nofile", "terminal", "help" },
-        },
       },
     },
   },
-  trash = {
-    cmd = "trash",
-    require_confirm = true,
-  },
-  log = {
-    enable = false,
-    truncate = false,
-    types = {
-      all = false,
-      config = false,
-      copy_paste = false,
-      diagnostics = false,
-      git = false,
-      profile = false,
-    },
-  }
 }
-
--- auto close if it's last buffer
--- nvim-tree is also there in modified buffers so this function filter it out
-local modifiedBufs = function(bufs)
-  local t = 0
-  for k, v in pairs(bufs) do
-    if v.name:match("NvimTree_") == nil then
-      t = t + 1
-    end
-  end
-  return t
-end
-
-vim.api.nvim_create_autocmd("BufEnter", {
-  nested = true,
-  callback = function()
-    if #vim.api.nvim_list_wins() == 1 and
-        vim.api.nvim_buf_get_name(0):match("NvimTree_") ~= nil and
-        modifiedBufs(vim.fn.getbufinfo({ bufmodified = 1 })) == 0 then
-      vim.cmd "quit"
-    end
-  end
-})
 
 local api = require("nvim-tree.api")
 
 vim.keymap.set('n', '<C-n>', api.tree.toggle, { desc = 'Toggle nvim-tree' })
 vim.api.nvim_set_keymap('n', '<leader>r', ':NvimTreeRefresh<CR>', { desc = 'Refresh nvim-tree' })
 vim.api.nvim_set_keymap('n', '<leader>n', ':NvimTreeFindFile<CR>', { desc = 'Show file nvim-tree' })
+
+-- close vim if nvim-tree is the last buffer
+
+local function tab_win_closed(winnr)
+  local api = require "nvim-tree.api"
+  local tabnr = vim.api.nvim_win_get_tabpage(winnr)
+  local bufnr = vim.api.nvim_win_get_buf(winnr)
+  local buf_info = vim.fn.getbufinfo(bufnr)[1]
+  local tab_wins = vim.tbl_filter(function(w) return w ~= winnr end, vim.api.nvim_tabpage_list_wins(tabnr))
+  local tab_bufs = vim.tbl_map(vim.api.nvim_win_get_buf, tab_wins)
+  if buf_info.name:match(".*NvimTree_%d*$") then -- close buffer was nvim tree
+    -- Close all nvim tree on :q
+    if not vim.tbl_isempty(tab_bufs) then -- and was not the last window (not closed automatically by code below)
+      api.tree.close()
+    end
+  else -- else closed buffer was normal buffer
+    if #tab_bufs == 1 then -- if there is only 1 buffer left in the tab
+      local last_buf_info = vim.fn.getbufinfo(tab_bufs[1])[1]
+      if last_buf_info.name:match(".*NvimTree_%d*$") then -- and that buffer is nvim tree
+        vim.schedule(function()
+          if #vim.api.nvim_list_wins() == 1 then -- if its the last buffer in vim
+            vim.cmd "quit" -- then close all of vim
+          else -- else there are more tabs open
+            vim.api.nvim_win_close(tab_wins[1], true) -- then close only the tab
+          end
+        end)
+      end
+    end
+  end
+end
+
+vim.api.nvim_create_autocmd("WinClosed", {
+  callback = function()
+    local winnr = tonumber(vim.fn.expand("<amatch>"))
+    vim.schedule_wrap(tab_win_closed(winnr))
+  end,
+  nested = true
+})

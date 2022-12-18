@@ -9,4 +9,4 @@ require('vscode').setup({
 })
 
 vim.opt.background = 'dark'
-require('vscode').change_style('dark')
+vim.cmd([[colorscheme vscode]])
