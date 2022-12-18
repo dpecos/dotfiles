@@ -45,8 +45,13 @@ lsp.on_attach(function(client, bufnr)
   --  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   --end, '[W]orkspace [L]ist Folders')
 
-  nmap('<leader>f', function() vim.lsp.buf.format { async = true } end, '[F]ormat current buffer')
-  vim.cmd [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.format() ]]
+  if client.server_capabilities.documentFormattingProvider then
+    nmap('<leader>f', function() vim.lsp.buf.format { async = true } end, '[F]ormat current buffer')
+    vim.cmd [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.format() ]]
+  else
+    nmap('<leader>f', ':Format<cr>', '[F]ormat current buffer')
+    vim.cmd [[ autocmd BufWritePre <buffer> FormatWrite ]]
+  end
 
   --nmap('gDv', ':vsplit | lua vim.lsp.buf.declaration()<CR>', opts)
   --nmap('gdv', ':vsplit | lua vim.lsp.buf.definition()<CR>', opts)

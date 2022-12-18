@@ -94,6 +94,20 @@ packer.startup(function(use)
 
   use 'tpope/vim-fugitive'
 
+  use 'tpope/vim-surround'
+
+  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+
+  use 'mbbill/undotree'
+
+  use 'windwp/nvim-autopairs'
+
+  use 'lukas-reineke/indent-blankline.nvim'
+
+  use 'editorconfig/editorconfig-vim'
+
+  use "mhartington/formatter.nvim"
+
   if packer_bootstrap then
     require('packer').sync()
   end
