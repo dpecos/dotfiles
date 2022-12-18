@@ -92,6 +92,8 @@ packer.startup(function(use)
 
   use 'tpope/vim-commentary'
 
+  use 'tpope/vim-fugitive'
+
   if packer_bootstrap then
     require('packer').sync()
   end
