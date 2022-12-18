@@ -22,7 +22,9 @@ lsp.on_attach(function(client, bufnr)
   end
 
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+  nmap('gDv', ':vsplit | lua vim.lsp.buf.declaration()<CR>', '[G]oto [D]eclaration (vertical split)')
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+  nmap('gdv', ':vsplit | lua vim.lsp.buf.definition()<CR>', '[G]oto [D]efinition (vertical split)')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
@@ -33,7 +35,6 @@ lsp.on_attach(function(client, bufnr)
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
 
-  -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   --nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
   nmap('<leader>k', vim.lsp.buf.signature_help, 'Signature Documentation')
@@ -53,12 +54,10 @@ lsp.on_attach(function(client, bufnr)
     vim.cmd [[ autocmd BufWritePre <buffer> FormatWrite ]]
   end
 
-  --nmap('gDv', ':vsplit | lua vim.lsp.buf.declaration()<CR>', opts)
-  --nmap('gdv', ':vsplit | lua vim.lsp.buf.definition()<CR>', opts)
-  --nmap('[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  --nmap(']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  --nmap('[e', '<cmd>lua vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR})<CR>', opts)
-  --nmap(']e', '<cmd>lua vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR})<CR>', opts)
+  nmap('[d', vim.diagnostic.goto_prev, 'Previous diagnostic')
+  nmap(']d', vim.diagnostic.goto_next, 'Next diagnostic')
+  nmap('[e', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, 'Previous error')
+  nmap(']e', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, 'Next error')
 end)
 
 lsp.setup()

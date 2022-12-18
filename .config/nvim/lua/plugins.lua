@@ -51,6 +51,18 @@ packer.startup(function(use)
     }
   }
 
+  use 'tpope/vim-commentary'
+
+  use 'tpope/vim-fugitive'
+
+  use 'tpope/vim-surround'
+
+  use 'windwp/nvim-autopairs'
+
+  use 'editorconfig/editorconfig-vim'
+
+  use "mhartington/formatter.nvim"
+
   use {
     'nvim-tree/nvim-tree.lua',
     requires = {
@@ -65,12 +77,20 @@ packer.startup(function(use)
     },
   }
 
-  use { 'Mofiqul/vscode.nvim' } -- Theme
-
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } } -- Fuzzy Finder (files, lsp, etc)
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
+  use 'nvim-tree/nvim-web-devicons'
+  use { 'romgrk/barbar.nvim',
+    wants = {
+      'nvim-web-devicons'
+    },
+  }
+
+  use 'lukas-reineke/indent-blankline.nvim'
+
+  use { 'Mofiqul/vscode.nvim' } -- Theme
 
   use { 'jtdowney/vimux-cargo' }
   use { 'tyewang/vimux-jest-test' }
@@ -82,31 +102,9 @@ packer.startup(function(use)
   }
 
   use { 'christoomey/vim-tmux-navigator' }
-
-  use 'nvim-tree/nvim-web-devicons'
-  use { 'romgrk/barbar.nvim',
-    wants = {
-      'nvim-web-devicons'
-    },
-  }
-
-  use 'tpope/vim-commentary'
-
-  use 'tpope/vim-fugitive'
-
-  use 'tpope/vim-surround'
-
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
 
   use 'mbbill/undotree'
-
-  use 'windwp/nvim-autopairs'
-
-  use 'lukas-reineke/indent-blankline.nvim'
-
-  use 'editorconfig/editorconfig-vim'
-
-  use "mhartington/formatter.nvim"
 
   if packer_bootstrap then
     require('packer').sync()
