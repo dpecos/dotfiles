@@ -60,3 +60,11 @@ map('n', '<C-p>', '<Cmd>BufferPick<CR>', opts)
 -- Other:
 -- :BarbarEnable - enables barbar (enabled by default)
 -- :BarbarDisable - very bad command, should never be used
+
+vim.api.nvim_set_keymap('n', '<leader>bd', ':BufferDelete<CR>', {})
+vim.api.nvim_set_keymap('n', '<leader>bc', ':BufferClose<CR>', {})
+vim.api.nvim_set_keymap('n', '<leader>bo', ':BufferCloseAllButCurrent<CR>', {})
+vim.api.nvim_set_keymap('n', '<leader>bp', ':BufferPin<CR>', {})
+vim.api.nvim_set_keymap('n', '<leader>bn', ':BufferNext<CR>', {})
+vim.api.nvim_set_keymap('n', '<TAB>', ':bnext<CR>', {})
+vim.api.nvim_set_keymap('n', '<S-TAB>', ':bprevious<CR>', {})
