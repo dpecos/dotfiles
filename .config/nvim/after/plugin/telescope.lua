@@ -7,18 +7,19 @@ pcall(telescope.load_extension, 'fzf')
 -- See `:help telescope.builtin`
 local builtin = require('telescope.builtin')
 
-vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader><space>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>/', function()
-  -- You can pass additional configuration to telescope to change theme, layout, etc.
-  builtin.get_dropdown {
-    winblend = 10,
-    previewer = false,
-  }
-end, { desc = '[/] Fuzzily search in current buffer]' })
+vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = 'Find recently opened files' })
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Find existing buffers' })
 
-vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Find Files' })
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Search Help' })
+vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = 'Search current Word' })
+vim.keymap.set('n', '<leader>fs', builtin.live_grep, { desc = 'Search by Grep' })
+vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = 'Search Diagnostics' })
+
+vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'Search Keymaps' })
+vim.keymap.set('n', '<leader>fr', builtin.lsp_references, { desc = 'Search LSP references' })
+vim.keymap.set('n', '<leader>fm', builtin.marks, { desc = 'Search Marks' })
+vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = 'Git status' })
+vim.keymap.set('n', '<leader>gl', builtin.git_commits, { desc = 'Git commits' })
+vim.keymap.set('n', '<leader>gh', builtin.git_bcommits, { desc = 'Git commits in current branch' })
+vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = 'Git branches' })
