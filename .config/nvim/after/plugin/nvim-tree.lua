@@ -38,6 +38,9 @@ require 'nvim-tree'.setup {
       },
     },
   },
+  ignore_ft_on_setup = {
+    "gitcommit",
+  },
 }
 
 local api = require("nvim-tree.api")
