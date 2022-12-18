@@ -6,7 +6,7 @@ window:
 
 font:
   normal:
-    family: Hack Nerd Font
+    family: Hack
     # family: SauceCodePro Nerd Font
     style: Regular
   size: 12
