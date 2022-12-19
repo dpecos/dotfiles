@@ -2,6 +2,19 @@ local lsp = require('lsp-zero')
 
 lsp.preset('recommended')
 
+lsp.ensure_installed({
+  'tsserver',
+  'eslint',
+  'sumneko_lua',
+  'jsonls',
+  'yamlls',
+  'taplo',
+  'bashls',
+  'html',
+  'remark_ls',
+  'rust_analyzer'
+})
+
 lsp.on_attach(function(client, bufnr)
 
   if client.name == "eslint" then
