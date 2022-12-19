@@ -8,9 +8,7 @@ lsp.ensure_installed({
   'sumneko_lua',
   'jsonls',
   'yamlls',
-  'taplo',
   'bashls',
-  'html',
   'prosemd_lsp',
   'rust_analyzer'
 })
