@@ -11,7 +11,7 @@ lsp.ensure_installed({
   'taplo',
   'bashls',
   'html',
-  'remark_ls',
+  'prosemd_lsp',
   'rust_analyzer'
 })
 
