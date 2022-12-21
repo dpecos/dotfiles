@@ -15,10 +15,12 @@ lsp.ensure_installed({
 
 lsp.on_attach(function(client, bufnr)
 
-  if client.name == "eslint" then
-    vim.cmd.LspStop('eslint')
-    return
-  end
+  -- DPM: copied from https://github.com/ThePrimeagen/init.lua/blob/master/after/plugin/lsp.lua#L55
+  -- but disabled because it's blocking other LSPs from attaching to the buffer
+  -- if client.name == "eslint" then
+  --   vim.cmd.LspStop('eslint')
+  --   return
+  -- end
 
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
