@@ -11,6 +11,7 @@ require 'nvim-tree'.setup {
       list = {
         { key = "u", action = "dir_up" },
         { key = "v", cb = tree_cb("vsplit") },
+        { key = "yy", action = "copy" },
       },
     },
   },
