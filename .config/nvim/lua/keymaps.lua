@@ -45,8 +45,13 @@ vim.cmd("nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'")
 vim.keymap.set("v", "y", "myy`y")
 vim.keymap.set("v", "Y", "myY`y")
 
+-- copy / paste to system clipboard
+vim.keymap.set('n', '<leader>y', '"+yy')
+vim.keymap.set('v', '<leader>y', '"+y')
+vim.keymap.set({ 'n', 'v' }, '<leader>p', '"+p')
+
 -- Paste replace visual selection without copying it
-vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set("x", "<leader>P", [["_dP]])
 
 -- Delete without copying
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])

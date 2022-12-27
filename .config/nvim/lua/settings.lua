@@ -48,7 +48,7 @@ vim.opt.scrolloff = 8
 vim.opt.sidescrolloff = 8
 
 -- clipboard
-vim.opt.clipboard:append("unnamedplus") -- use system clipboard as default register
+--vim.opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 
 -- split windows
 vim.opt.splitright = true -- split vertical window to the right
