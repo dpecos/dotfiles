@@ -49,6 +49,7 @@ vim.keymap.set("v", "Y", "myY`y")
 vim.keymap.set('n', '<leader>y', '"+yy')
 vim.keymap.set('v', '<leader>y', '"+y')
 vim.keymap.set({ 'n', 'v' }, '<leader>p', '"+p')
+vim.keymap.set("i", "<C-v>", "<Esc>\"+pa")
 
 -- Paste replace visual selection without copying it
 vim.keymap.set("x", "<leader>P", [["_dP]])
