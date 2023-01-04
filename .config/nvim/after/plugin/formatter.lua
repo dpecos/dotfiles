@@ -45,3 +45,5 @@ require("formatter").setup {
     }
   }
 }
+
+vim.keymap.set('n', '<leader>F', ':Format<cr>', { desc = '[Format] file using formatter plugin' })

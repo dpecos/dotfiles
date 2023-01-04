@@ -4,7 +4,8 @@ lsp.preset('recommended')
 
 lsp.ensure_installed({
   'tsserver',
-  'eslint',
+  -- 'eslint',
+  'ltex',
   'sumneko_lua',
   'jsonls',
   'yamlls',
@@ -60,10 +61,10 @@ lsp.on_attach(function(client, bufnr)
   --end, '[W]orkspace [L]ist Folders')
 
   if client.server_capabilities.documentFormattingProvider then
-    nmap('<leader>f', function() vim.lsp.buf.format { async = true } end, '[F]ormat current buffer')
+    nmap('<leader>f', function() vim.lsp.buf.format { async = true } end, '[F]ormat current buffer (DFP)')
     vim.cmd [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.format() ]]
   else
-    nmap('<leader>f', ':Format<cr>', '[F]ormat current buffer')
+    nmap('<leader>f', ':Format<cr>', '[F]ormat current buffer (Formatter)')
     vim.cmd [[ autocmd BufWritePre <buffer> FormatWrite ]]
   end
 
@@ -74,3 +75,7 @@ lsp.on_attach(function(client, bufnr)
 end)
 
 lsp.setup()
+
+vim.diagnostic.config({
+  virtual_text = true,
+})
