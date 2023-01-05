@@ -65,7 +65,7 @@ Config based on having this packages / applications installed:
 MacOS:
 
 ```
-brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions exa neofetch fzf ripgrep the_silver_searcher neovim dust fd bat difftastic lfs tokei tealdeer
+brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions exa neofetch fzf ripgrep the_silver_searcher neovim dust fd bat difftastic tokei tealdeer
 ```
 
 Linux:

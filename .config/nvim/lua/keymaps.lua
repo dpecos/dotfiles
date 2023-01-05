@@ -51,11 +51,21 @@ vim.keymap.set('v', '<leader>y', '"+y')
 vim.keymap.set({ 'n', 'v' }, '<leader>p', '"+p')
 vim.keymap.set("i", "<C-v>", "<Esc>\"+pa")
 
--- Paste replace visual selection without copying it
-vim.keymap.set("x", "<leader>P", [["_dP]])
+-- Paste over currently selected text without yanking it
+vim.keymap.set("v", "p", '"_dP')
 
 -- Delete without copying
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+
+-- See `:help vim.highlight.on_yank()`
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = "*",
+})
 
 -- Better window navigation
 --vim.keymap.set("n", "<C-h>", "<C-w>h")
