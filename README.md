@@ -10,6 +10,12 @@ IMPORTANT: before initializing the home directory, setup ssh keys for GitLab and
     home fetch --all
     home reset --hard origin/master
 
+### Setup toggles
+
+Hide untracked files:
+
+    home config --local status.showUntrackedFiles no
+
 ### Manual steps after installation
 
 _ZSH_
