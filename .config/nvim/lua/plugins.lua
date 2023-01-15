@@ -106,6 +106,10 @@ packer.startup(function(use)
 
   use 'mbbill/undotree'
 
+  use 'j-hui/fidget.nvim'
+
+  use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
+
   if packer_bootstrap then
     require('packer').sync()
   end
