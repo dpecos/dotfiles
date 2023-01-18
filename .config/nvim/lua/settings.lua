@@ -1,55 +1,64 @@
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 
+local g = vim.g       -- Global variables
+local opt = vim.opt   -- Set options (global/buffer/windows-scoped)
+
 -- disable netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+g.loaded_netrw = 1
+g.loaded_netrwPlugin = 1
 
 -- Set highlight on search
-vim.opt.hlsearch = true
-vim.opt.incsearch = true
+opt.hlsearch = true
+opt.incsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
-vim.opt.relativenumber = true
+opt.relativenumber = true
 
 -- Enable mouse mode
 -- vim.opt.mouse = 'a'
 
 -- Case insensitive searching UNLESS /C or capital in search
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
+opt.ignorecase = true
+opt.smartcase = true
 
 -- Update time
-vim.opt.updatetime = 50
+opt.updatetime = 50
 vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
-vim.opt.termguicolors = true
-vim.opt.colorcolumn = "80"
+opt.termguicolors = true
+opt.colorcolumn = "80"
 
 -- Set completeopt to have a better completion experience
-vim.opt.completeopt = 'menuone,noselect'
+opt.completeopt = 'menuone,noselect'
 
 -- Text indentation
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
-vim.opt.smartindent = true
-vim.opt.wrap = false
+opt.tabstop = 2
+opt.softtabstop = 2
+opt.shiftwidth = 2
+opt.expandtab = true
+opt.smartindent = true
+opt.wrap = false
 
 -- Save undo history
-vim.opt.undofile = true
-vim.opt.swapfile = false
-vim.opt.backup = false
+opt.undofile = true
+opt.swapfile = false
+opt.backup = false
 
-vim.opt.scrolloff = 8
-vim.opt.sidescrolloff = 8
+opt.scrolloff = 8
+opt.sidescrolloff = 8
 
 -- clipboard
 --vim.opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 
 -- split windows
-vim.opt.splitright = true -- split vertical window to the right
-vim.opt.splitbelow = true -- split horizontal window to the bottom
+opt.splitright = true -- split vertical window to the right
+opt.splitbelow = true -- split horizontal window to the bottom
+
+opt.hidden = true -- Enable background buffers
+--opt.history = 100 -- Remember N lines in history
+opt.lazyredraw = true -- Faster scrolling
+--opt.synmaxcol = 240 -- Max column for syntax highlight
+opt.updatetime = 250 -- ms to wait for trigger an event
