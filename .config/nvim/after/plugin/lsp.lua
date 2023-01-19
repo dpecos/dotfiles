@@ -70,12 +70,35 @@ local on_attach = function(client, bufnr)
 end
 
 local lsp = require('lsp-zero')
-lsp.preset('recommended')
-lsp.ensure_installed(ensure_installed)
-lsp.on_attach(on_attach)
-lsp.setup()
+-- lsp.preset('recommended')
+-- lsp.ensure_installed(ensure_installed)
+-- lsp.on_attach(on_attach)
+-- lsp.setup()
 
-vim.opt.signcolumn = 'yes'
+-- This is required by nvim-ufo to enable folds based on LSP
+-- https://dev.to/vonheikemen/make-lsp-zeronvim-coexists-with-other-plugins-instead-of-controlling-them-2i80
+require('mason').setup()
+require('mason-lspconfig').setup({
+  ensure_installed = ensure_installed
+})
+lsp.extend_lspconfig({
+  on_attach = on_attach,
+  capabilities = {
+    textDocument = {
+      foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true
+      }
+    }
+  }
+})
+require('mason-lspconfig').setup_handlers({
+  function(server_name)
+    require('lspconfig')[server_name].setup({})
+  end
+})
+
+lsp.set_sign_icons()
 vim.diagnostic.config({
   virtual_text = true,
 })
