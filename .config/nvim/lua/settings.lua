@@ -23,10 +23,6 @@ opt.relativenumber = true
 opt.ignorecase = true
 opt.smartcase = true
 
--- Update time
-opt.updatetime = 50
-vim.wo.signcolumn = 'yes'
-
 -- Set colorscheme
 opt.termguicolors = true
 opt.colorcolumn = "80"
@@ -57,6 +53,7 @@ opt.sidescrolloff = 8
 opt.splitright = true -- split vertical window to the right
 opt.splitbelow = true -- split horizontal window to the bottom
 
+-- optimizations
 opt.hidden = true -- Enable background buffers
 --opt.history = 100 -- Remember N lines in history
 opt.lazyredraw = true -- Faster scrolling

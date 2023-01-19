@@ -1,8 +1,4 @@
-local lsp = require('lsp-zero')
-
-lsp.preset('recommended')
-
-lsp.ensure_installed({
+local ensure_installed = {
   'tsserver',
   -- 'eslint',
   'ltex',
@@ -12,10 +8,9 @@ lsp.ensure_installed({
   'bashls',
   'prosemd_lsp',
   'rust_analyzer'
-})
+}
 
-lsp.on_attach(function(client, bufnr)
-
+local on_attach = function(client, bufnr)
   -- DPM: copied from https://github.com/ThePrimeagen/init.lua/blob/master/after/plugin/lsp.lua#L55
   -- but disabled because it's blocking other LSPs from attaching to the buffer
   -- if client.name == "eslint" then
@@ -72,10 +67,15 @@ lsp.on_attach(function(client, bufnr)
   nmap(']d', vim.diagnostic.goto_next, 'Next diagnostic')
   nmap('[e', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, 'Previous error')
   nmap(']e', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, 'Next error')
-end)
+end
 
+local lsp = require('lsp-zero')
+lsp.preset('recommended')
+lsp.ensure_installed(ensure_installed)
+lsp.on_attach(on_attach)
 lsp.setup()
 
+vim.opt.signcolumn = 'yes'
 vim.diagnostic.config({
   virtual_text = true,
 })
