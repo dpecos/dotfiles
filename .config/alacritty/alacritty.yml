@@ -1,8 +1,8 @@
 window:
-  startup_mode: Fullscreen
+  #startup_mode: Fullscreen
   dimensions:
-    columns: 133
-    lines: 40
+    columns: 190
+    lines: 60
 
 font:
   normal:
