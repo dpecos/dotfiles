@@ -48,6 +48,7 @@ vim.keymap.set("v", "Y", "myY`y")
 -- copy / paste to system clipboard
 vim.keymap.set('n', '<leader>y', '"+yy')
 vim.keymap.set('v', '<leader>y', '"+y')
+vim.keymap.set({ 'n', 'v' }, '<leader>P', '"+P')
 vim.keymap.set({ 'n', 'v' }, '<leader>p', '"+p')
 vim.keymap.set("i", "<C-v>", "<Esc>\"+pa")
 

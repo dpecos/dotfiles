@@ -42,6 +42,7 @@ local on_attach = function(client, bufnr)
 
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  nmap('<leader>cd', vim.diagnostic.open_float, '[C]ode [D]iagnostic')
 
 
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
