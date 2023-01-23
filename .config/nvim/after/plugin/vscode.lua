@@ -5,8 +5,15 @@ require('vscode').setup({
   italic_comments = true,
 
   -- Disable nvim-tree background color
-  disable_nvimtree_bg = true,
+  disable_nvimtree_bg = false,
+
+  -- Override colors (see ./lua/vscode/colors.lua)
+  -- color_overrides = {
+  --   vscLineNumber = '#FF0000',
+  -- },
 })
 
-vim.opt.background = 'dark'
-vim.cmd([[colorscheme vscode]])
+require('vscode').change_style('dark')
+
+-- vim.opt.background = 'dark'
+--vim.cmd([[colorscheme vscode]])
