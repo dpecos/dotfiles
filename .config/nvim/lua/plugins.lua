@@ -110,6 +110,8 @@ packer.startup(function(use)
 
   use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
 
+  use { 'lewis6991/gitsigns.nvim' }
+
   if packer_bootstrap then
     require('packer').sync()
   end

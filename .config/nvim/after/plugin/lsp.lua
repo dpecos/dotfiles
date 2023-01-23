@@ -22,32 +22,38 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   vim.api.nvim_buf_set_option(bufnr, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
 
-  local nmap = function(keys, func, desc)
-    if desc then
-      desc = 'LSP: ' .. desc
-    end
+  local function map(scope, mode, keys, func, opts)
+    opts.buffer = bufnr
+    opts.desc = (scope or 'Unknown scope') .. ': ' .. opts.desc
 
-    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+    vim.keymap.set(mode, keys, func, opts)
   end
 
-  nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-  nmap('gDv', ':vsplit | lua vim.lsp.buf.declaration()<CR>', '[G]oto [D]eclaration (vertical split)')
-  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-  nmap('gdv', ':vsplit | lua vim.lsp.buf.definition()<CR>', '[G]oto [D]efinition (vertical split)')
-  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-  nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-  nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-  nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  local nmap_lsp = function(keys, func, desc, opts)
+    opts = opts or {}
+    opts.desc = desc
 
-  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-  nmap('<leader>cd', vim.diagnostic.open_float, '[C]ode [D]iagnostic')
+    map('LSP', 'n', keys, func, opts)
+  end
+
+  nmap_lsp('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+  nmap_lsp('gDv', ':vsplit | lua vim.lsp.buf.declaration()<CR>', '[G]oto [D]eclaration (vertical split)')
+  nmap_lsp('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+  nmap_lsp('gdv', ':vsplit | lua vim.lsp.buf.definition()<CR>', '[G]oto [D]efinition (vertical split)')
+  nmap_lsp('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+  nmap_lsp('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+  nmap_lsp('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+  nmap_lsp('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+  nmap_lsp('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+
+  nmap_lsp('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+  nmap_lsp('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  nmap_lsp('<leader>cd', vim.diagnostic.open_float, '[C]ode [D]iagnostic')
 
 
-  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+  nmap_lsp('K', vim.lsp.buf.hover, 'Hover Documentation')
   --nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
-  nmap('<leader>k', vim.lsp.buf.signature_help, 'Signature Documentation')
+  nmap_lsp('<leader>k', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   --nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
@@ -57,17 +63,59 @@ local on_attach = function(client, bufnr)
   --end, '[W]orkspace [L]ist Folders')
 
   if client.server_capabilities.documentFormattingProvider then
-    nmap('<leader>f', function() vim.lsp.buf.format { async = true } end, '[F]ormat current buffer (DFP)')
+    nmap_lsp('<leader>f', function() vim.lsp.buf.format { async = true } end, '[F]ormat current buffer (DFP)')
     vim.cmd [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.format() ]]
   else
-    nmap('<leader>f', ':Format<cr>', '[F]ormat current buffer (Formatter)')
+    nmap_lsp('<leader>f', ':Format<cr>', '[F]ormat current buffer (Formatter)')
     vim.cmd [[ autocmd BufWritePre <buffer> FormatWrite ]]
   end
 
-  nmap('[d', vim.diagnostic.goto_prev, 'Previous diagnostic')
-  nmap(']d', vim.diagnostic.goto_next, 'Next diagnostic')
-  nmap('[e', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, 'Previous error')
-  nmap(']e', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, 'Next error')
+  nmap_lsp('[d', vim.diagnostic.goto_prev, 'Previous diagnostic')
+  nmap_lsp(']d', vim.diagnostic.goto_next, 'Next diagnostic')
+  nmap_lsp('[e', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, 'Previous error')
+  nmap_lsp(']e', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, 'Next error')
+
+  local map_gs = function(mode, keys, func, desc, opts)
+    opts = opts or {}
+    opts.desc = desc
+
+    map('GitSigns', 'n', keys, func, opts)
+  end
+
+  local nmap_gs = function(keys, func, desc, opts)
+    map_gs('n', keys, func, desc, opts)
+  end
+
+  local gs = package.loaded.gitsigns
+
+  -- Navigation
+  nmap_gs(']c', function()
+    if vim.wo.diff then return ']c' end
+    vim.schedule(function() gs.next_hunk() end)
+    return '<Ignore>'
+  end, 'Next [c]hange', { expr = true })
+
+  nmap_gs('[c', function()
+    if vim.wo.diff then return '[c' end
+    vim.schedule(function() gs.prev_hunk() end)
+    return '<Ignore>'
+  end, 'Previous [c]hange', { expr = true })
+
+  -- Actions
+  map_gs({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>', '[h]unk [s]tage')
+  map_gs({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>', '[h]unk [r]eset')
+  nmap_gs('<leader>hS', gs.stage_buffer, 'stage buffer')
+  nmap_gs('<leader>hu', gs.undo_stage_hunk, '[h]unk [u]nstage')
+  nmap_gs('<leader>hR', gs.reset_buffer, 'reset buffer')
+  nmap_gs('<leader>hp', gs.preview_hunk, '[h]unk [p]review')
+  nmap_gs('<leader>hb', function() gs.blame_line { full = true } end, '[h]unk [b]lame')
+  nmap_gs('<leader>tb', gs.toggle_current_line_blame, '[t]oggle [b]lame for current line')
+  nmap_gs('<leader>hd', gs.diffthis, '[h]unk [d]iff')
+  nmap_gs('<leader>hD', function() gs.diffthis('~') end, '[h]unk [d]iff ~')
+  nmap_gs('<leader>td', gs.toggle_deleted, '[t]oggle [d]eleted')
+
+  -- Text object
+  map_gs({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', 'select hunk')
 end
 
 local lsp = require('lsp-zero')
