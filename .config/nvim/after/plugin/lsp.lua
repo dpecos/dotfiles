@@ -71,12 +71,22 @@ local on_attach = function(client, bufnr)
 end
 
 local lsp = require('lsp-zero')
+
+-- enable icons columns
+lsp.set_sign_icons()
+
+-- enable diagnostic test at the EOL where the problem is
+vim.diagnostic.config({
+  virtual_text = true,
+})
+
+-- This is the default configuration that lsp-zero offers
 -- lsp.preset('recommended')
 -- lsp.ensure_installed(ensure_installed)
 -- lsp.on_attach(on_attach)
 -- lsp.setup()
 
--- This is required by nvim-ufo to enable folds based on LSP
+-- This is how you would setup aditional capabilities in LSP
 -- https://dev.to/vonheikemen/make-lsp-zeronvim-coexists-with-other-plugins-instead-of-controlling-them-2i80
 require('mason').setup()
 require('mason-lspconfig').setup({
@@ -97,9 +107,4 @@ require('mason-lspconfig').setup_handlers({
   function(server_name)
     require('lspconfig')[server_name].setup({})
   end
-})
-
-lsp.set_sign_icons()
-vim.diagnostic.config({
-  virtual_text = true,
 })
