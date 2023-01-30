@@ -36,20 +36,11 @@ vim.keymap.set("n", "<leader>nh", ":nohl<CR>")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
---
--- Select pasted text
-vim.cmd("nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'")
-
--- Maintain the cursor position when yanking a visual selection
--- http://ddrscott.github.io/blog/2016/yank-without-jank/
-vim.keymap.set("v", "y", "myy`y")
-vim.keymap.set("v", "Y", "myY`y")
-
 -- copy / paste to system clipboard
-vim.keymap.set('n', '<leader>y', '"+yy')
-vim.keymap.set('v', '<leader>y', '"+y')
-vim.keymap.set({ 'n', 'v' }, '<leader>P', '"+P')
+vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+Y')
+vim.keymap.set({ 'n', 'v' }, '<leader>Y', '"+y$')
 vim.keymap.set({ 'n', 'v' }, '<leader>p', '"+p')
+vim.keymap.set({ 'n', 'v' }, '<leader>P', '"+P')
 vim.keymap.set("i", "<C-v>", "<Esc>\"+pa")
 
 -- Paste over currently selected text without yanking it
@@ -57,6 +48,14 @@ vim.keymap.set("v", "p", '"_dP')
 
 -- Delete without copying
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+
+-- Select pasted text
+vim.cmd("nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'")
+
+-- Maintain the cursor position when yanking a visual selection
+-- http://ddrscott.github.io/blog/2016/yank-without-jank/
+vim.keymap.set("v", "y", "myy`y")
+vim.keymap.set("v", "Y", "myY`y")
 
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
