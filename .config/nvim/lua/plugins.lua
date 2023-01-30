@@ -102,6 +102,7 @@ packer.startup(function(use)
   }
 
   use { 'christoomey/vim-tmux-navigator' }
+
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
 
   use 'mbbill/undotree'

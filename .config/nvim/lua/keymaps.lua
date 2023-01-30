@@ -67,28 +67,15 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",
 })
 
--- Better window navigation
---vim.keymap.set("n", "<C-h>", "<C-w>h")
---vim.keymap.set("n", "<C-j>", "<C-w>j")
---vim.keymap.set("n", "<C-k>", "<C-w>k")
---vim.keymap.set("n", "<C-l>", "<C-w>l")
+-- split
+vim.keymap.set("n", "<C-w>|", "<C-w>v")
+vim.keymap.set("n", "<C-w>-", "<C-w>s")
 
--- Use alt + hjkl to resize windows
-vim.api.nvim_set_keymap('n', '<M-j>', ':resize -2<CR>', {})
-vim.api.nvim_set_keymap('n', '<M-k>', ':resize +2<CR>', {})
-vim.api.nvim_set_keymap('n', '<M-h>', ':vertical resize -2<CR>', {})
-vim.api.nvim_set_keymap('n', '<M-l>', ':vertical resize +2<CR>', {})
-
--- window management
-vim.keymap.set("n", "<leader>sv", "<C-w>v") -- split window vertically
-vim.keymap.set("n", "<leader>sh", "<C-w>s") -- split window horizontally
-vim.keymap.set("n", "<leader>se", "<C-w>=") -- make split windows equal width & height
-vim.keymap.set("n", "<leader>sx", ":close<CR>") -- close current split window
-
--- vim.keymap.set("n", "<leader>to", ":tabnew<CR>") -- open new tab
--- vim.keymap.set("n", "<leader>tx", ":tabclose<CR>") -- close current tab
--- vim.keymap.set("n", "<leader>tn", ":tabn<CR>") --  go to next tab
--- vim.keymap.set("n", "<leader>tp", ":tabp<CR>") --  go to previous tab
+-- split resize
+vim.keymap.set("n", "<C-w><Left>", "<C-w><5")
+vim.keymap.set("n", "<C-w><Right>", "<C-w>>5")
+vim.keymap.set("n", "<C-w><Up>", "<C-w>+5")
+vim.keymap.set("n", "<C-w><Down>", "<C-w>-5")
 
 -- classic mistakes
 -- saving with :W instead of :w

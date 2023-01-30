@@ -52,7 +52,6 @@ local on_attach = function(client, bufnr)
 
 
   nmap_lsp('K', vim.lsp.buf.hover, 'Hover Documentation')
-  --nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
   nmap_lsp('<leader>k', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
@@ -149,7 +148,8 @@ lsp.extend_lspconfig({
         lineFoldingOnly = true
       }
     }
-  }
+  },
+  set_lsp_keymaps = { omit = { '<C-k>' } } -- clashes with vim-tmux-navigator
 })
 require('mason-lspconfig').setup_handlers({
   function(server_name)
