@@ -121,6 +121,11 @@ packer.startup(function(use)
     }
   }
 
+  use {
+    "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim"
+  }
+
   if packer_bootstrap then
     require('packer').sync()
   end
