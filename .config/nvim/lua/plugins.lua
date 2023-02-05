@@ -113,6 +113,14 @@ packer.startup(function(use)
 
   use { 'lewis6991/gitsigns.nvim' }
 
+  use {
+    "ThePrimeagen/refactoring.nvim",
+    requires = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-treesitter/nvim-treesitter" }
+    }
+  }
+
   if packer_bootstrap then
     require('packer').sync()
   end
