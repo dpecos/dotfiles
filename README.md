@@ -77,7 +77,7 @@ brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions exa neo
 Linux:
 
 ```
-yay -S zsh-syntax-highlighting zsh-autosuggestions zsh-completions exa fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf bat difftastic lfs tokei tealdeer
+yay -S zsh-syntax-highlighting zsh-autosuggestions zsh-completions exa fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf bat difftastic lfs tokei tealdeer kwalletcli
 ```
 
 ## Terminal apps configuration
