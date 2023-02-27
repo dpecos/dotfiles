@@ -68,14 +68,16 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- split
-vim.keymap.set("n", "<C-w>|", "<C-w>v")
-vim.keymap.set("n", "<C-w>-", "<C-w>s")
+vim.keymap.set("n", "<C-w>f", function()
+  require("nvim-tree.api").tree.close()
+  require("toggle-fullscreen"):toggle_fullscreen()
+end, { desc = 'Toggle split fullscreen' })
 
 -- split resize
-vim.keymap.set("n", "<C-w><Left>", "<C-w><5")
-vim.keymap.set("n", "<C-w><Right>", "<C-w>>5")
-vim.keymap.set("n", "<C-w><Up>", "<C-w>+5")
-vim.keymap.set("n", "<C-w><Down>", "<C-w>-5")
+vim.keymap.set("n", "<C-w><Left>", "<C-w><5", { desc = "Increase split size - left" })
+vim.keymap.set("n", "<C-w><Right>", "<C-w>>5", { desc = "Increase split size - right" })
+vim.keymap.set("n", "<C-w><Up>", "<C-w>+5", { desc = "Increase split size - up" })
+vim.keymap.set("n", "<C-w><Down>", "<C-w>-5", { desc = "Increase split size - down" })
 
 -- classic mistakes
 -- saving with :W instead of :w
