@@ -2,7 +2,7 @@ local ensure_installed = {
   'tsserver',
   -- 'eslint',
   'ltex',
-  'sumneko_lua',
+  'lua_ls',
   'jsonls',
   'yamlls',
   'bashls',
@@ -117,42 +117,89 @@ local on_attach = function(client, bufnr)
   map_gs({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', 'select hunk')
 end
 
-local lsp = require('lsp-zero')
-
--- enable icons columns
-lsp.set_sign_icons()
-
 -- enable diagnostic test at the EOL where the problem is
 vim.diagnostic.config({
   virtual_text = true,
 })
 
--- This is the default configuration that lsp-zero offers
--- lsp.preset('recommended')
--- lsp.ensure_installed(ensure_installed)
--- lsp.on_attach(on_attach)
--- lsp.setup()
+-- enable signs column
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
 
--- This is how you would setup aditional capabilities in LSP
--- https://dev.to/vonheikemen/make-lsp-zeronvim-coexists-with-other-plugins-instead-of-controlling-them-2i80
+-- autocomplete
+local cmp = require('cmp')
+cmp.setup({
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+  }, {
+    { name = 'buffer' },
+  }),
+  window = {
+    -- completion = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
+  },
+})
+
+-- Set configuration for specific filetype.
+cmp.setup.filetype('gitcommit', {
+  sources = cmp.config.sources({
+    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
+
+
+local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+-- folds
+lsp_capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true
+}
+
+-- LSP setup
 require('mason').setup()
-require('mason-lspconfig').setup({
+local masonLsp = require('mason-lspconfig')
+local lspconfig = require('lspconfig')
+
+masonLsp.setup({
   ensure_installed = ensure_installed
 })
-lsp.extend_lspconfig({
-  on_attach = on_attach,
-  capabilities = {
-    textDocument = {
-      foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true
-      }
-    }
-  },
-  set_lsp_keymaps = { omit = { '<C-k>' } } -- clashes with vim-tmux-navigator
-})
-require('mason-lspconfig').setup_handlers({
+
+masonLsp.setup_handlers({
   function(server_name)
-    require('lspconfig')[server_name].setup({})
-  end
+    lspconfig[server_name].setup({
+      on_attach = on_attach,
+      capabilities = lsp_capabilities,
+    })
+  end,
 })

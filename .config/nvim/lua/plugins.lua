@@ -29,25 +29,19 @@ packer.startup(function(use)
     after = 'nvim-treesitter',
   }
 
+  use { 'hrsh7th/nvim-cmp', }
+  -- nvim-cmp dependencies but can't be listed as requires because of lazyloading
+  use { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp' }
+  use { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' }
+  use { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' }
+  use { 'hrsh7th/cmp-path', after = 'nvim-cmp' }
+  use { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' }
+
   use {
-    'VonHeikemen/lsp-zero.nvim',
+    'neovim/nvim-lspconfig',
     requires = {
-      -- LSP Support
-      { 'neovim/nvim-lspconfig' },
-      { 'williamboman/mason.nvim' },
-      { 'williamboman/mason-lspconfig.nvim' },
-
-      -- Autocompletion
-      { 'hrsh7th/nvim-cmp' },
-      { 'hrsh7th/cmp-buffer' },
-      { 'hrsh7th/cmp-path' },
-      { 'saadparwaiz1/cmp_luasnip' },
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/cmp-nvim-lua' },
-
-      -- Snippets
-      { 'L3MON4D3/LuaSnip' },
-      { 'rafamadriz/friendly-snippets' },
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
     }
   }
 
