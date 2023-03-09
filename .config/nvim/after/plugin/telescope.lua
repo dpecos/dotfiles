@@ -1,5 +1,8 @@
 local telescope = require('telescope')
 telescope.setup({
+  defaults = {
+    path_display = { "smart" }
+  },
   pickers = {
     find_files = {
       hidden = true

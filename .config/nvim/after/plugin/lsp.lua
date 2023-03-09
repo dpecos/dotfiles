@@ -131,13 +131,44 @@ end
 
 -- autocomplete
 local cmp = require('cmp')
+
+local has_words_before = function()
+  unpack = unpack or table.unpack
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
+end
+
+local select_next = function(fallback)
+  if not cmp.select_next_item() then
+    if vim.bo.buftype ~= 'prompt' and has_words_before() then
+      cmp.complete()
+    else
+      fallback()
+    end
+  end
+end
+
+local select_previous = function(fallback)
+  if not cmp.select_prev_item() then
+    if vim.bo.buftype ~= 'prompt' and has_words_before() then
+      cmp.complete()
+    else
+      fallback()
+    end
+  end
+end
+
 cmp.setup({
   mapping = cmp.mapping.preset.insert({
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-b>'] = cmp.mapping.scroll_docs( -4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
     ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<C-Space>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    -- ['<C-Space>'] = cmp.mapping.complete(),
+    ["<C-P>"] = cmp.mapping(select_next, { "i", "s" }),
+    ["<Tab>"] = cmp.mapping(select_next, { "i", "s" }),
+    ["<S-Tab>"] = cmp.mapping(select_previous, { "i", "s" }),
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
