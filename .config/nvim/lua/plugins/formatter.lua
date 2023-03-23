@@ -43,13 +43,13 @@ local setup = function()
       }
     }
   }
-
-  vim.keymap.set('n', '<leader>F', ':Format<cr>', { desc = '[Format] file using formatter plugin' })
 end
 
 return {
   "mhartington/formatter.nvim",
-  event = 'VeryLazy',
+  keys = {
+    {'<leader>F', ':Format<cr>', desc = '[Format] file using formatter plugin' }
+  },
   config = function()
     setup()
   end
