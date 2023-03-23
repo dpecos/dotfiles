@@ -12,14 +12,4 @@ use { 'preservim/vimux',   -- Interact with Tmux panes
   },
 }
 
-use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
-
 use 'mbbill/undotree'
-
-use {
-  "ThePrimeagen/refactoring.nvim",
-  requires = {
-    { "nvim-lua/plenary.nvim" },
-    { "nvim-treesitter/nvim-treesitter" }
-  }
-}
