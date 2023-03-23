@@ -2,7 +2,7 @@ local ensure_installed = {
   'tsserver',
   -- 'eslint',
   'ltex',
-  'lua_ls',
+  'luau_lsp',
   'jsonls',
   'yamlls',
   'bashls',
@@ -117,120 +117,61 @@ local on_attach = function(client, bufnr)
   map_gs({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', 'select hunk')
 end
 
--- enable diagnostic test at the EOL where the problem is
-vim.diagnostic.config({
-  virtual_text = true,
-})
-
--- enable signs column
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
-
--- autocomplete
-local cmp = require('cmp')
-
-local has_words_before = function()
-  unpack = unpack or table.unpack
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
-end
-
-local select_next = function(fallback)
-  if not cmp.select_next_item() then
-    if vim.bo.buftype ~= 'prompt' and has_words_before() then
-      cmp.complete()
-    else
-      fallback()
-    end
-  end
-end
-
-local select_previous = function(fallback)
-  if not cmp.select_prev_item() then
-    if vim.bo.buftype ~= 'prompt' and has_words_before() then
-      cmp.complete()
-    else
-      fallback()
-    end
-  end
-end
-
-cmp.setup({
-  mapping = cmp.mapping.preset.insert({
-    ['<C-b>'] = cmp.mapping.scroll_docs( -4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    ['<C-Space>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    -- ['<C-Space>'] = cmp.mapping.complete(),
-    ["<C-P>"] = cmp.mapping(select_next, { "i", "s" }),
-    ["<Tab>"] = cmp.mapping(select_next, { "i", "s" }),
-    ["<S-Tab>"] = cmp.mapping(select_previous, { "i", "s" }),
-  }),
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-  }, {
-    { name = 'buffer' },
-  }),
-  window = {
-    -- completion = cmp.config.window.bordered(),
-    -- documentation = cmp.config.window.bordered(),
-  },
-})
-
--- Set configuration for specific filetype.
-cmp.setup.filetype('gitcommit', {
-  sources = cmp.config.sources({
-    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-  }, {
-    { name = 'buffer' },
+local setup = function()
+  -- enable diagnostic test at the EOL where the problem is
+  vim.diagnostic.config({
+    virtual_text = true,
   })
-})
 
--- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline({ '/', '?' }, {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' }
+  -- enable signs column
+  local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+  for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+  end
+
+  local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+  -- folds
+  lsp_capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
   }
-})
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
+  -- LSP setup
+  require('mason').setup()
+  local masonLsp = require('mason-lspconfig')
+  local lspconfig = require('lspconfig')
+
+  masonLsp.setup({
+    ensure_installed = ensure_installed
   })
-})
 
+  masonLsp.setup_handlers({
+    function(server_name)
+      lspconfig[server_name].setup({
+        on_attach = on_attach,
+        capabilities = lsp_capabilities,
+      })
+    end,
+  })
 
-local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+  require('fidget').setup({})
+end
 
--- folds
-lsp_capabilities.textDocument.foldingRange = {
-  dynamicRegistration = false,
-  lineFoldingOnly = true
+return {
+  'neovim/nvim-lspconfig',
+  dependencies = {
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
+
+    'hrsh7th/nvim-cmp',
+
+    'lewis6991/gitsigns.nvim',
+
+    'j-hui/fidget.nvim'
+  },
+  config = function()
+    setup()
+  end
 }
-
--- LSP setup
-require('mason').setup()
-local masonLsp = require('mason-lspconfig')
-local lspconfig = require('lspconfig')
-
-masonLsp.setup({
-  ensure_installed = ensure_installed
-})
-
-masonLsp.setup_handlers({
-  function(server_name)
-    lspconfig[server_name].setup({
-      on_attach = on_attach,
-      capabilities = lsp_capabilities,
-    })
-  end,
-})

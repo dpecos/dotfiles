@@ -22,9 +22,13 @@ end
 
 M.setup = function(options)
   for _, key in ipairs(options.keys) do
-    M.map('n', key .. key, ':lua require("local_plugins/toggle_char").toggle("' .. key .. '")<CR>',
+    M.map('n', key .. key, ':lua require("plugins/local/toggle_char").toggle("' .. key .. '")<CR>',
       { noremap = true, silent = true })
   end
 end
+
+--M.setup({
+--  keys = { ',', ';' }
+--})
 
 return M

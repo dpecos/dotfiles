@@ -1,8 +1,8 @@
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 
-local g = vim.g       -- Global variables
-local opt = vim.opt   -- Set options (global/buffer/windows-scoped)
+local g = vim.g     -- Global variables
+local opt = vim.opt -- Set options (global/buffer/windows-scoped)
 
 -- disable netrw
 g.loaded_netrw = 1
@@ -54,8 +54,10 @@ opt.splitright = true -- split vertical window to the right
 opt.splitbelow = true -- split horizontal window to the bottom
 
 -- optimizations
-opt.hidden = true -- Enable background buffers
+opt.hidden = true     -- Enable background buffers
 --opt.history = 100 -- Remember N lines in history
 opt.lazyredraw = true -- Faster scrolling
 --opt.synmaxcol = 240 -- Max column for syntax highlight
-opt.updatetime = 250 -- ms to wait for trigger an event
+opt.updatetime = 250  -- ms to wait for trigger an event
+
+--vim.opt.winbar = "%=%m %f"
