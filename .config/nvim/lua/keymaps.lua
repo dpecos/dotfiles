@@ -18,10 +18,14 @@ vim.api.nvim_set_keymap('n', '<leader>vk', ':edit ~/.config/nvim/lua/keymaps.lua
 vim.api.nvim_set_keymap('n', '<leader>vp', ':edit ~/.config/nvim/lua/plugins.lua<CR>', { desc = 'Edit plugins file' })
 vim.api.nvim_set_keymap('n', '<leader>vs', ':edit ~/.config/nvim/lua/settings.lua<CR>', { desc = 'Edit settings file' })
 
+-- Remap for dealing with word wrap
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
 -- Move selected lines up and down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
---
+
 -- Keep movements centered
 vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")

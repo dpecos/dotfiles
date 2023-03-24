@@ -21,6 +21,7 @@ local setup_treesitter = function()
       additional_vim_regex_highlighting = false,
     },
   }
+  -- pcall(require('nvim-treesitter.install').update { with_sync = true })
 end
 
 local setup_treesitter_textobjects = function()
