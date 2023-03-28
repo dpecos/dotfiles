@@ -18,7 +18,8 @@ local setup = function()
   })
 
   -- Enable telescope fzf native, if installed
-  pcall(telescope.load_extension, 'fzf')
+  -- pcall(telescope.load_extension, 'fzf')
+  -- telescope.load_extension('fzf')
 
   -- See `:help telescope.builtin`
   local builtin = require('telescope.builtin')

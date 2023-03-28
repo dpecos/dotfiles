@@ -50,6 +50,7 @@ return {
   keys = {
     {'<leader>F', ':Format<cr>', desc = '[Format] file using formatter plugin' }
   },
+  cmd = 'FormatWrite',
   config = function()
     setup()
   end
