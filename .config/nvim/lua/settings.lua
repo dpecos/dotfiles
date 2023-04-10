@@ -30,6 +30,9 @@ opt.colorcolumn = "80"
 -- Set completeopt to have a better completion experience
 opt.completeopt = 'menuone,noselect'
 
+-- EditorConfig
+g.editorconfig = true
+
 -- Text indentation
 opt.tabstop = 2
 opt.softtabstop = 2
@@ -61,3 +64,8 @@ opt.lazyredraw = true -- Faster scrolling
 opt.updatetime = 250  -- ms to wait for trigger an event
 
 --vim.opt.winbar = "%=%m %f"
+
+-- cmd info in status line
+-- opt.cmdheight = 0
+-- opt.statusline = "%f - %y %=%S %l / %L"
+-- opt.showcmdloc = "statusline"
