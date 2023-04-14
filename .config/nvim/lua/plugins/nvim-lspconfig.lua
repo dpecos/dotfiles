@@ -205,7 +205,7 @@ local setup = function()
     sources = {
       -- b.formatting.stylua,
       b.formatting.prettier,
-      b.formatting.prettier_eslint,
+      -- b.formatting.prettier_eslint,
       -- b.formatting.eslint_d,
       -- b.formatting.eslint,
       -- b.formatting.black,
