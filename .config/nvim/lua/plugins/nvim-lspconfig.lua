@@ -13,7 +13,7 @@ local servers = {
     }
   },
   gopls = {},
-  luau_lsp = {
+  lua_ls = {
     settings = {
       Lua = {
         diagnostics = {
@@ -87,23 +87,15 @@ local on_attach = function(client, bufnr)
   nmap_lsp('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
   nmap_lsp('<leader>cd', vim.diagnostic.open_float, '[C]ode [D]iagnostic')
 
-
   nmap_lsp('K', vim.lsp.buf.hover, 'Hover Documentation')
   nmap_lsp('<leader>k', vim.lsp.buf.signature_help, 'Signature Documentation')
 
-  -- Lesser used LSP functionality
-  --nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-  --nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-  --nmap('<leader>wl', function()
-  --  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  --end, '[W]orkspace [L]ist Folders')
-
   if client.server_capabilities.documentFormattingProvider then
     nmap_lsp('<leader>f', function() vim.lsp.buf.format { async = true } end, '[F]ormat current buffer (DFP)')
-    vim.cmd [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.format() ]]
+    -- vim.cmd [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.format() ]]
   else
     nmap_lsp('<leader>f', ':Format<cr>', '[F]ormat current buffer (Formatter)')
-    vim.cmd [[ autocmd BufWritePre <buffer> FormatWrite ]]
+    -- vim.cmd [[ autocmd BufWritePre <buffer> FormatWrite ]]
   end
 
   nmap_lsp('[d', vim.diagnostic.goto_prev, 'Previous diagnostic')
@@ -205,6 +197,28 @@ local setup = function()
   })
 
   require('fidget').setup({})
+
+  -- null-ls
+  local null_ls = require("null-ls")
+  local b = null_ls.builtins
+  null_ls.setup({
+    sources = {
+      -- b.formatting.stylua,
+      b.formatting.prettier,
+      b.formatting.prettier_eslint,
+      -- b.formatting.eslint_d,
+      -- b.formatting.eslint,
+      -- b.formatting.black,
+      -- b.formatting.shfmt,
+      -- b.formatting.goimports,
+      -- b.formatting.gofumpt,
+      -- b.formatting.gofmt,
+      -- b.formatting.rustfmt,
+      -- b.formatting.lua_format,
+      -- b.formatting.lua_fmt,
+      -- b.formatting.sqlform
+    }
+  })
 end
 
 return {
@@ -214,6 +228,8 @@ return {
     'williamboman/mason-lspconfig.nvim',
 
     'hrsh7th/nvim-cmp',
+
+    "jose-elias-alvarez/null-ls.nvim",
 
     'lewis6991/gitsigns.nvim',
 
