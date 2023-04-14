@@ -1,13 +1,50 @@
-local ensure_installed = {
-  'tsserver',
-  -- 'eslint',
-  'ltex',
-  'luau_lsp',
-  'jsonls',
-  'yamlls',
-  'bashls',
-  'prosemd_lsp',
-  'rust_analyzer'
+local servers = {
+  tsserver = {},
+  rust_analyzer = {
+    settings = {
+      ['rust-analyzer'] = {
+        diagnostics = {
+          enable = true,
+          experimental = {
+            enable = true,
+          },
+        },
+      }
+    }
+  },
+  gopls = {},
+  luau_lsp = {
+    settings = {
+      Lua = {
+        diagnostics = {
+          -- Get the language server to recognize the `vim` global
+          globals = { 'vim' }
+        },
+        workspace = {
+          -- Make the server aware of Neovim runtime files
+          -- library = vim.api.nvim_get_runtime_file("", true),
+          library = {
+            vim.fn.stdpath("config"),
+          },
+          checkThirdParty = false
+        },
+        -- Do not send telemetry data containing a randomized but unique identifier
+        telemetry = {
+          enable = false
+        }
+      }
+    }
+  },
+  jsonls = {},
+  yamlls = {
+    settings = {
+      yaml = {
+        keyOrdering = false
+      }
+    }
+  },
+  bashls = {},
+  prosemd_lsp = {},
 }
 
 local on_attach = function(client, bufnr)
@@ -120,7 +157,10 @@ end
 local setup = function()
   -- enable diagnostic test at the EOL where the problem is
   vim.diagnostic.config({
-    virtual_text = true,
+    virtual_text = {
+      prefix = '●',
+      spacing = 0,
+    }
   })
 
   -- enable signs column
@@ -143,16 +183,24 @@ local setup = function()
   local masonLsp = require('mason-lspconfig')
   local lspconfig = require('lspconfig')
 
+  local ensure_installed = vim.tbl_keys(servers)
   masonLsp.setup({
     ensure_installed = ensure_installed
   })
 
   masonLsp.setup_handlers({
     function(server_name)
-      lspconfig[server_name].setup({
+      local config = servers[server_name]
+      if type(config) ~= "table" then
+        config = {}
+      end
+
+      config = vim.tbl_deep_extend("force", {
         on_attach = on_attach,
         capabilities = lsp_capabilities,
-      })
+      }, config)
+
+      lspconfig[server_name].setup(config)
     end,
   })
 
