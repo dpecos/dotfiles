@@ -9,6 +9,7 @@ local function on_attach(bufnr)
   vim.keymap.set('n', 'v',     api.node.open.vertical,                opts('Open: Vertical Split'))
   vim.keymap.set('n', 'h',     api.node.open.horizontal,              opts('Open: Horizontal Split'))
   vim.keymap.set('n', '<Tab>', api.node.open.preview,                 opts('Open Preview'))
+  vim.keymap.set('n', '<2-LeftMouse>',  api.node.open.edit,           opts('Open'))
 
   vim.keymap.set('n', 'a',     api.fs.create,                         opts('Create'))
   vim.keymap.set('n', 'yy',    api.fs.copy.node,                      opts('Copy'))
@@ -25,7 +26,7 @@ end
 
 local setup = function()
 
-  require 'nvim-tree'.setup {
+  require("nvim-tree").setup({
     hijack_cursor = true,
     view = {
       width = 50,
@@ -54,9 +55,6 @@ local setup = function()
         },
       },
     },
-  }
-
-  require("nvim-tree").setup({
     on_attach = on_attach,
   })
 
