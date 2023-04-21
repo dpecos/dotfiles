@@ -86,3 +86,12 @@ vim.keymap.set("n", "<C-w><Down>", "<C-w>-5", { desc = "Increase split size - do
 -- classic mistakes
 -- saving with :W instead of :w
 vim.cmd("cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))")
+
+-- don't yank an empty line into your default register (https://www.reddit.com/r/neovim/comments/12rqyl8/5_smart_minisnippets_for_making_text_editing_more/)
+vim.keymap.set("n", "dd", function()
+  if vim.api.nvim_get_current_line():match("^%s*$") then
+    return '"_dd'
+  else
+    return "dd"
+  end
+end, { expr = true })
