@@ -38,6 +38,7 @@ local setup = function()
       ['<C-p>'] = cmp.mapping(select_next, { "i", "s" }),
       -- ['<Tab>'] = cmp.mapping(select_next, { "i", "s" }),
       -- ['<S-Tab>'] = cmp.mapping(select_previous, { "i", "s" }),
+      --
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
