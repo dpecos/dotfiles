@@ -45,6 +45,7 @@ local servers = {
   },
   bashls = {},
   prosemd_lsp = {},
+  terraformls = {}
 }
 
 local on_attach = function(client, bufnr)
