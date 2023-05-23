@@ -95,3 +95,9 @@ vim.keymap.set("n", "dd", function()
     return "dd"
   end
 end, { expr = true })
+
+-- close quickfix / locations menu after selecting choice
+vim.api.nvim_create_autocmd( "FileType", {
+  pattern={"qf"},
+  command=[[nnoremap <buffer> <CR> <CR>:cclose<CR>]]
+})
