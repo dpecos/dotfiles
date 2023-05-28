@@ -2,17 +2,19 @@ window:
   #startup_mode: Fullscreen
   dimensions:
     columns: 190
-    lines: 60
+    lines: 50
 
 font:
   normal:
     # family: Hack
     family: SauceCodePro Nerd Font
     style: Regular
-  size: 12
+  size: 10
 
 env:
-  WINIT_X11_SCALE_FACTOR: "0.8"
+  # WAYLAND_DISPLAY: ""
+  # WINIT_UNIX_BACKEND: x11
+  WINIT_X11_SCALE_FACTOR: "1.0"
 
 key_bindings:
   - { key: F11, action: ToggleFullscreen }
