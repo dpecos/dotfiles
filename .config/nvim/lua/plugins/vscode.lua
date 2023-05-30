@@ -5,7 +5,7 @@ return {
     require('vscode').setup({
       style = 'dark',
 
-      transparent = false,
+      transparent = true,
 
       -- Enable italic comment
       italic_comments = true,

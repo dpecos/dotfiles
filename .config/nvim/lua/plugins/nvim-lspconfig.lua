@@ -197,7 +197,11 @@ local setup = function()
     end,
   })
 
-  require('fidget').setup({})
+  require('fidget').setup({
+    window = {
+      blend = 0 -- transparent
+    }
+  })
 
   -- null-ls
   local null_ls = require("null-ls")

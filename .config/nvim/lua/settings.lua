@@ -25,7 +25,7 @@ opt.smartcase = true
 
 -- Set colorscheme
 opt.termguicolors = true
-opt.colorcolumn = "80"
+--opt.colorcolumn = "80"
 
 -- Set completeopt to have a better completion experience
 opt.completeopt = 'menuone,noselect'
