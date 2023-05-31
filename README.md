@@ -9,6 +9,7 @@ IMPORTANT: before initializing the home directory, setup ssh keys for GitLab and
     home remote add origin git@github.com:dpecos/dotfiles.git
     home fetch --all
     home reset --hard origin/master
+    home branch --set-upstream-to=origin/master master
 
 ### Setup toggles
 
