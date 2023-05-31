@@ -145,6 +145,9 @@ local on_attach = function(client, bufnr)
 
   -- Text object
   map_gs({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', 'select hunk')
+
+  -- Symbols
+  nmap_lsp('<leader>s', require('symbols-outline').toggle_outline, 'Tooggle [S]ymbols outline')
 end
 
 local setup = function()
