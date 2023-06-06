@@ -12,6 +12,7 @@
   a = add
   ci = commit
   ca = commit --amend
+  ac = commit -a -m
   co = checkout
   cp = cherry-pick
   p = pull
