@@ -241,7 +241,7 @@ return {
 
     'lewis6991/gitsigns.nvim',
 
-    'j-hui/fidget.nvim'
+    { 'j-hui/fidget.nvim', tag = 'legacy' }
   },
   config = function()
     setup()
