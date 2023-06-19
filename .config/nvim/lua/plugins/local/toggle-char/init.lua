@@ -2,6 +2,13 @@
 local M = {}
 
 M.toggle = function(character)
+  local buf = vim.api.nvim_get_current_buf()
+  local modifiable = vim.api.nvim_buf_get_option(buf, 'modifiable')
+
+  if not modifiable then
+    return
+  end
+
   local api = vim.api
   local delimiters = { ',', ';' }
   local line = api.nvim_get_current_line()
@@ -26,9 +33,5 @@ M.setup = function(options)
       { noremap = true, silent = true, desc = 'Toggle end char "' .. key .. '"'})
   end
 end
-
---M.setup({
---  keys = { ',', ';' }
---})
 
 return M
