@@ -150,13 +150,20 @@ local on_attach = function(client, bufnr)
   nmap_lsp('<leader>s', require('symbols-outline').toggle_outline, 'Tooggle [S]ymbols outline')
 end
 
+local _border = "single"
+
 local setup = function()
+  -- bordered floating windows
+  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = _border })
+  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = _border })
+
   -- enable diagnostic test at the EOL where the problem is
   vim.diagnostic.config({
     virtual_text = {
       prefix = '●',
       -- spacing = 0,
-    }
+    },
+    float = { border = _border }
   })
 
   -- enable signs column
