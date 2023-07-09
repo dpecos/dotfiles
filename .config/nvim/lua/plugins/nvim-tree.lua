@@ -112,8 +112,8 @@ local setup = function()
       -- &ft
       local filetype = vim.bo[data.buf].ft
 
-      -- only files please
-      if not real_file and not no_name then
+      -- real files do not open the tree
+      if real_file or not no_name then
         return
       end
 
