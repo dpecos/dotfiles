@@ -1,5 +1,6 @@
 local servers = {
-  tsserver = {},
+  --tsserver = {},
+  eslint = {},
   rust_analyzer = {
     settings = {
       ['rust-analyzer'] = {
@@ -93,10 +94,6 @@ local on_attach = function(client, bufnr)
 
   if client.server_capabilities.documentFormattingProvider then
     nmap_lsp('<leader>f', function() vim.lsp.buf.format { async = true } end, '[F]ormat current buffer (DFP)')
-    -- vim.cmd [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.format() ]]
-  else
-    nmap_lsp('<leader>f', ':Format<cr>', '[F]ormat current buffer (Formatter)')
-    -- vim.cmd [[ autocmd BufWritePre <buffer> FormatWrite ]]
   end
 
   nmap_lsp('[d', vim.diagnostic.goto_prev, 'Previous diagnostic')
@@ -213,25 +210,32 @@ local setup = function()
     }
   })
 
+  require("typescript").setup({
+    server = {
+      on_attach = on_attach,
+    }
+  })
+
   -- null-ls
   local null_ls = require("null-ls")
   local b = null_ls.builtins
   null_ls.setup({
     sources = {
-      -- b.formatting.stylua,
+      b.formatting.stylua,
       b.formatting.prettier,
       -- b.formatting.prettier_eslint,
-      -- b.formatting.eslint_d,
+      b.formatting.eslint_d,
       -- b.formatting.eslint,
       -- b.formatting.black,
       -- b.formatting.shfmt,
       -- b.formatting.goimports,
       -- b.formatting.gofumpt,
       -- b.formatting.gofmt,
-      -- b.formatting.rustfmt,
+      b.formatting.rustfmt,
       -- b.formatting.lua_format,
       -- b.formatting.lua_fmt,
       -- b.formatting.sqlform
+      require("typescript.extensions.null-ls.code-actions")
     }
   })
 end
@@ -244,7 +248,8 @@ return {
 
     'hrsh7th/nvim-cmp',
 
-    "jose-elias-alvarez/null-ls.nvim",
+    'jose-elias-alvarez/null-ls.nvim',
+    'jose-elias-alvarez/typescript.nvim',
 
     'lewis6991/gitsigns.nvim',
 
