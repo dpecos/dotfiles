@@ -45,11 +45,17 @@ local setup = function()
       { name = 'buffer' },
       { name = 'path' },
       { name = 'spell' },
+      { name = 'vsnip' },
     }),
     window = {
       completion = cmp.config.window.bordered(),
       documentation = cmp.config.window.bordered(),
     },
+    snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+      end
+    }
   })
 
   -- Set configuration for specific filetype.
@@ -86,6 +92,9 @@ return {
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-cmdline',
+
+    'hrsh7th/cmp-vsnip',
+    'hrsh7th/vim-vsnip',
   },
   event = 'VeryLazy',
   config = function()
