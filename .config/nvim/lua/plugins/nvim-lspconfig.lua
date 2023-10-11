@@ -1,5 +1,5 @@
 local servers = {
-  --tsserver = {},
+  tsserver = {},
   eslint = {},
   rust_analyzer = {
     settings = {
@@ -210,12 +210,6 @@ local setup = function()
     }
   })
 
-  require("typescript").setup({
-    server = {
-      on_attach = on_attach,
-    }
-  })
-
   -- null-ls
   local null_ls = require("null-ls")
   local b = null_ls.builtins
@@ -235,7 +229,6 @@ local setup = function()
       -- b.formatting.lua_format,
       -- b.formatting.lua_fmt,
       -- b.formatting.sqlform
-      require("typescript.extensions.null-ls.code-actions")
     }
   })
 end
@@ -249,7 +242,6 @@ return {
     'hrsh7th/nvim-cmp',
 
     'jose-elias-alvarez/null-ls.nvim',
-    'jose-elias-alvarez/typescript.nvim',
 
     'lewis6991/gitsigns.nvim',
 
