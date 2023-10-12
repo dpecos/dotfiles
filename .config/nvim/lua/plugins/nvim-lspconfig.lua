@@ -209,28 +209,6 @@ local setup = function()
       blend = 0 -- transparent
     }
   })
-
-  -- null-ls
-  local null_ls = require("null-ls")
-  local b = null_ls.builtins
-  null_ls.setup({
-    sources = {
-      b.formatting.stylua,
-      b.formatting.prettier,
-      -- b.formatting.prettier_eslint,
-      b.formatting.eslint_d,
-      -- b.formatting.eslint,
-      -- b.formatting.black,
-      -- b.formatting.shfmt,
-      -- b.formatting.goimports,
-      -- b.formatting.gofumpt,
-      -- b.formatting.gofmt,
-      b.formatting.rustfmt,
-      -- b.formatting.lua_format,
-      -- b.formatting.lua_fmt,
-      -- b.formatting.sqlform
-    }
-  })
 end
 
 return {
@@ -240,8 +218,6 @@ return {
     'williamboman/mason-lspconfig.nvim',
 
     'hrsh7th/nvim-cmp',
-
-    'jose-elias-alvarez/null-ls.nvim',
 
     'lewis6991/gitsigns.nvim',
 
