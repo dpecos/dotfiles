@@ -28,6 +28,16 @@ local setup = function()
     end
   end
 
+  -- lspkind.lua
+  local lspkind = require("lspkind")
+  lspkind.init({
+    symbol_map = {
+      Copilot = "",
+    },
+  })
+
+  vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+
   cmp.setup({
     mapping = cmp.mapping.preset.insert({
       ["<C-d>"] = cmp.mapping.scroll_docs(-4),
@@ -43,12 +53,12 @@ local setup = function()
       ["<C-y>"] = nil, -- this clashes with copilot
     }),
     sources = cmp.config.sources({
-      { name = "copilot" },
       { name = "nvim_lsp" },
       { name = "buffer" },
       { name = "path" },
       { name = "spell" },
       { name = "vsnip" },
+      { name = "copilot" },
     }),
     window = {
       completion = cmp.config.window.bordered(),
@@ -58,6 +68,14 @@ local setup = function()
       expand = function(args)
         vim.fn["vsnip#anonymous"](args.body)
       end,
+    },
+    formatting = {
+      format = lspkind.cmp_format({
+        mode = "symbol_text",
+        -- max_width = 50,
+        ellipsis_char = "...",
+        symbol_map = { Copilot = "" },
+      }),
     },
   })
 
@@ -99,6 +117,7 @@ return {
     "hrsh7th/cmp-vsnip",
     "hrsh7th/vim-vsnip",
     "zbirenbaum/copilot-cmp",
+    "onsails/lspkind.nvim",
   },
   event = "VeryLazy",
   config = function()
