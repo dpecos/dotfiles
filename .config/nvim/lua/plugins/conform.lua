@@ -1,3 +1,5 @@
+local formatters = require("plugins/local/mason-tools").formatters
+
 return {
   "stevearc/conform.nvim",
   event = { "BufWritePre" },
@@ -15,19 +17,7 @@ return {
   },
   -- Everything in opts will be passed to setup()
   opts = {
-    formatters_by_ft = {
-      lua = { "stylua" },
-      javascript = { { "prettierd", "prettier" } },
-      typescript = { { "prettierd", "prettier" } },
-      go = { "gofmt", "goimports" },
-      sh = { "shfmt" },
-      rust = { "rustfmt" },
-      terraform = { "terraform_fmt" },
-      json = { { "prettierd", "prettier" } },
-      yaml = { "yamlfmt" },
-      markdown = { "markdownlint" },
-      toml = { "taplo" },
-    },
+    formatters_by_ft = formatters,
     format_on_save = { timeout_ms = 500, lsp_fallback = true },
   },
   -- init = function()
