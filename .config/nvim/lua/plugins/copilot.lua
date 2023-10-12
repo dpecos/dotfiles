@@ -6,6 +6,7 @@ return {
   config = function()
     require("copilot").setup({
       suggestion = {
+        -- enabled = false,
         auto_trigger = true,
         keymap = {
           accept = "<C-y>"
