@@ -1,7 +1,8 @@
 return {
-  "zbirenbaum/copilot.lua",
-  cmd = "Copilot",
-  event = "InsertEnter",
+  'zbirenbaum/copilot-cmp',
+  dependencies = {
+    "zbirenbaum/copilot.lua",
+  },
   config = function()
     require("copilot").setup({
       suggestion = {
@@ -9,7 +10,10 @@ return {
         keymap = {
           accept = "<C-y>"
         }
-      }
+      },
+      panel = { enabled = false },
     })
-  end,
+
+    require('copilot_cmp').setup()
+  end
 }
