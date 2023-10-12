@@ -32,14 +32,7 @@ local setup = function()
 
   -- lspkind.lua
   local lspkind = require("lspkind")
-  lspkind.init({
-    symbol_map = {
-      Copilot = "",
-    },
-  })
-
-  -- copilot
-  vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+  lspkind.init({ })
 
   cmp.setup({
     mapping = cmp.mapping.preset.insert({
@@ -61,7 +54,6 @@ local setup = function()
       { name = "path" },
       { name = "spell" },
       { name = "vsnip" },
-      { name = "copilot" },
     }),
     window = {
       completion = cmp.config.window.bordered(),
@@ -77,7 +69,6 @@ local setup = function()
         mode = "symbol_text",
         -- max_width = 50,
         ellipsis_char = "...",
-        symbol_map = { Copilot = "" },
       }),
     },
   })
@@ -119,7 +110,6 @@ return {
 
     "hrsh7th/cmp-vsnip",
     "hrsh7th/vim-vsnip",
-    "zbirenbaum/copilot-cmp",
     "onsails/lspkind.nvim",
   },
   event = "VeryLazy",
