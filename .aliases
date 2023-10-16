@@ -31,6 +31,7 @@ alias gaic='git diff --cached | gai | ays --preview "Use this message for the co
 
 # https://github.com/emilyst/home
 alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
+alias h="home"
 
 alias vi='vim'
 alias mc='mc -x' # fixes mouse in mc running in tmux
