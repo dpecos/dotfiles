@@ -9,7 +9,7 @@ font:
     # family: Hack
     family: SauceCodePro Nerd Font
     style: Regular
-  size: 10
+    #size: 10
 
 env:
   # WAYLAND_DISPLAY: ""
@@ -17,9 +17,9 @@ env:
   WINIT_X11_SCALE_FACTOR: "1.0"
 
 key_bindings:
-  - { key: F11, action: ToggleFullscreen }
+  - {key: F11, action: ToggleFullscreen}
   #- { key: F, mods: Alt, action: ToggleSimpleFullscreen }
-  - { key: F, mods: Alt, action: ToggleFullscreen }
+  - {key: F, mods: Alt, action: ToggleFullscreen,}
 
 # KDE Breeze (Ported from Konsole)
 colors:
@@ -65,3 +65,6 @@ colors:
     magenta: "0x614a73"
     cyan: "0x186c60"
     white: "0x63686d"
+
+import:
+  - ~/.alacritty_local.yml
