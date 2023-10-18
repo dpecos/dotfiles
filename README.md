@@ -11,7 +11,7 @@ IMPORTANT: before initializing the home directory, setup ssh keys for GitLab and
     home reset --hard origin/master
     home branch --set-upstream-to=origin/master master
 
-### Setup toggles
+### Setup tweaks
 
 Hide untracked files:
 
@@ -22,17 +22,13 @@ Hide untracked files:
 _ZSH_
 
     git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
-    #git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+    # git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
     git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 
 _tmux_
 
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     prefix + I
-
-_NeoVim_
-
-    :PackerInstall
 
 _Fonts_
 
@@ -81,32 +77,20 @@ Linux:
 yay -S zsh-syntax-highlighting zsh-autosuggestions zsh-completions eza fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf bat difftastic lfs tokei tealdeer kwalletcli
 ```
 
-## Terminal apps configuration
-
-### iTerm2
-
-Setup `iterm2` to use font-hack-nerd-font: Preferences > Profiles > Text > Font
-
-### Konsole
-
-Create a new profile in order to edit Appearance:
-
-- Color scheme: `Breeze`
-- Set Font to `SauceCodePro Nerd Font 10pt` (not a typo, it's called `Sauce`)
-
 ## Local overrides
 
 Creating any of these files, options can be localized to a local box:
 
+- `~/.alacritty.local`
 - `~/.aliases.local`
-- `~/.vimrc.local`
 - `~/.zshrc.pre.local`
 - `~/.zshrc.local`
 - `~/.gitconfig.local`
+- `~/.gitignore_global`
 
 ### Disable GPG signing git commits:
 
-.gitconfig.local:
+`.gitconfig.local`:
 
 ```
 [commit]
@@ -118,7 +102,7 @@ Creating any of these files, options can be localized to a local box:
 
 ### Load SSH identities
 
-.zshrc.pre.local:
+`.zshrc.pre.local`:
 
 ```
 zstyle :omz:plugins:ssh-agent identities darkmatter-github darkmatter-gitlab
