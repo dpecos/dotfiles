@@ -3,10 +3,10 @@ alias vi='nvim'
 alias vim='nvim'
 alias v='fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs nvim'
 
-# Changing "ls" to "exa"
+# "eza" instea of "ls"
 alias ls='eza --color=always --group-directories-first --git'
 alias la='ls -a'
-alias ll='ls -l'
+alias ll='la -l'
 alias lt='eza -abghHliS --long --tree'
 
 # "bat" instead of "cat"
