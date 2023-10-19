@@ -55,11 +55,11 @@ local on_attach = function(client, bufnr)
   nmap_lsp("K", vim.lsp.buf.hover, "Hover Documentation")
   nmap_lsp("<leader>k", vim.lsp.buf.signature_help, "Signature Documentation")
 
-  if client.server_capabilities.documentFormattingProvider then
-    nmap_lsp("<leader>f", function()
-      vim.lsp.buf.format({ async = true })
-    end, "[F]ormat current buffer (DFP)")
-  end
+  -- if client.server_capabilities.documentFormattingProvider then
+  --   nmap_lsp("<leader>f", function()
+  --     vim.lsp.buf.format({ async = true })
+  --   end, "[F]ormat current buffer (DFP)")
+  -- end
 
   nmap_lsp("[d", vim.diagnostic.goto_prev, "Previous diagnostic")
   nmap_lsp("]d", vim.diagnostic.goto_next, "Next diagnostic")
