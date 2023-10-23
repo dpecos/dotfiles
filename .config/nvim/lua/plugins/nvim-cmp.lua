@@ -32,7 +32,7 @@ local setup = function()
 
   -- lspkind.lua
   local lspkind = require("lspkind")
-  lspkind.init({ })
+  lspkind.init({})
 
   cmp.setup({
     mapping = cmp.mapping.preset.insert({
@@ -41,12 +41,12 @@ local setup = function()
       ["<C-Space>"] = cmp.mapping.complete(),
       ["<C-l>"] = cmp.mapping.complete(),
       ["<C-e>"] = cmp.mapping.abort(),
-      ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items
+      ["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items
       ["<C-p>"] = cmp.mapping(select_next, { "i", "s" }),
       ["<C-o>"] = cmp.mapping(select_previous, { "i", "s" }),
       ["<Tab>"] = cmp.mapping(select_next, { "i", "s" }),
       ["<S-Tab>"] = cmp.mapping(select_previous, { "i", "s" }),
-      ["<C-y>"] = nil, -- this clashes with copilot auto-complete
+      ["<C-y>"] = cmp.config.disable, -- this clashes with copilot auto-complete
     }),
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
