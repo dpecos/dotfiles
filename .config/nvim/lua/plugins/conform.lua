@@ -19,6 +19,12 @@ return {
   opts = {
     formatters_by_ft = formatters,
     format_on_save = { timeout_ms = 500, lsp_fallback = true },
+    formatters = {
+      rustfmt = {
+        command = "rustfmt",
+        args = { "--edition=2021", "--emit=stdout" },
+      },
+    },
   },
   --init = function()
   --   -- If you want the formatexpr, here is the place to set it
