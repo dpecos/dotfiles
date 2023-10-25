@@ -1,26 +1,26 @@
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-vim.g.mapleader = ','
-vim.g.maplocalleader = ','
+vim.g.mapleader = ","
+vim.g.maplocalleader = ","
 
 -- Quicky escape to normal mode
-vim.keymap.set("i", "jk", "<esc>")
+vim.keymap.set("i", "jk", "<esc>", { desc = "Exit insert mode with jk" })
 
 -- exit vim without saving
-vim.api.nvim_set_keymap('n', '<C-q>', ':qa!<CR>', {})
+vim.api.nvim_set_keymap("n", "<C-q>", ":qa!<CR>", {})
 
 -- Allow gf to open non-existent files
 vim.keymap.set("n", "gf", ":edit<cfile><CR>")
 
 --vim.api.nvim_set_keymap('n', '<leader>vr', ':source $MYVIMRC<CR>', { desc = 'Reload NeoVim config' })
-vim.api.nvim_set_keymap('n', '<leader>ve', ':edit ~/.config/nvim/init.lua<CR>', { desc = 'Edit init file' })
-vim.api.nvim_set_keymap('n', '<leader>vk', ':edit ~/.config/nvim/lua/keymaps.lua<CR>', { desc = 'Edit keymaps file' })
-vim.api.nvim_set_keymap('n', '<leader>vp', ':edit ~/.config/nvim/lua/plugins.lua<CR>', { desc = 'Edit plugins file' })
-vim.api.nvim_set_keymap('n', '<leader>vs', ':edit ~/.config/nvim/lua/settings.lua<CR>', { desc = 'Edit settings file' })
+vim.api.nvim_set_keymap("n", "<leader>ve", ":edit ~/.config/nvim/init.lua<CR>", { desc = "Edit init file" })
+vim.api.nvim_set_keymap("n", "<leader>vk", ":edit ~/.config/nvim/lua/keymaps.lua<CR>", { desc = "Edit keymaps file" })
+vim.api.nvim_set_keymap("n", "<leader>vp", ":edit ~/.config/nvim/lua/plugins.lua<CR>", { desc = "Edit plugins file" })
+vim.api.nvim_set_keymap("n", "<leader>vs", ":edit ~/.config/nvim/lua/settings.lua<CR>", { desc = "Edit settings file" })
 
 -- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Move selected lines up and down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -34,18 +34,18 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
 -- clear search highlights
-vim.keymap.set("n", "<leader>nh", ":nohl<CR>")
+vim.keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 
 -- Better tabbing: reselect visual selection after indenting
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
 -- copy / paste to system clipboard
-vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+Y')
-vim.keymap.set({ 'n', 'v' }, '<leader>Y', '"+y$')
-vim.keymap.set({ 'n', 'v' }, '<leader>p', '"+p')
-vim.keymap.set({ 'n', 'v' }, '<leader>P', '"+P')
-vim.keymap.set("i", "<C-v>", "<Esc>\"+pa")
+vim.keymap.set({ "n", "v" }, "<leader>y", '"+Y')
+vim.keymap.set({ "n", "v" }, "<leader>Y", '"+y$')
+vim.keymap.set({ "n", "v" }, "<leader>p", '"+p')
+vim.keymap.set({ "n", "v" }, "<leader>P", '"+P')
+vim.keymap.set("i", "<C-v>", '<Esc>"+pa')
 
 -- Paste over currently selected text without yanking it
 vim.keymap.set("v", "p", '"_dP')
@@ -75,7 +75,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.keymap.set("n", "<C-w>f", function()
   require("nvim-tree.api").tree.close()
   require("toggle-fullscreen"):toggle_fullscreen()
-end, { desc = 'Toggle split fullscreen' })
+end, { desc = "Toggle split fullscreen" })
 
 -- split resize
 vim.keymap.set("n", "<C-w><Left>", "<C-w><5", { desc = "Increase split size - left" })
@@ -97,7 +97,7 @@ vim.keymap.set("n", "dd", function()
 end, { expr = true })
 
 -- close quickfix / locations menu after selecting choice
-vim.api.nvim_create_autocmd( "FileType", {
-  pattern={"qf"},
-  command=[[nnoremap <buffer> <CR> <CR>:cclose<CR>]]
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "qf" },
+  command = [[nnoremap <buffer> <CR> <CR>:cclose<CR>]],
 })
