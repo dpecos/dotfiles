@@ -1,9 +1,13 @@
 local mason_tools = require("plugins/local/mason-tools")
 
-local function tools_to_autoinstall(servers, formatters)
+local function tools_to_autoinstall(servers, formatters, linters)
   local servers_list = vim.tbl_flatten(vim.tbl_keys(servers))
   local formatters_list = vim.tbl_flatten(vim.tbl_values(formatters))
-  local tools = vim.list_extend(servers_list, formatters_list)
+  local linters_list = vim.tbl_flatten(vim.tbl_values(linters))
+
+  local tools = servers_list
+  tools = vim.list_extend(tools, formatters_list)
+  tools = vim.list_extend(tools, linters_list)
 
   -- only unique tools
   table.sort(tools)
@@ -183,7 +187,7 @@ local setup = function()
     end,
   })
 
-  local tools_to_install = tools_to_autoinstall(mason_tools.servers, mason_tools.formatters)
+  local tools_to_install = tools_to_autoinstall(mason_tools.servers, mason_tools.formatters, mason_tools.linters)
   -- print("Installing tools: " .. table.concat(tools_to_install, ", "))
 
   require("mason-tool-installer").setup({

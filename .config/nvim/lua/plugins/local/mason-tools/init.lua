@@ -5,6 +5,9 @@ M.formatters = {
   lua = { "stylua" },
   javascript = { { "prettierd", "prettier" } },
   typescript = { { "prettierd", "prettier" } },
+  javascriptreact = { { "prettierd", "prettier" } },
+  typescriptreact = { { "prettierd", "prettier" } },
+  graphql = { { "prettierd", "prettier" } },
   go = { "gofumpt", "goimports" },
   sh = { "shfmt" },
   rust = { "rustfmt" },
@@ -14,6 +17,22 @@ M.formatters = {
   toml = { "taplo" },
   html = { { "prettierd", "prettier" } },
   css = { "stylelint", "prettier" },
+}
+
+-- nvim-lint
+M.linters = {
+  javascript = { "eslint_d" },
+  typescript = { "eslint_d" },
+  javascriptreact = { "eslint_d" },
+  typescriptreact = { "eslint_d" },
+  lua = { "luacheck" },
+  sh = { "shellcheck" },
+  --rust = { "cargo" },
+  json = { "jsonlint" },
+  yaml = { "yamllint" },
+  markdown = { "markdownlint" },
+  toml = { "taplo" },
+  css = { "stylelint" },
 }
 
 -- lspconfig
