@@ -17,6 +17,10 @@ Hide untracked files:
 
     home config --local status.showUntrackedFiles no
 
+MacOSX: Enable repeating keys:
+
+    defaults write -g ApplePressAndHoldEnabled 0
+
 ### Manual steps after installation
 
 #### ZSH
@@ -32,8 +36,12 @@ Hide untracked files:
 
 #### Fonts
 
+MacOSX:
+
     brew tap homebrew/cask-fonts
     brew install font-source-code-pro font-hack-nerd-font font-sauce-code-pro-nerd-font font-ubuntu
+
+Linux:
 
     yay -S adobe-source-code-pro-fonts ttf-ubuntu-font-family ttf-hack ttf-sourcecodepro-nerd
 

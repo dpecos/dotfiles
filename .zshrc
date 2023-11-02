@@ -4,7 +4,9 @@ export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-ZSH_TMUX_AUTOSTART=true
+if [ "$TERMINAL_EMULATOR" != "JetBrains-JediTerm" ]; then
+   ZSH_TMUX_AUTOSTART=true
+fi
 ZSH_TMUX_AUTOSTART_ONCE=false
 ZSH_TMUX_AUTOCONNECT=false
 #ZSH_TMUX_ITERM2=true
@@ -118,3 +120,7 @@ echo
 # --------
 
 [ -f ~/.zshrc.local ] && . ~/.zshrc.local || true
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/dpecosmartinez/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
