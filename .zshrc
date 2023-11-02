@@ -46,7 +46,6 @@ if [ "$(uname)" = "Darwin" ]; then
   . $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
   plugins+=(
-    iterm2
     macos
     brew
   )

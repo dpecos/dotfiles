@@ -19,63 +19,45 @@ Hide untracked files:
 
 ### Manual steps after installation
 
-_ZSH_
+#### ZSH
 
     git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
     # git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
     git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 
-_tmux_
+#### tmux
 
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     prefix + I
 
-_Fonts_
+#### Fonts
 
     brew tap homebrew/cask-fonts
     brew install font-source-code-pro font-hack-nerd-font font-sauce-code-pro-nerd-font font-ubuntu
 
     yay -S adobe-source-code-pro-fonts ttf-ubuntu-font-family ttf-hack ttf-sourcecodepro-nerd
 
-_Default Shell_
+#### Default Shell
 
 Add `which zsh` to /etc/shells
 
     chsh -s $(which zsh)
 
-_ZSH security warning_
+ZSH security warning
 
     sudo chmod go-w /usr/local/share
     sudo chmod go-w /usr/local/share/zsh
     sudo chmod go-w /usr/local/share/zsh/site-functions
 
-_Other apps_
-
-Config based on having this packages / applications installed:
-
-- `zsh-syntax-highlighting`
-- `zsh-autosuggestions`
-- `zsh-completions`
-- ~~`lsd`~~ `eza`
-- `neofetch` (MacOSX) / `fastfetch`
-- `fd`
-- `fzf`
-- `ripgrep`
-- `the_silver_searcher`
-- `neovim`
-- `bat`
+#### Other apps
 
 MacOS:
 
-```
-brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions eza neofetch fzf ripgrep the_silver_searcher neovim dust fd bat difftastic tokei tealdeer
-```
+    brew install tmux nodejs go autojump zsh-autosuggestions zsh-syntax-highlighting zsh-completions eza neofetch fzf ripgrep the_silver_searcher neovim dust fd bat difftastic tokei tealdeer
 
 Linux:
 
-```
-yay -S zsh-syntax-highlighting zsh-autosuggestions zsh-completions eza fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf bat difftastic lfs tokei tealdeer kwalletcli
-```
+    yay -S tmux nodejs go autojump zsh-syntax-highlighting zsh-autosuggestions zsh-completions eza fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf bat difftastic lfs tokei tealdeer kwalletcli
 
 ## Local overrides
 
@@ -88,27 +70,23 @@ Creating any of these files, options can be localized to a local box:
 - `~/.gitconfig.local`
 - `~/.gitignore_global`
 
-### Disable GPG signing git commits:
+### Disable GPG signing git commits
 
 `.gitconfig.local`:
 
-```
-[commit]
-  gpgsign = false
+    [commit]
+      gpgsign = false
 
-[tag]
-  forceSignedAnnotated = false
-```
+    [tag]
+      forceSignedAnnotated = false
 
 ### Load SSH identities
 
 `.zshrc.pre.local`:
 
-```
-zstyle :omz:plugins:ssh-agent identities darkmatter-github darkmatter-gitlab
-zstyle :omz:plugins:ssh-agent lifetime 4h
-zstyle :omz:plugins:ssh-agent helper ksshaskpass
-```
+    zstyle :omz:plugins:ssh-agent identities darkmatter-github darkmatter-gitlab
+    zstyle :omz:plugins:ssh-agent lifetime 4h
+    zstyle :omz:plugins:ssh-agent helper ksshaskpass
 
 ## Adding new content
 
@@ -116,6 +94,4 @@ zstyle :omz:plugins:ssh-agent helper ksshaskpass
 
 You have to add the new content _forcing_ it because everything is matched by git-ignore:
 
-```
-home add -f FILE
-```
+    home add -f FILE
