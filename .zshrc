@@ -120,7 +120,3 @@ echo
 # --------
 
 [ -f ~/.zshrc.local ] && . ~/.zshrc.local || true
-
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/dpecosmartinez/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
