@@ -4,6 +4,7 @@ local setup = function()
   telescope.setup({
     defaults = {
       path_display = { "smart" },
+      file_ignore_patterns = { ".git", "node_modules" },
     },
     pickers = {
       find_files = {
