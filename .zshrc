@@ -36,6 +36,7 @@ plugins=(
   rust
   thefuck
   autojump
+  fzf
 )
 
 if [ "$(uname)" = "Darwin" ]; then
