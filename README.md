@@ -55,7 +55,7 @@ ZSH security warning
 
     sudo chmod go-w /usr/local/share
     sudo chmod go-w /usr/local/share/zsh
-    sudo chmod go-w /usr/local/share/zsh/site-functions
+    sudo chmod go-w /usr/local/share/zsh/site-function
 
 #### Other apps
 
@@ -71,7 +71,7 @@ Linux:
 
 Creating any of these files, options can be localized to a local box:
 
-- `~/.alacritty.local`
+- `~/.alacritty_local.toml`
 - `~/.aliases.local`
 - `~/.zshrc.pre.local`
 - `~/.zshrc.local`
@@ -96,7 +96,27 @@ Creating any of these files, options can be localized to a local box:
     zstyle :omz:plugins:ssh-agent lifetime 4h
     zstyle :omz:plugins:ssh-agent helper ksshaskpass
 
-## Adding new content
+### Alacritty: fonts
+
+Alacritty does not overwrite font family defined in included files, so we have don't have a default in the root config. We need to define a `~/.alacritty_local.toml` file with the following contents:
+
+For MacOS:
+
+    [font]
+    size = 12
+
+    [font.normal]
+    family = "SauceCodePro Nerd Font"
+
+For Linux:
+
+    [font]
+    size = 10
+
+    [font.normal]
+    family = "Source Code PRO"
+
+## Adding new content to the dotfiles repo
 
 ### Files & directories
 
