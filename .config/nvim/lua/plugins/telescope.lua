@@ -5,6 +5,12 @@ local setup = function()
     defaults = {
       path_display = { "smart" },
       file_ignore_patterns = { ".git", "node_modules" },
+      mappings = {
+        i = {
+          ["<C-p>"] = require("telescope.actions").cycle_history_next,
+          ["<C-o>"] = require("telescope.actions").cycle_history_prev,
+        },
+      },
     },
     pickers = {
       find_files = {
