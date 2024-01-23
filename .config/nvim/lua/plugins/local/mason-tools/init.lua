@@ -31,7 +31,6 @@ M.linters = {
   json = { "jsonlint" },
   yaml = { "yamllint" },
   markdown = { "markdownlint" },
-  toml = { "taplo" },
   css = { "stylelint" },
 }
 
