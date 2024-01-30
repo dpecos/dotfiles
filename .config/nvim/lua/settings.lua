@@ -1,7 +1,7 @@
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 
-local g = vim.g     -- Global variables
+local g = vim.g -- Global variables
 local opt = vim.opt -- Set options (global/buffer/windows-scoped)
 
 -- disable netrw
@@ -28,7 +28,7 @@ opt.termguicolors = true
 --opt.colorcolumn = "80"
 
 -- Set completeopt to have a better completion experience
-opt.completeopt = 'menuone,noselect'
+opt.completeopt = "menuone,noselect"
 
 -- EditorConfig
 g.editorconfig = true
@@ -57,11 +57,11 @@ opt.splitright = true -- split vertical window to the right
 opt.splitbelow = true -- split horizontal window to the bottom
 
 -- optimizations
-opt.hidden = true     -- Enable background buffers
+opt.hidden = true -- Enable background buffers
 --opt.history = 100 -- Remember N lines in history
-opt.lazyredraw = true -- Faster scrolling
+--opt.lazyredraw = true -- Faster scrolling
 --opt.synmaxcol = 240 -- Max column for syntax highlight
-opt.updatetime = 250  -- ms to wait for trigger an event
+opt.updatetime = 250 -- ms to wait for trigger an event
 
 --vim.opt.winbar = "%=%m %f"
 

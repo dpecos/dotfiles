@@ -24,9 +24,7 @@ local setup = function()
     },
   })
 
-  -- Enable telescope fzf native, if installed
-  -- pcall(telescope.load_extension, 'fzf')
-  -- telescope.load_extension('fzf')
+  require("telescope").load_extension("noice")
 
   -- See `:help telescope.builtin`
   local builtin = require("telescope.builtin")
@@ -64,7 +62,6 @@ return {
   version = "*",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "nvim-telescope/telescope-fzf-native.nvim",
   },
   event = "VeryLazy",
   config = function()

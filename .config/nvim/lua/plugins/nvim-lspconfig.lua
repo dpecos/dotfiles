@@ -193,12 +193,6 @@ local setup = function()
   require("mason-tool-installer").setup({
     ensure_installed = tools_to_install,
   })
-
-  require("fidget").setup({
-    window = {
-      blend = 0, -- transparent
-    },
-  })
 end
 
 return {
@@ -211,8 +205,6 @@ return {
     "hrsh7th/nvim-cmp",
 
     "lewis6991/gitsigns.nvim",
-
-    { "j-hui/fidget.nvim", tag = "legacy" },
   },
   config = function()
     setup()
