@@ -130,6 +130,12 @@ local on_attach = function(client, bufnr)
 
   -- Symbols
   nmap_lsp("<leader>s", require("symbols-outline").toggle_outline, "Tooggle [S]ymbols outline")
+
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = { "*.tsx", "*.ts", "*.jsx", "*.js" },
+    command = "silent! EslintFixAll",
+    group = vim.api.nvim_create_augroup("EslintAutoFormatting", {}),
+  })
 end
 
 local _border = "single"
