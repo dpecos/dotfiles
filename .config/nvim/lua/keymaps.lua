@@ -40,11 +40,12 @@ vim.keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
--- copy / paste to system clipboard
-vim.keymap.set({ "n", "v" }, "<leader>y", '"+Y')
-vim.keymap.set({ "n", "v" }, "<leader>Y", '"+y$')
-vim.keymap.set({ "n", "v" }, "<leader>p", '"+p')
-vim.keymap.set({ "n", "v" }, "<leader>P", '"+P')
+-- copy / paste / delete to system clipboard
+vim.keymap.set({ "n", "v" }, "<leader>y", '"+Y', { desc = 'Yank into " register' })
+vim.keymap.set({ "n", "v" }, "<leader>Y", '"+y$', { desc = 'Yank into " register' })
+vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', { desc = 'Yank overwritten text into " register' })
+vim.keymap.set({ "n", "v" }, "<leader>P", '"+P', { desc = 'Yank overwritten text into " register' })
+vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = 'Delete into " register' })
 vim.keymap.set("i", "<C-v>", '<Esc>"+pa')
 
 -- Paste over currently selected text without yanking it
@@ -64,17 +65,17 @@ vim.keymap.set("v", "Y", "myY`y")
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = "*",
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+	group = highlight_group,
+	pattern = "*",
 })
 
 -- split
 vim.keymap.set("n", "<C-w>f", function()
-  require("nvim-tree.api").tree.close()
-  require("toggle-fullscreen"):toggle_fullscreen()
+	require("nvim-tree.api").tree.close()
+	require("toggle-fullscreen"):toggle_fullscreen()
 end, { desc = "Toggle split fullscreen" })
 
 -- split resize
@@ -89,15 +90,15 @@ vim.cmd("cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('
 
 -- don't yank an empty line into your default register (https://www.reddit.com/r/neovim/comments/12rqyl8/5_smart_minisnippets_for_making_text_editing_more/)
 vim.keymap.set("n", "dd", function()
-  if vim.api.nvim_get_current_line():match("^%s*$") then
-    return '"_dd'
-  else
-    return "dd"
-  end
+	if vim.api.nvim_get_current_line():match("^%s*$") then
+		return '"_dd'
+	else
+		return "dd"
+	end
 end, { expr = true })
 
 -- close quickfix / locations menu after selecting choice
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "qf" },
-  command = [[nnoremap <buffer> <CR> <CR>:cclose<CR>]],
+	pattern = { "qf" },
+	command = [[nnoremap <buffer> <CR> <CR>:cclose<CR>]],
 })
