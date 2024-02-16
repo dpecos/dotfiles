@@ -73,6 +73,12 @@ local on_attach = function(client, bufnr)
   nmap_lsp("]e", function()
     vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
   end, "Next error")
+  nmap_lsp("[w", function()
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN })
+  end, "Previous warn")
+  nmap_lsp("]w", function()
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN })
+  end, "Next warn")
 
   local map_gs = function(mode, keys, func, desc, opts)
     opts = opts or {}
