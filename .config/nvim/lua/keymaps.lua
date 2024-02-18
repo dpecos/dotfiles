@@ -41,8 +41,8 @@ vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
 -- copy / paste / delete to system clipboard
-vim.keymap.set({ "n", "v" }, "<leader>y", '"+Y', { desc = 'Yank into " register' })
-vim.keymap.set({ "n", "v" }, "<leader>Y", '"+y$', { desc = 'Yank into " register' })
+vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = 'Yank into " register' })
+vim.keymap.set({ "n", "v" }, "<leader>Y", '"+Y', { desc = 'Yank into " register' })
 vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', { desc = 'Yank overwritten text into " register' })
 vim.keymap.set({ "n", "v" }, "<leader>P", '"+P', { desc = 'Yank overwritten text into " register' })
 vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = 'Delete into " register' })
