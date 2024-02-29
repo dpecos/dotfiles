@@ -44,7 +44,7 @@ local setup = function()
 		},
 		filters = {
 			dotfiles = false,
-			custom = { "node_modules" },
+			custom = { "\\.git", "node_modules" },
 		},
 		update_focused_file = {
 			enable = true,
