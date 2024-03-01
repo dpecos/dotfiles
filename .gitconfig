@@ -57,6 +57,9 @@
   external = difft
   submodule = log
 
+[rerere]
+	enabled = true
+
 [pager]
   difftool = true
 
@@ -64,7 +67,12 @@
   gpgsign = true
 
 [tag]
+  gpgsign = true
   forceSignAnnotated = true
+  sort = version:refname
+
+[branch]
+  sort = -committerdate
 
 [color]
   ui = true
