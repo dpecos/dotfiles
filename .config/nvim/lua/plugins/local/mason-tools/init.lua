@@ -47,6 +47,9 @@ M.servers = {
 						enable = true,
 					},
 				},
+				checkOnSave = {
+					command = "clippy",
+				},
 			},
 		},
 	},
