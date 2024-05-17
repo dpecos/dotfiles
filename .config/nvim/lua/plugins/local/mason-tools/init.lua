@@ -36,7 +36,35 @@ M.linters = {
 
 -- lspconfig
 M.servers = {
-	tsserver = {},
+	tsserver = {
+		settings = {
+			typescript = {
+				inlayHints = {
+					includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
+					includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+					includeInlayVariableTypeHints = true,
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+					includeInlayPropertyDeclarationTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayEnumMemberValueHints = true,
+				},
+			},
+			javascript = {
+				inlayHints = {
+					includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
+					includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+					includeInlayVariableTypeHints = true,
+
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+					includeInlayPropertyDeclarationTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayEnumMemberValueHints = true,
+				},
+			},
+		},
+	},
 	eslint = {},
 	rust_analyzer = {
 		settings = {
