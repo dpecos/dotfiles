@@ -21,10 +21,10 @@ M.formatters = {
 
 -- nvim-lint
 M.linters = {
-	-- javascript = { "eslint" },
-	-- typescript = { "eslint" },
-	-- javascriptreact = { "eslint" },
-	-- typescriptreact = { "eslint" },
+	javascript = { "oxlint" },
+	typescript = { "oxlint" },
+	javascriptreact = { "oxlint" },
+	typescriptreact = { "oxlint" },
 	-- lua = { "luacheck" },
 	sh = { "shellcheck" },
 	--rust = { "cargo" },
@@ -65,7 +65,6 @@ M.servers = {
 			},
 		},
 	},
-	eslint = {},
 	rust_analyzer = {
 		settings = {
 			["rust-analyzer"] = {
