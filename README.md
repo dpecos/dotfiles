@@ -9,6 +9,7 @@ IMPORTANT: before initializing the home directory, setup ssh keys for GitLab and
     home remote add origin git@github.com:dpecos/dotfiles.git
     home fetch --all
     home reset --hard origin/master
+    home branch -m main master
     home branch --set-upstream-to=origin/master master
 
 ### Setup tweaks
@@ -22,6 +23,14 @@ MacOSX: Enable repeating keys:
     defaults write -g ApplePressAndHoldEnabled 0
 
 ### Manual steps after installation
+
+#### (MacOSX only) HomeBrew
+
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+After that, we need to create the following content in `~/.zshrc.pre.local`:
+
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 
 #### ZSH
 
@@ -61,7 +70,7 @@ ZSH security warning
 
 MacOS:
 
-    brew install tmux nodejs go autojump zsh-autosuggestions zsh-syntax-highlighting zsh-completions eza neofetch fzf ripgrep the_silver_searcher neovim dust fd bat difftastic tokei tealdeer
+    brew install tmux nodejs go autojump zsh-autosuggestions zsh-syntax-highlighting zsh-completions eza neofetch fzf ripgrep the_silver_searcher neovim dust fd bat difftastic tokei tealdeer vladkens/tap/macmon
 
 Linux:
 
@@ -86,7 +95,13 @@ Creating any of these files, options can be localized to a local box:
       gpgsign = false
 
     [tag]
+      gpgsign = false
       forceSignedAnnotated = false
+
+### Git SSH to HTTPS
+
+    [url "git@gitlab.xyz.com:"]
+      insteadOf = https://gitlab.xyz.com/
 
 ### Load SSH identities
 
