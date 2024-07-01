@@ -42,7 +42,7 @@ plugins=(
 if [ "$(uname)" = "Darwin" ]; then
   if [ -z "$HOMEBREW_PREFIX" ]
   then
-    export HOMEBREW_PREFIX=/usr/local
+    export HOMEBREW_PREFIX=/opt/homebrew
   fi
 
   . $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
