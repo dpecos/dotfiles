@@ -37,6 +37,7 @@ plugins=(
   thefuck
   autojump
   fzf
+  gcloud
 )
 
 if [ "$(uname)" = "Darwin" ]; then
