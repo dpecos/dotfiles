@@ -34,7 +34,6 @@ plugins=(
   mvn
   ssh-agent
   rust
-  thefuck
   autojump
   fzf
   gcloud
