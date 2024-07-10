@@ -69,3 +69,11 @@ opt.updatetime = 250 -- ms to wait for trigger an event
 -- opt.cmdheight = 0
 -- opt.statusline = "%f - %y %=%S %l / %L"
 -- opt.showcmdloc = "statusline"
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "gitcommit", "markdown" },
+	callback = function()
+		require("cmp").setup({ enabled = false })
+		opt.wrap = true
+	end,
+})
