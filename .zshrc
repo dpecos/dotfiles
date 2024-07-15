@@ -22,7 +22,7 @@ KEYTIMEOUT=1
 
 plugins=(
   git
-  tmux
+  # tmux
   dotenv
   vi-mode
   golang
@@ -118,6 +118,13 @@ else
 fi
 
 echo
+
+# --------
+
+if ! type "$starship" > /dev/null
+then
+  eval "$(starship init zsh)"
+fi
 
 # --------
 

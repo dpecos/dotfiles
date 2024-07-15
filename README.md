@@ -70,11 +70,11 @@ ZSH security warning
 
 MacOS:
 
-    brew install tmux nodejs go autojump zsh-autosuggestions zsh-syntax-highlighting zsh-completions eza neofetch fzf ripgrep the_silver_searcher neovim dust fd bat difftastic tokei tealdeer vladkens/tap/macmon
+    brew install tmux nodejs go autojump zsh-autosuggestions zsh-syntax-highlighting zsh-completions eza neofetch fzf ripgrep the_silver_searcher neovim dust fd bat difftastic tokei tealdeer vladkens/tap/macmon starship
 
 Linux:
 
-    yay -S tmux nodejs go autojump zsh-syntax-highlighting zsh-autosuggestions zsh-completions eza fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf bat difftastic lfs tokei tealdeer kwalletcli
+    yay -S tmux nodejs go autojump zsh-syntax-highlighting zsh-autosuggestions zsh-completions eza fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf bat difftastic lfs tokei tealdeer kwalletcli starship
 
 ## Local overrides
 
@@ -118,10 +118,14 @@ Alacritty does not overwrite font family defined in included files, so we have d
 For MacOS:
 
     [font]
-    size = 12
+    size = 13
 
     [font.normal]
     family = "SauceCodePro Nerd Font"
+
+    [shell]
+    program = "/opt/homebrew/bin/tmux"
+    args = ["new-session", "-A", "-D", "-s", "main"]
 
 For Linux:
 
@@ -129,7 +133,11 @@ For Linux:
     size = 10
 
     [font.normal]
-    family = "Source Code PRO"
+    family = "SauceCodePro Nerd Font Mono"
+
+    [shell]
+    program = "/usr/bin/tmux"
+    args = ["new-session", "-A", "-D", "-s", "main"]
 
 ## Adding new content to the dotfiles repo
 
