@@ -8,8 +8,12 @@ $username\
 $directory\
 [](fg:color_yellow bg:color_aqua)\
 $git_branch\
-$git_status\
 [](fg:color_aqua bg:color_blue)\
+$git_commit\
+[](fg:color_blue bg:color_bg3)\
+$git_state\
+$git_status\
+[](fg:color_bg3 bg:color_bg1)\
 $c\
 $rust\
 $golang\
@@ -19,11 +23,6 @@ $java\
 $kotlin\
 $haskell\
 $python\
-[](fg:color_blue bg:color_bg3)\
-$docker_context\
-$conda\
-[](fg:color_bg3 bg:color_bg1)\
-$time\
 [ ](fg:color_bg1)\
 $line_break$character """
 
@@ -32,13 +31,21 @@ right_format = """
 $status\
 [](fg:color_bg3 bg:color_bg1)\
 $cmd_duration\
-[](fg:color_bg3)\
+[](fg:color_blue bg:color_bg3)\
+$jobs\
+[](fg:color_aqua bg:color_blue)\
+$memory_usage\
+[](fg:color_yellow bg:color_aqua)\
+$localip\
+[](bg:color_yellow fg:color_orange)\
+$time\
+[](fg:color_orange)\
 """
 
 # newline between commands
 add_newline = true
-
 palette = 'gruvbox_dark'
+command_timeout = 1000
 
 [palettes.gruvbox_dark]
 color_fg0 = '#fbf1c7'
@@ -90,84 +97,70 @@ truncation_length = 5
 truncation_symbol = "…/"
 truncate_to_repo = true
 
-[directory.substitutions]
-# "Documents" = "󰈙 "
-# "Downloads" = " "
-# "Music" = "󰝚 "
-# "Pictures" = " "
-# "Developer" = "󰲋 "
-
 [git_branch]
 symbol = ""
-style = "bg:color_aqua"
-format = '[[ $symbol $branch ](fg:color_fg0 bg:color_aqua)]($style)'
+style = "fg:color_fg0 bg:color_aqua"
+format = '[ $symbol $branch ]($style)'
+
+[git_commit]
+style = "fg:color_fg0 bg:color_blue"
+format = '[  $hash$tag ]($style)'
+tag_disabled = false
+tag_symbol = " 󰓼 "
+only_detached = false
+
+[git_state]
+style = 'fg:color_orange bg:color_bg3'
+format = '[ \[$state( $progress_current/$progress_total)\]]($style)'
 
 [git_status]
-style = "bg:color_aqua"
-format = '[[($all_status$ahead_behind )](fg:color_fg0 bg:color_aqua)]($style)'
+style = 'fg:color_fg0 bg:color_bg3'
+format = '[ $all_status$ahead_behind ]($style)'
 
 [nodejs]
 symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style = "bg:color_fg0 bg:color_bg1"
+format = '[ $symbol( $version) ]($style)'
 
 [c]
 symbol = " "
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style = "bg:color_fg0 bg:color_bg1"
+format = '[ $symbol( $version) ]($style)'
 
 [rust]
 symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style = "bg:color_fg0 bg:color_bg1"
+format = '[ $symbol( $version) ]($style)'
 
 [golang]
 symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style = "bg:color_fg0 bg:color_bg1"
+format = '[ $symbol( $version) ]($style)'
 
 [php]
 symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style = "bg:color_fg0 bg:color_bg1"
+format = '[ $symbol( $version) ]($style)'
 
 [java]
 symbol = " "
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style = "bg:color_fg0 bg:color_bg1"
+format = '[ $symbol( $version) ]($style)'
 
 [kotlin]
 symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style = "bg:color_fg0 bg:color_bg1"
+format = '[ $symbol( $version) ]($style)'
 
 [haskell]
 symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style = "bg:color_fg0 bg:color_bg1"
+format = '[ $symbol( $version) ]($style)'
 
 [python]
 symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
-
-[docker_context]
-symbol = ""
-style = "bg:color_bg3"
-format = '[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)'
-
-[conda]
-style = "bg:color_bg3"
-format = '[[ $symbol( $environment) ](fg:#83a598 bg:color_bg3)]($style)'
-
-[time]
-disabled = false
-time_format = "%R"
-style = "bg:color_bg1"
-format = '[[  $time ](fg:color_fg0 bg:color_bg1)]($style)'
-
-[line_break]
-disabled = true
+style = "bg:color_fg0 bg:color_bg1"
+format = '[ $symbol( $version) ]($style)'
 
 [character]
 disabled = false
@@ -178,12 +171,8 @@ vimcmd_replace_one_symbol = '[](bold fg:color_purple)'
 vimcmd_replace_symbol = '[](bold fg:color_purple)'
 vimcmd_visual_symbol = '[](bold fg:color_yellow)'
 
-[cmd_duration]
-show_milliseconds = false
-format = '[  $duration ]($style)'
-style = 'fg:color_blue bg:color_bg3'
-min_time = 50
-disabled = false
+[line_break]
+disabled = true
 
 [status]
 format = '[ $symbol ]($style)'
@@ -191,3 +180,37 @@ symbol = '✘ '
 style = "fg:red bg:color_bg1"
 success_symbol = '[✔ ](fg:color_aqua bg:color_bg1)'
 disabled = false
+
+[cmd_duration]
+show_milliseconds = false
+format = '[  $duration ]($style)'
+style = 'fg:#83a598 bg:color_bg3'
+min_time = 0
+disabled = false
+
+[jobs]
+disabled = false
+symbol_threshold = 0
+number_threshold = 0
+style = "fg:color_fg0 bg:color_blue"
+format = '[ $symbol $number ]($style)'
+symbol = ""
+
+[memory_usage]
+disabled = false
+threshold = -1
+style = "fg:color_fg0 bg:color_aqua"
+format = '[ $symbol $ram_pct ]($style)'
+symbol = "󰍛"
+
+[localip]
+disabled = false
+ssh_only = false
+style = 'bg:color_yellow fg:color_fg0'
+format = '[ 󰩠 $localipv4 ]($style)'
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:color_orange fg:color_fg0"
+format = '[  $time ]($style)'
