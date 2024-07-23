@@ -121,9 +121,11 @@ echo
 
 # --------
 
-if ! type "$starship" > /dev/null
-then
-  eval "$(starship init zsh)"
+if [ "$TERMINAL_EMULATOR" != "JetBrains-JediTerm" ]; then
+  if ! type "$starship" > /dev/null
+  then
+    eval "$(starship init zsh)"
+  fi
 fi
 
 # --------
