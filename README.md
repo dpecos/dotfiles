@@ -35,8 +35,6 @@ After that, we need to create the following content in `~/.zshrc.pre.local`:
 #### ZSH
 
     git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
-    # git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
-    git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 
 #### tmux
 
@@ -48,11 +46,11 @@ After that, we need to create the following content in `~/.zshrc.pre.local`:
 MacOSX:
 
     brew tap homebrew/cask-fonts
-    brew install font-source-code-pro font-hack-nerd-font font-sauce-code-pro-nerd-font font-ubuntu
+    brew install font-sauce-code-pro-nerd-font
 
 Linux:
 
-    yay -S adobe-source-code-pro-fonts ttf-ubuntu-font-family ttf-hack ttf-sourcecodepro-nerd
+    yay -S ttf-sourcecodepro-nerd
 
 #### Default Shell
 
@@ -70,11 +68,11 @@ ZSH security warning
 
 MacOS:
 
-    brew install tmux nodejs go autojump zsh-autosuggestions zsh-syntax-highlighting zsh-completions eza neofetch fzf ripgrep the_silver_searcher neovim dust fd bat difftastic tokei tealdeer vladkens/tap/macmon starship
+    brew install tmux tmuxp nodejs go autojump zsh-autosuggestions zsh-syntax-highlighting zsh-completions eza neofetch fzf ripgrep the_silver_searcher neovim dust fd bat difftastic tokei tealdeer vladkens/tap/macmon starship
 
 Linux:
 
-    yay -S tmux nodejs go autojump zsh-syntax-highlighting zsh-autosuggestions zsh-completions eza fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf bat difftastic lfs tokei tealdeer kwalletcli starship
+    yay -S tmux tmuxp nodejs go autojump zsh-syntax-highlighting zsh-autosuggestions zsh-completions eza fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf bat difftastic lfs tokei tealdeer kwalletcli starship
 
 ## Local overrides
 
