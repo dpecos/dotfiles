@@ -23,7 +23,7 @@ KEYTIMEOUT=1
 plugins=(
   git
   # tmux
-  dotenv
+  direnv
   vi-mode
   golang
   node
