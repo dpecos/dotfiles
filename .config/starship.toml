@@ -30,8 +30,9 @@ $line_break$character"""
 right_format = """
 [](fg:color_bg1)\
 $status\
-[](fg:color_bg3 bg:color_bg1)\
 $cmd_duration\
+[](fg:color_bg3 bg:color_bg1)\
+$direnv\
 [](fg:color_blue bg:color_bg3)\
 $jobs\
 [](fg:color_aqua bg:color_blue)\
@@ -182,18 +183,29 @@ vimcmd_visual_symbol = '[](bold fg:color_yellow) '
 disabled = true
 
 [status]
+disabled = false
 format = '[ $symbol ]($style)'
 symbol = '✘ '
 style = "fg:red bg:color_bg1"
 success_symbol = '[✔ ](fg:color_aqua bg:color_bg1)'
-disabled = false
 
 [cmd_duration]
-show_milliseconds = false
-format = '[  $duration ]($style)'
-style = 'fg:#83a598 bg:color_bg3'
-min_time = 0
 disabled = false
+show_milliseconds = false
+format = '[ $duration ]($style)'
+style = 'fg:color_aqua bg:color_bg1'
+min_time = 0
+
+[direnv]
+disabled = false
+style = 'fg:#83a598 bg:color_bg3'
+symbol = '📦 env'
+allowed_msg = '✔'
+not_allowed_msg = '✘'
+loaded_msg = '+'
+unloaded_msg = '-'
+format = '[ $symbol $loaded ]($style)'
+detect_files = [".envrc", ".env"]
 
 [jobs]
 disabled = false
