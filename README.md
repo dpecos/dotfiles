@@ -68,11 +68,11 @@ ZSH security warning
 
 MacOS:
 
-    brew install tmux tmuxp nodejs go autojump zsh-autosuggestions zsh-syntax-highlighting zsh-completions eza neofetch fzf ripgrep the_silver_searcher neovim dust fd bat difftastic tokei tealdeer vladkens/tap/macmon starship rust
+    brew install tmux tmuxp nodejs go autojump zsh-autosuggestions zsh-syntax-highlighting zsh-completions eza neofetch fzf ripgrep the_silver_searcher neovim dust fd bat difftastic tokei tealdeer vladkens/tap/macmon starship direnv rust
 
 Linux:
 
-    yay -S tmux tmuxp nodejs go autojump zsh-syntax-highlighting zsh-autosuggestions zsh-completions eza fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf bat difftastic lfs tokei tealdeer kwalletcli starship rust
+    yay -S tmux tmuxp nodejs go autojump zsh-syntax-highlighting zsh-autosuggestions zsh-completions eza fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf bat difftastic lfs tokei tealdeer kwalletcli starship direnv rust
 
 Cargo / Rust:
 
