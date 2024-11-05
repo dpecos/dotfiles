@@ -36,7 +36,7 @@ M.linters = {
 
 -- lspconfig
 M.servers = {
-	tsserver = {
+	ts_ls = {
 		settings = {
 			typescript = {
 				inlayHints = {
