@@ -125,7 +125,7 @@ For MacOS:
     [font.normal]
     family = "SauceCodePro Nerd Font"
 
-    [shell]
+    [terminal.shell]
     program = "/opt/homebrew/bin/tmux"
     args = ["new-session", "-A", "-D", "-s", "main"]
 
@@ -137,7 +137,7 @@ For Linux:
     [font.normal]
     family = "SauceCodePro Nerd Font Mono"
 
-    [shell]
+    [terminal.shell]
     program = "/usr/bin/tmux"
     args = ["new-session", "-A", "-D", "-s", "main"]
 
