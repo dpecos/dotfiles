@@ -3,14 +3,14 @@ local M = {}
 
 M.toggle = function(character)
   local buf = vim.api.nvim_get_current_buf()
-  local modifiable = vim.api.nvim_buf_get_option(buf, 'modifiable')
+  local modifiable = vim.api.nvim_buf_get_option(buf, "modifiable")
 
   if not modifiable then
     return
   end
 
   local api = vim.api
-  local delimiters = { ',', ';' }
+  local delimiters = { ",", ";" }
   local line = api.nvim_get_current_line()
   local last_char = line:sub(-1)
 
@@ -29,8 +29,12 @@ end
 
 M.setup = function(options)
   for _, key in ipairs(options.keys) do
-    M.map('n', key .. key, ':lua require("plugins/local/toggle-char").toggle("' .. key .. '")<CR>',
-      { noremap = true, silent = true, desc = 'Toggle end char "' .. key .. '"'})
+    M.map(
+      "n",
+      key .. key,
+      ':lua require("toggle_char").toggle("' .. key .. '")<CR>',
+      { noremap = true, silent = true, desc = 'Toggle end char "' .. key .. '"' }
+    )
   end
 end
 
