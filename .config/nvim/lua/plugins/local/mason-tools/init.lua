@@ -36,7 +36,8 @@ M.linters = {
 
 -- lspconfig
 M.servers = {
-	ts_ls = {
+	["typescript-language-server"] = {
+		lsp_server_name = "ts_ls",
 		settings = {
 			typescript = {
 				inlayHints = {
@@ -65,7 +66,8 @@ M.servers = {
 			},
 		},
 	},
-	rust_analyzer = {
+	["rust-analyzer"] = {
+		lsp_server_name = "rust_analyzer",
 		settings = {
 			["rust-analyzer"] = {
 				diagnostics = {
@@ -81,7 +83,8 @@ M.servers = {
 		},
 	},
 	gopls = {},
-	lua_ls = {
+	["lua-language-server"] = {
+		lsp_server_name = "lua_ls",
 		settings = {
 			Lua = {
 				diagnostics = {
@@ -103,17 +106,26 @@ M.servers = {
 			},
 		},
 	},
-	jsonls = {},
-	yamlls = {
+	["json-lsp"] = {
+		lsp_server_name = "jsonls",
+	},
+	["yaml-language-server"] = {
+		lsp_server_name = "yamlls",
 		settings = {
 			yaml = {
 				keyOrdering = false,
 			},
 		},
 	},
-	bashls = {},
-	prosemd_lsp = {},
-	terraformls = {},
+	["bash-language-server"] = {
+		lsp_server_name = "bashls",
+	},
+	["prosemd-lsp"] = {
+		lsp_server_name = "prosemd_lsp",
+	},
+	["terraform-ls"] = {
+		lsp_server_name = "terraformls",
+	},
 }
 
 return M

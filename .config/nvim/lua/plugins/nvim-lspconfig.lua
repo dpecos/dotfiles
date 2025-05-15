@@ -1,21 +1,3 @@
-local mason_tools = require("plugins/local/mason-tools")
-
-local function tools_to_autoinstall(servers, formatters, linters)
-	local servers_list = vim.tbl_flatten(vim.tbl_keys(servers))
-	local formatters_list = vim.tbl_flatten(vim.tbl_values(formatters))
-	local linters_list = vim.tbl_flatten(vim.tbl_values(linters))
-
-	local tools = servers_list
-	tools = vim.list_extend(tools, formatters_list)
-	tools = vim.list_extend(tools, linters_list)
-
-	-- only unique tools
-	table.sort(tools)
-	tools = vim.fn.uniq(tools)
-
-	return tools
-end
-
 local on_lsp_attach = function(ev)
 	local client = vim.lsp.get_client_by_id(ev.data.client_id)
 	for bufnr, _ in pairs(client.attached_buffers) do
@@ -149,60 +131,26 @@ local setup = function()
 		float = { border = "single" },
 	})
 
-	-- enable signs column
-	local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-	for type, icon in pairs(signs) do
-		local hl = "DiagnosticSign" .. type
-		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-	end
-
 	-- LSP setup
-	require("mason").setup()
+	local mason_tools = require("plugins/local/mason-tools")
+	for server, config in pairs(mason_tools.servers) do
+		local lsp_server_name = config.lsp_server_name or server
+		config.lsp_server_name = nil
 
-	local servers_list = vim.tbl_flatten(vim.tbl_keys(mason_tools.servers))
-	for _, server in ipairs(servers_list) do
-		local config = mason_tools.servers[server]
-		-- if type(config) == "table" then
-		-- 	config.capabilities = lsp_capabilities
-		-- end
-
-		vim.lsp.config(server, config)
-		vim.lsp.enable(server)
+		vim.lsp.config(lsp_server_name, config)
+		vim.lsp.enable(lsp_server_name)
 	end
 	vim.api.nvim_create_autocmd("LspAttach", {
 		callback = on_lsp_attach,
-	})
-
-	local tools_to_install = tools_to_autoinstall(mason_tools.servers, mason_tools.formatters, mason_tools.linters)
-	-- print("Installing tools: " .. table.concat(tools_to_install, ", "))
-	require("mason-tool-installer").setup({
-		ensure_installed = tools_to_install,
-	})
-
-	require("fidget").setup({
-		notification = {
-			window = {
-				winblend = 0, -- transparent
-			},
-		},
-		integration = {
-			["nvim-tree"] = {
-				enable = true,
-			},
-		},
 	})
 end
 
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
-		"williamboman/mason.nvim",
 		"neovim/nvim-lspconfig",
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
 
 		"lewis6991/gitsigns.nvim",
-
-		"j-hui/fidget.nvim",
 	},
 	config = function()
 		setup()
