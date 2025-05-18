@@ -1,5 +1,14 @@
-local on_lsp_attach = function(ev)
-	local client = vim.lsp.get_client_by_id(ev.data.client_id)
+local function client_supports_method(client, method, bufnr)
+	if vim.fn.has("nvim-0.11") == 1 then
+		return client:supports_method(method, bufnr)
+	else
+		return client.supports_method(method, { bufnr = bufnr })
+	end
+end
+
+local on_lsp_attach = function(event)
+	local client = vim.lsp.get_client_by_id(event.data.client_id)
+
 	for bufnr, _ in pairs(client.attached_buffers) do
 		-- Enable completion triggered by <c-x><c-o>
 		vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -24,10 +33,15 @@ local on_lsp_attach = function(ev)
 		nmap_lsp("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
 		nmap_lsp("gdv", ":vsplit | lua vim.lsp.buf.definition()<CR>", "[G]oto [D]efinition (vertical split)")
 		nmap_lsp("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-		nmap_lsp("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-		nmap_lsp("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
-		nmap_lsp("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-		nmap_lsp("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+		nmap_lsp("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+		nmap_lsp("<leader>fd", require("telescope.builtin").lsp_definitions, "List [D]efinitions")
+		nmap_lsp("<leader>ftd", require("telescope.builtin").lsp_type_definitions, "List [T]ype [D]efinitions")
+		nmap_lsp("<leader>fds", require("telescope.builtin").lsp_document_symbols, "List [D]ocument [S]ymbols")
+		nmap_lsp(
+			"<leader>fws",
+			require("telescope.builtin").lsp_dynamic_workspace_symbols,
+			"List [W]orkspace [S]ymbols"
+		)
 
 		nmap_lsp("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 		nmap_lsp("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
@@ -39,11 +53,12 @@ local on_lsp_attach = function(ev)
 			vim.lsp.buf.signature_help({ border = "rounded" })
 		end, "Signature Documentation")
 
-		if vim.lsp.inlay_hint then
+		if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
 			vim.lsp.inlay_hint.enable(true) -- enable inlay hints by default
+
 			nmap_lsp("<leader>h", function()
-				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-			end, "Toggle inline [h]ints")
+				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+			end, "Toggle inlay [H]ints")
 		end
 
 		-- if client.server_capabilities.documentFormattingProvider then
@@ -65,6 +80,7 @@ local on_lsp_attach = function(ev)
 			vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN })
 		end, "Next warn")
 
+		-- GitSigns mappings --
 		local map_gs = function(mode, keys, func, desc, opts)
 			opts = opts or {}
 			opts.desc = desc
@@ -115,9 +131,37 @@ local on_lsp_attach = function(ev)
 			gs.diffthis("~")
 		end, "[h]unk [d]iff ~")
 		nmap_gs("<leader>td", gs.toggle_deleted, "[t]oggle [d]eleted")
-
 		-- Text object
 		map_gs({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "select hunk")
+
+		-- End of GitSigns mappings --
+
+		-- The following autocommands are used to highlight references of the word under your cursor when your cursor rests there for a little while.
+		if
+			client
+			and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf)
+		then
+			local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+			vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+				buffer = event.buf,
+				group = highlight_augroup,
+				callback = vim.lsp.buf.document_highlight,
+			})
+
+			vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+				buffer = event.buf,
+				group = highlight_augroup,
+				callback = vim.lsp.buf.clear_references,
+			})
+
+			vim.api.nvim_create_autocmd("LspDetach", {
+				group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+				callback = function(event2)
+					vim.lsp.buf.clear_references()
+					vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
+				end,
+			})
+		end
 	end
 end
 
@@ -140,7 +184,9 @@ local setup = function()
 		vim.lsp.config(lsp_server_name, config)
 		vim.lsp.enable(lsp_server_name)
 	end
+
 	vim.api.nvim_create_autocmd("LspAttach", {
+		group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 		callback = on_lsp_attach,
 	})
 end
@@ -149,6 +195,23 @@ return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
 		"neovim/nvim-lspconfig",
+
+		-- Useful status updates for LSP
+		{
+			"j-hui/fidget.nvim",
+			opts = {
+				notification = {
+					window = {
+						winblend = 0, -- transparent
+					},
+				},
+				integration = {
+					["nvim-tree"] = {
+						enable = true,
+					},
+				},
+			},
+		},
 
 		"lewis6991/gitsigns.nvim",
 	},

@@ -63,16 +63,18 @@ vim.keymap.set("v", "y", "myy`y")
 vim.keymap.set("v", "Y", "myY`y")
 
 -- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
 	callback = function()
 		vim.highlight.on_yank()
 	end,
-	group = highlight_group,
-	pattern = "*",
 })
 
 -- split
+vim.keymap.set("n", "<C-w>h", ":split<Return>")
+vim.keymap.set("n", "<C-w>v", ":vsplit<Return>")
+
 vim.keymap.set("n", "<C-w>f", function()
 	require("nvim-tree.api").tree.close()
 	require("toggle-fullscreen"):toggle_fullscreen()

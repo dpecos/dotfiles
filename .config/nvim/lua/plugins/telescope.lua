@@ -42,7 +42,7 @@ local setup = function()
 	vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "Search current Word" })
 	vim.keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Search by live grep" })
 	vim.keymap.set("n", "<leader>fg", builtin.grep_string, { desc = "Search word under cursor" })
-	vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Search Diagnostics" })
+	vim.keymap.set("n", "<leader>fD", builtin.diagnostics, { desc = "Search Diagnostics" })
 	vim.keymap.set("n", "<leader>fx", builtin.resume, { desc = "Resume" })
 
 	vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Search Keymaps" })
