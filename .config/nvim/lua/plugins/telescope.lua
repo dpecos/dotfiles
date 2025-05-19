@@ -46,7 +46,6 @@ local setup = function()
 	vim.keymap.set("n", "<leader>fx", builtin.resume, { desc = "Resume" })
 
 	vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Search Keymaps" })
-	vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "Search LSP references" })
 	vim.keymap.set("n", "<leader>fm", builtin.marks, { desc = "Search Marks" })
 
 	vim.keymap.set("n", "<leader>gs", builtin.git_status, { desc = "Git status" })

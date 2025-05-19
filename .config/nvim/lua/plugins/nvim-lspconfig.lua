@@ -32,19 +32,13 @@ local on_lsp_attach = function(event)
 		nmap_lsp("gDv", ":vsplit | lua vim.lsp.buf.declaration()<CR>", "[G]oto [D]eclaration (vertical split)")
 		nmap_lsp("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
 		nmap_lsp("gdv", ":vsplit | lua vim.lsp.buf.definition()<CR>", "[G]oto [D]efinition (vertical split)")
-		nmap_lsp("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-		nmap_lsp("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-		nmap_lsp("<leader>fd", require("telescope.builtin").lsp_definitions, "List [D]efinitions")
-		nmap_lsp("<leader>ftd", require("telescope.builtin").lsp_type_definitions, "List [T]ype [D]efinitions")
-		nmap_lsp("<leader>fds", require("telescope.builtin").lsp_document_symbols, "List [D]ocument [S]ymbols")
-		nmap_lsp(
-			"<leader>fws",
-			require("telescope.builtin").lsp_dynamic_workspace_symbols,
-			"List [W]orkspace [S]ymbols"
-		)
-
-		nmap_lsp("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-		nmap_lsp("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+		nmap_lsp("grr", require("telescope.builtin").lsp_references, "List [R]eferences")
+		nmap_lsp("gri", require("telescope.builtin").lsp_implementations, "List [I]mplementation")
+		-- nmap_lsp("gld", require("telescope.builtin").lsp_definitions, "List [D]efinitions")
+		-- nmap_lsp("gltd", require("telescope.builtin").lsp_type_definitions, "List [T]ype [D]efinitions")
+		nmap_lsp("gO", require("telescope.builtin").lsp_document_symbols, "List [D]ocument [S]ymbols")
+		nmap_lsp("grn", vim.lsp.buf.rename, "[R]e[n]ame")
+		nmap_lsp("gra", vim.lsp.buf.code_action, "Code [A]ction")
 
 		nmap_lsp("K", function()
 			vim.lsp.buf.hover({ border = "rounded" })
