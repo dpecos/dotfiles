@@ -168,10 +168,11 @@ end
 local setup = function()
 	-- enable diagnostic test at the EOL where the problem is
 	vim.diagnostic.config({
-		virtual_text = {
-			prefix = "●",
-			-- spacing = 0,
-		},
+		virtual_lines = true,
+		-- virtual_text = {
+		-- 	prefix = "●",
+		-- 	-- spacing = 0,
+		-- },
 		float = { border = "single" },
 	})
 
