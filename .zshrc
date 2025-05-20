@@ -109,6 +109,11 @@ bindkey '^e' edit-command-line
 
 # --------
 
+# Use neovim as the man pager
+export MANPAGER='nvim +Man!'
+
+# --------
+
 echo
 
 if [ "$(uname)" = "Darwin" ]; then
