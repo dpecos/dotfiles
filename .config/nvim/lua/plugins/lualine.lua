@@ -21,11 +21,6 @@ return {
 				lualine_b = { "branch", "diff", "diagnostics" },
 				lualine_c = { "filename" },
 				lualine_x = {
-					{
-						"copilot",
-						show_colors = true,
-						show_loading = true,
-					},
 					"encoding",
 					"fileformat",
 					"filetype",
