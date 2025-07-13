@@ -9,7 +9,6 @@ IMPORTANT: before initializing the home directory, setup ssh keys for GitLab and
     home remote add origin git@github.com:dpecos/dotfiles.git
     home fetch --all
     home reset --hard origin/master
-    home branch -m main master
     home branch --set-upstream-to=origin/master master
 
 ### Setup tweaks
@@ -68,11 +67,11 @@ ZSH security warning
 
 MacOS:
 
-    brew install tmux tmuxp nodejs go autojump zsh-autosuggestions zsh-syntax-highlighting zsh-completions eza neofetch fzf ripgrep the_silver_searcher neovim dust fd bat difftastic tokei tealdeer vladkens/tap/macmon starship direnv rust
+    brew install tmux tmuxp nodejs go autojump zsh-autosuggestions zsh-syntax-highlighting zsh-completions eza neofetch fzf ripgrep the_silver_searcher neovim dust fd bat difftastic tokei tealdeer vladkens/tap/macmon starship direnv rustup
 
 Linux:
 
-    yay -S tmux tmuxp nodejs go autojump zsh-syntax-highlighting zsh-autosuggestions zsh-completions eza fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf bat difftastic lfs tokei tealdeer kwalletcli starship direnv rust unzip
+    yay -S tmux tmuxp nodejs go autojump zsh-syntax-highlighting zsh-autosuggestions zsh-completions eza fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf bat difftastic tokei tealdeer kwalletcli starship direnv rustup unzip
 
 Cargo / Rust:
 
