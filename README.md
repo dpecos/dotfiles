@@ -71,7 +71,7 @@ MacOS:
 
 Linux:
 
-    yay -S tmux tmuxp nodejs go autojump zsh-syntax-highlighting zsh-autosuggestions zsh-completions eza fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf bat difftastic tokei tealdeer kwalletcli starship direnv rustup unzip
+    yay -S tmux tmuxp nodejs go autojump zsh-syntax-highlighting zsh-autosuggestions zsh-completions eza fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf bat difftastic tokei tealdeer kwalletcli starship direnv rustup unzip wl-clipboard
 
 Cargo / Rust:
 
