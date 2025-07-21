@@ -1,3 +1,5 @@
+#zmodload zsh/zprof
+
 export COLORTERM="truecolor"
 export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
 
@@ -14,6 +16,9 @@ ZSH_TMUX_AUTOCONNECT=false
 # 10ms for key sequences - tmux, vi integration
 KEYTIMEOUT=1
 
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+
 # --------
 
 [ -f ~/.zshrc.pre.local ] && . ~/.zshrc.pre.local || true
@@ -22,20 +27,15 @@ KEYTIMEOUT=1
 
 plugins=(
   git
-  # tmux
   direnv
   vi-mode
-  golang
+  fzf
+  ssh-agent
   node
-  nvm
-  npm
-  yarn
+  autojump
   docker
   mvn
-  ssh-agent
   rust
-  autojump
-  fzf
   gcloud
   sdk
 )
@@ -46,16 +46,16 @@ if [ "$(uname)" = "Darwin" ]; then
     export HOMEBREW_PREFIX=/opt/homebrew
   fi
 
-  . $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-  . $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
+  # . $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  # . $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  #
   plugins+=(
     macos
     brew
   )
 else
-  . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-  . /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+  # . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  # . /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
   plugins+=(
     systemd
@@ -135,4 +135,36 @@ fi
 
 # --------
 
+# Smarter completion initialization
+autoload -Uz compinit
+if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+    compinit
+else
+    compinit -C
+fi
+
+# --------
+
+if [ "$(uname)" = "Darwin" ]; then
+  if [ -z "$HOMEBREW_PREFIX" ]
+  then
+    export HOMEBREW_PREFIX=/opt/homebrew
+  fi
+
+  . $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  . $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+else
+  . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  . /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+# --------
+
+# Alternative to 'nvm' - Node Version Manager, written in Rust with a faster startup time
+eval "$(fnm env --use-on-cd --shell zsh)"
+
+# --------
+
 [ -f ~/.zshrc.local ] && . ~/.zshrc.local || true
+
+#zprof
