@@ -1,7 +1,6 @@
--- LSP Configuration using Neovim native features
+-- LSP Configuration using Neovim native features + nvim-lspconfig
 -- 
 -- Native features being used (available in Neovim 0.10+/0.11+):
--- ✓ vim.lsp.config/enable (0.11+) - Native LSP server configuration
 -- ✓ vim.diagnostic.config (0.10+) - Native diagnostic configuration  
 -- ✓ vim.lsp.inlay_hint (0.10+) - Native inlay hints
 -- ✓ vim.snippet (0.10+) - Native snippet support
@@ -11,9 +10,14 @@
 -- ✓ Native document highlight - No plugin needed
 --
 -- Plugin dependencies:
--- • nvim-lspconfig: Provides sensible defaults for LSP server configs
+-- • nvim-lspconfig: LSP server configurations and setup (still needed for stability)
 -- • fidget.nvim: LSP progress notifications (no native alternative)
 -- • gitsigns.nvim: Git integration (no native alternative)
+--
+-- Note: While vim.lsp.config/enable exist in 0.11+, we use nvim-lspconfig for:
+-- - Better defaults and server configurations
+-- - More stable and well-tested
+-- - Automatic command detection for LSP servers
 --
 -- Formatting & Linting:
 -- • Biome LSP - Handles JS/TS/JSON/CSS formatting and linting
@@ -313,15 +317,19 @@ local setup = function()
 		},
 	})
 
-	-- Native LSP setup using vim.lsp.config and vim.lsp.enable (Neovim 0.11+)
-	-- This replaces the need for nvim-lspconfig plugin setup
+	-- LSP setup using nvim-lspconfig
+	-- While vim.lsp.config/enable are available in 0.11+, nvim-lspconfig provides
+	-- better defaults and is more stable
 	local mason_tools = require("plugins/local/mason-tools")
+	local lspconfig = require("lspconfig")
+	
 	for server, config in pairs(mason_tools.servers) do
 		local lsp_server_name = config.lsp_server_name or server
-		config.lsp_server_name = nil
-
-		vim.lsp.config(lsp_server_name, config)
-		vim.lsp.enable(lsp_server_name)
+		local server_config = vim.tbl_deep_extend("force", {}, config)
+		server_config.lsp_server_name = nil
+		
+		-- Setup the server with lspconfig
+		lspconfig[lsp_server_name].setup(server_config)
 	end
 
 	-- Native LspAttach autocmd (Neovim 0.8+)
