@@ -38,6 +38,7 @@
 | `K` | Normal | Show hover documentation |
 | `<leader>k` | Normal | Show signature help |
 | `<leader>h` | Normal | Toggle inlay hints |
+| `<leader>d` | Normal | Toggle diagnostic display mode |
 | `[e` | Normal | Previous error |
 | `]e` | Normal | Next error |
 | `[w` | Normal | Previous warning |

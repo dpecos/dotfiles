@@ -185,6 +185,46 @@ local on_lsp_attach = function(event)
 		end, "Toggle inlay Hints")
 	end
 
+	-- Toggle diagnostic virtual text (inline linting messages)
+	map_lsp("<leader>d", function()
+		local current_config = vim.diagnostic.config()
+		
+		-- Cycle through 3 modes:
+		-- 1. virtual_lines only (default)
+		-- 2. virtual_text only
+		-- 3. Both off (minimal)
+		
+		local virtual_text_enabled = current_config.virtual_text ~= false
+		local virtual_lines_enabled = current_config.virtual_lines ~= false
+		
+		if virtual_lines_enabled and not virtual_text_enabled then
+			-- Mode 1 -> Mode 2: Enable virtual_text, disable virtual_lines
+			vim.diagnostic.config({
+				virtual_text = {
+					prefix = "●",
+					spacing = 4,
+					source = "if_many",
+				},
+				virtual_lines = false,
+			})
+			vim.notify("Diagnostics: Virtual text (inline)", vim.log.levels.INFO)
+		elseif virtual_text_enabled and not virtual_lines_enabled then
+			-- Mode 2 -> Mode 3: Disable both
+			vim.diagnostic.config({
+				virtual_text = false,
+				virtual_lines = false,
+			})
+			vim.notify("Diagnostics: Minimal (signs & underline only)", vim.log.levels.INFO)
+		else
+			-- Mode 3 -> Mode 1: Enable virtual_lines, disable virtual_text
+			vim.diagnostic.config({
+				virtual_text = false,
+				virtual_lines = true,
+			})
+			vim.notify("Diagnostics: Virtual lines (below code)", vim.log.levels.INFO)
+		end
+	end, "Toggle diagnostic display mode")
+
 	-- if client.server_capabilities.documentFormattingProvider then
 	--   nmap_lsp("<leader>f", function()
 	--     vim.lsp.buf.format({ async = true })
@@ -291,9 +331,10 @@ local setup = function()
 	-- Native diagnostic configuration (Neovim 0.10+)
 	vim.diagnostic.config({
 		virtual_lines = true,
+		virtual_text = false, -- Disabled by default, toggle with <leader>d
 		-- virtual_text = {
 		-- 	prefix = "●",
-		-- 	-- spacing = 0,
+		-- 	spacing = 4,
 		-- },
 		underline = true,
 		update_in_insert = false,
