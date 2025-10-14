@@ -5,6 +5,7 @@
 Biome is a fast, modern toolchain for web projects that provides:
 - **Formatting** (replaces Prettier)
 - **Linting** (replaces ESLint)
+- **Import Sorting** (organizes imports automatically)
 - **All-in-one** LSP server for JS/TS/JSON/CSS
 - **10-100x faster** than Prettier + ESLint combined
 
@@ -95,13 +96,19 @@ Or create manually:
 
 ## Usage in Neovim
 
-### Automatic Formatting
+### Automatic Formatting & Import Sorting
 
-Format on save is **enabled by default** for files with Biome LSP attached.
+**Both are enabled by default** for TypeScript/JavaScript files:
 
-### Manual Formatting
+1. **Organize Imports** - Automatically sorts and removes unused imports
+2. **Format Code** - Applies code formatting rules
+
+This happens on save for `.ts`, `.tsx`, `.js`, `.jsx` files.
+
+### Manual Operations
 
 - **Format current buffer**: `<leader>f`
+- **Organize imports**: `<leader>o`
 - **Format command**: `:Format`
 
 ### Disable/Enable Auto-formatting
@@ -149,6 +156,24 @@ Edit `biome.json` in your project root. See [Biome docs](https://biomejs.dev/ref
   }
 }
 ```
+
+### Example: Configure Import Sorting
+
+```json
+{
+  "organizeImports": {
+    "enabled": true
+  }
+}
+```
+
+**Note**: Import organization is enabled by default in the example config.
+
+**Import sorting rules:**
+- Removes unused imports
+- Sorts imports alphabetically
+- Groups by type (built-in, external, internal)
+- Runs automatically on save (for TS/JS files)
 
 ### Example: Configure Linting Rules
 

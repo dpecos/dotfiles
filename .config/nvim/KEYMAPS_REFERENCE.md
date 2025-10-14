@@ -34,6 +34,7 @@
 | `gO` | Normal | List document symbols (Telescope) |
 | `grn` | Normal | Rename symbol |
 | `gra` | Normal | Code actions |
+| `<leader>o` | Normal | Organize imports (TS/JS) |
 | `K` | Normal | Show hover documentation |
 | `<leader>k` | Normal | Show signature help |
 | `<leader>h` | Normal | Toggle inlay hints |

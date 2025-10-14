@@ -81,6 +81,17 @@ local on_lsp_attach = function(event)
 	map_lsp("grn", vim.lsp.buf.rename, "Rename")
 	map_lsp("gra", vim.lsp.buf.code_action, "Code Action")
 
+	-- Organize imports (for TypeScript/JavaScript)
+	map_lsp("<leader>o", function()
+		vim.lsp.buf.code_action({
+			context = {
+				only = { "source.organizeImports" },
+				diagnostics = {},
+			},
+			apply = true,
+		})
+	end, "Organize imports")
+
 	map_lsp("K", function()
 		vim.lsp.buf.hover({ border = "rounded" })
 	end, "Documentation")
@@ -125,12 +136,39 @@ local on_lsp_attach = function(event)
 					return
 				end
 				
-				-- Format synchronously before save
-				vim.lsp.buf.format({ 
-					async = false,
-					timeout_ms = 1000,
-					bufnr = event.buf,
-				})
+				-- Organize imports for TypeScript/JavaScript files (via Biome or ts_ls)
+				local filetype = vim.bo[event.buf].filetype
+				if filetype == "typescript" or filetype == "typescriptreact" 
+					or filetype == "javascript" or filetype == "javascriptreact" then
+					
+					-- Try to organize imports (Biome and TypeScript LSP both support this)
+					pcall(function()
+						vim.lsp.buf.code_action({
+							context = {
+								only = { "source.organizeImports" },
+								diagnostics = {},
+							},
+							apply = true,
+						})
+					end)
+					
+					-- Small delay to let organize imports complete before formatting
+					vim.defer_fn(function()
+						-- Format synchronously before save
+						vim.lsp.buf.format({ 
+							async = false,
+							timeout_ms = 1000,
+							bufnr = event.buf,
+						})
+					end, 100)
+				else
+					-- For non-JS/TS files, just format
+					vim.lsp.buf.format({ 
+						async = false,
+						timeout_ms = 1000,
+						bufnr = event.buf,
+					})
+				end
 			end,
 		})
 	end
