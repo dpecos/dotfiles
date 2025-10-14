@@ -67,9 +67,9 @@ local setup = function()
 
 	local api = require("nvim-tree.api")
 
-	vim.keymap.set("n", "<C-n>", api.tree.toggle, { desc = "Toggle nvim-tree" })
-	vim.api.nvim_set_keymap("n", "<leader>r", ":NvimTreeRefresh<CR>", { desc = "Refresh nvim-tree" })
-	vim.api.nvim_set_keymap("n", "<leader>n", ":NvimTreeFindFile<CR>", { desc = "Show file nvim-tree" })
+	vim.keymap.set("n", "<C-n>", api.tree.toggle, { desc = "NvimTree: Toggle file explorer" })
+	vim.keymap.set("n", "<leader>r", ":NvimTreeRefresh<CR>", { desc = "NvimTree: Refresh file explorer" })
+	vim.keymap.set("n", "<leader>n", ":NvimTreeFindFile<CR>", { desc = "NvimTree: Show current file in explorer" })
 
 	-- close vim if nvim-tree is the last buffer
 	local function tab_win_closed(winnr)

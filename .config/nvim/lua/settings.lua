@@ -36,7 +36,7 @@ opt.pumblend = 10 -- Slight transparency for completion menu
 opt.pumheight = 15 -- Maximum number of items to show in popup menu
 
 -- Native completion keymaps
-vim.keymap.set("i", "<C-Space>", "<C-x><C-o>", { desc = "Trigger LSP completion" })
+vim.keymap.set("i", "<C-Space>", "<C-x><C-o>", { desc = "LSP: Trigger LSP completion" })
 
 -- Enhanced Tab/S-Tab navigation in completion menu
 vim.keymap.set("i", "<Tab>", function()
@@ -45,7 +45,7 @@ vim.keymap.set("i", "<Tab>", function()
 	else
 		return "<Tab>"
 	end
-end, { expr = true, desc = "Next completion or Tab" })
+end, { expr = true, desc = "Completion: Next completion or Tab" })
 
 vim.keymap.set("i", "<S-Tab>", function()
 	if vim.fn.pumvisible() == 1 then
@@ -53,7 +53,7 @@ vim.keymap.set("i", "<S-Tab>", function()
 	else
 		return "<S-Tab>"
 	end
-end, { expr = true, desc = "Previous completion or Shift-Tab" })
+end, { expr = true, desc = "Completion: Previous completion or Shift-Tab" })
 
 -- Accept completion with Enter
 vim.keymap.set("i", "<CR>", function()
@@ -62,7 +62,7 @@ vim.keymap.set("i", "<CR>", function()
 	else
 		return "<CR>"
 	end
-end, { expr = true, desc = "Accept completion or newline" })
+end, { expr = true, desc = "Completion: Accept completion or newline" })
 
 -- Close completion menu with Ctrl-e
 vim.keymap.set("i", "<C-e>", function()
@@ -71,7 +71,7 @@ vim.keymap.set("i", "<C-e>", function()
 	else
 		return "<End>"
 	end
-end, { expr = true, desc = "Close completion or end of line" })
+end, { expr = true, desc = "Completion: Close completion or end of line" })
 
 -- EditorConfig
 g.editorconfig = true

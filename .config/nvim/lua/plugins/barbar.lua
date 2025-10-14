@@ -27,26 +27,26 @@ local setup = function()
 	local opts = { noremap = true, silent = true }
 
 	-- Move to previous/next
-	map("n", "<A-,>", "<Cmd>BufferPrevious<CR>", opts)
-	map("n", "<A-.>", "<Cmd>BufferNext<CR>", opts)
+	map("n", "<A-,>", "<Cmd>BufferPrevious<CR>", vim.tbl_extend("force", opts, { desc = "Barbar: Previous buffer" }))
+	map("n", "<A-.>", "<Cmd>BufferNext<CR>", vim.tbl_extend("force", opts, { desc = "Barbar: Next buffer" }))
 	-- Re-order to previous/next
-	map("n", "<A-<>", "<Cmd>BufferMovePrevious<CR>", opts)
-	map("n", "<A->>", "<Cmd>BufferMoveNext<CR>", opts)
+	map("n", "<A-<>", "<Cmd>BufferMovePrevious<CR>", vim.tbl_extend("force", opts, { desc = "Barbar: Move buffer left" }))
+	map("n", "<A->>", "<Cmd>BufferMoveNext<CR>", vim.tbl_extend("force", opts, { desc = "Barbar: Move buffer right" }))
 	-- Goto buffer in position...
-	map("n", "<A-1>", "<Cmd>BufferGoto 1<CR>", opts)
-	map("n", "<A-2>", "<Cmd>BufferGoto 2<CR>", opts)
-	map("n", "<A-3>", "<Cmd>BufferGoto 3<CR>", opts)
-	map("n", "<A-4>", "<Cmd>BufferGoto 4<CR>", opts)
-	map("n", "<A-5>", "<Cmd>BufferGoto 5<CR>", opts)
-	map("n", "<A-6>", "<Cmd>BufferGoto 6<CR>", opts)
-	map("n", "<A-7>", "<Cmd>BufferGoto 7<CR>", opts)
-	map("n", "<A-8>", "<Cmd>BufferGoto 8<CR>", opts)
-	map("n", "<A-9>", "<Cmd>BufferGoto 9<CR>", opts)
-	map("n", "<A-0>", "<Cmd>BufferLast<CR>", opts)
+	map("n", "<A-1>", "<Cmd>BufferGoto 1<CR>", vim.tbl_extend("force", opts, { desc = "Barbar: Go to buffer 1" }))
+	map("n", "<A-2>", "<Cmd>BufferGoto 2<CR>", vim.tbl_extend("force", opts, { desc = "Barbar: Go to buffer 2" }))
+	map("n", "<A-3>", "<Cmd>BufferGoto 3<CR>", vim.tbl_extend("force", opts, { desc = "Barbar: Go to buffer 3" }))
+	map("n", "<A-4>", "<Cmd>BufferGoto 4<CR>", vim.tbl_extend("force", opts, { desc = "Barbar: Go to buffer 4" }))
+	map("n", "<A-5>", "<Cmd>BufferGoto 5<CR>", vim.tbl_extend("force", opts, { desc = "Barbar: Go to buffer 5" }))
+	map("n", "<A-6>", "<Cmd>BufferGoto 6<CR>", vim.tbl_extend("force", opts, { desc = "Barbar: Go to buffer 6" }))
+	map("n", "<A-7>", "<Cmd>BufferGoto 7<CR>", vim.tbl_extend("force", opts, { desc = "Barbar: Go to buffer 7" }))
+	map("n", "<A-8>", "<Cmd>BufferGoto 8<CR>", vim.tbl_extend("force", opts, { desc = "Barbar: Go to buffer 8" }))
+	map("n", "<A-9>", "<Cmd>BufferGoto 9<CR>", vim.tbl_extend("force", opts, { desc = "Barbar: Go to buffer 9" }))
+	map("n", "<A-0>", "<Cmd>BufferLast<CR>", vim.tbl_extend("force", opts, { desc = "Barbar: Go to last buffer" }))
 	-- Pin/unpin buffer
-	map("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)
+	map("n", "<A-p>", "<Cmd>BufferPin<CR>", vim.tbl_extend("force", opts, { desc = "Barbar: Pin/unpin buffer" }))
 	-- Close buffer
-	map("n", "<A-c>", "<Cmd>BufferClose<CR>", opts)
+	map("n", "<A-c>", "<Cmd>BufferClose<CR>", vim.tbl_extend("force", opts, { desc = "Barbar: Close buffer" }))
 	-- Wipeout buffer
 	--                 :BufferWipeout
 	-- Close commands
@@ -56,7 +56,7 @@ local setup = function()
 	--                 :BufferCloseBuffersLeft
 	--                 :BufferCloseBuffersRight
 	-- Magic buffer-picking mode
-	map("n", "<C-p>", "<Cmd>BufferPick<CR>", opts)
+	map("n", "<C-p>", "<Cmd>BufferPick<CR>", vim.tbl_extend("force", opts, { desc = "Barbar: Pick buffer" }))
 	-- Sort automatically by...
 	--map('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', opts)
 	--map('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', opts)
