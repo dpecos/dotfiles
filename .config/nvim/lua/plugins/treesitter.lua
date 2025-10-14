@@ -1,7 +1,30 @@
 local setup_treesitter = function()
 	require("nvim-treesitter.configs").setup({
 		-- A list of parser names, or "all"
-		ensure_installed = { "vimdoc", "javascript", "typescript", "lua", "vim", "rust", "markdown" },
+		-- Updated with modern JS/TS parsers including React/JSX support
+		ensure_installed = {
+			"vimdoc",
+			"lua",
+			"vim",
+			"rust",
+			"markdown",
+			"markdown_inline",
+			-- JavaScript/TypeScript ecosystem
+			"javascript",
+			"typescript",
+			"tsx", -- TypeScript JSX (React)
+			"jsdoc", -- JSDoc comments
+			"json",
+			"jsonc", -- JSON with comments
+			"html",
+			"css",
+			"scss",
+			-- Other useful parsers
+			"bash",
+			"regex",
+			"toml",
+			"yaml",
+		},
 
 		-- Install parsers synchronously (only applied to `ensure_installed`)
 		sync_install = false,
@@ -19,6 +42,24 @@ local setup_treesitter = function()
 			-- Using this option may slow down your editor, and you may see some duplicate highlights.
 			-- Instead of true it can also be a list of languages
 			additional_vim_regex_highlighting = false,
+		},
+
+		-- Enhanced indentation for TS/JS
+		indent = {
+			enable = true,
+			-- Disable for languages that have issues
+			disable = {},
+		},
+
+		-- Incremental selection based on treesitter
+		incremental_selection = {
+			enable = true,
+			keymaps = {
+				init_selection = "gnn",
+				node_incremental = "grn",
+				scope_incremental = "grc",
+				node_decremental = "grm",
+			},
 		},
 	})
 	-- pcall(require('nvim-treesitter.install').update { with_sync = true })

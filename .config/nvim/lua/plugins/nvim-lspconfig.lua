@@ -85,16 +85,19 @@ local on_lsp_attach = function(event)
 	map_lsp("grn", vim.lsp.buf.rename, "Rename")
 	map_lsp("gra", vim.lsp.buf.code_action, "Code Action")
 
-	-- Organize imports (for TypeScript/JavaScript)
-	map_lsp("<leader>o", function()
-		vim.lsp.buf.code_action({
-			context = {
-				only = { "source.organizeImports" },
-				diagnostics = {},
-			},
-			apply = true,
-		})
-	end, "Organize imports")
+	-- NOTE: TypeScript import management is now fully automated on save
+	-- See lua/plugins/typescript-tools.lua for manual commands:
+	--   <leader>oi - Organize imports (manual)
+	--   <leader>os - Sort imports (manual)
+	--   <leader>ou - Remove unused imports (manual)
+	--   <leader>oa - Add missing imports (manual)
+	--   <leader>of - Fix all fixable errors
+	-- 
+	-- On save for TS/JS files, the following happens automatically:
+	--   1. Remove unused imports
+	--   2. Add missing imports
+	--   3. Sort imports
+	--   4. Format with Biome
 
 	map_lsp("K", function()
 		vim.lsp.buf.hover({ border = "rounded" })
@@ -140,30 +143,43 @@ local on_lsp_attach = function(event)
 					return
 				end
 				
-				-- Organize imports for TypeScript/JavaScript files (via Biome or ts_ls)
+				-- Organize imports for TypeScript/JavaScript files
+				-- typescript-tools.nvim provides better organize imports
 				local filetype = vim.bo[event.buf].filetype
 				if filetype == "typescript" or filetype == "typescriptreact" 
 					or filetype == "javascript" or filetype == "javascriptreact" then
 					
-					-- Try to organize imports (Biome and TypeScript LSP both support this)
+					-- Use typescript-tools commands for better import management
+					-- This ensures imports are sorted, organized, and cleaned up
 					pcall(function()
-						vim.lsp.buf.code_action({
-							context = {
-								only = { "source.organizeImports" },
-								diagnostics = {},
-							},
-							apply = true,
-						})
+						-- Step 1: Remove unused imports
+						vim.cmd("TSToolsRemoveUnusedImports")
 					end)
 					
-					-- Small delay to let organize imports complete before formatting
+					-- Small delay to let removal complete
 					vim.defer_fn(function()
-						-- Format synchronously before save
-						vim.lsp.buf.format({ 
-							async = false,
-							timeout_ms = 1000,
-							bufnr = event.buf,
-						})
+						-- Step 2: Add missing imports
+						pcall(function()
+							vim.cmd("TSToolsAddMissingImports")
+						end)
+						
+						-- Small delay for adding imports
+						vim.defer_fn(function()
+							-- Step 3: Sort imports (maintains organization)
+							pcall(function()
+								vim.cmd("TSToolsSortImports")
+							end)
+							
+							-- Final delay before formatting
+							vim.defer_fn(function()
+								-- Step 4: Format with Biome
+								vim.lsp.buf.format({ 
+									async = false,
+									timeout_ms = 2000,
+									bufnr = event.buf,
+								})
+							end, 100)
+						end, 100)
 					end, 100)
 				else
 					-- For non-JS/TS files, just format

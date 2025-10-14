@@ -36,36 +36,11 @@ M.servers = {
 		single_file_support = true,
 	},
 	
-	["typescript-language-server"] = {
-		lsp_server_name = "ts_ls",
-		settings = {
-			typescript = {
-				inlayHints = {
-					includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
-					includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-					includeInlayVariableTypeHints = true,
-					includeInlayFunctionParameterTypeHints = true,
-					includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-					includeInlayPropertyDeclarationTypeHints = true,
-					includeInlayFunctionLikeReturnTypeHints = true,
-					includeInlayEnumMemberValueHints = true,
-				},
-			},
-			javascript = {
-				inlayHints = {
-					includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
-					includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-					includeInlayVariableTypeHints = true,
-
-					includeInlayFunctionParameterTypeHints = true,
-					includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-					includeInlayPropertyDeclarationTypeHints = true,
-					includeInlayFunctionLikeReturnTypeHints = true,
-					includeInlayEnumMemberValueHints = true,
-				},
-			},
-		},
-	},
+	-- NOTE: TypeScript/JavaScript now handled by typescript-tools.nvim
+	-- See lua/plugins/typescript-tools.lua for configuration
+	-- The old typescript-language-server (ts_ls) is replaced by typescript-tools
+	-- which provides better performance and more features
+	
 	-- NOTE: rust-analyzer is NOT configured here to avoid clash with rustaceanvim
 	-- See M.rust_analyzer_settings below and lua/plugins/rustaceanvim.lua
 	gopls = {},
