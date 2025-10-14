@@ -5,7 +5,8 @@
 -- ✓ vim.diagnostic.config (0.10+) - Native diagnostic configuration  
 -- ✓ vim.lsp.inlay_hint (0.10+) - Native inlay hints
 -- ✓ vim.snippet (0.10+) - Native snippet support
--- ✓ vim.lsp.completion (0.11+) - Native LSP completion (ACTIVE - nvim-cmp removed)
+-- ✓ vim.lsp.completion (0.11+) - Native LSP completion (nvim-cmp removed)
+-- ✓ vim.lsp.buf.format (0.8+) - Native LSP formatting (conform.nvim removed)
 -- ✓ vim.bo (0.10+) - Modern buffer option setting
 -- ✓ Native document highlight - No plugin needed
 --
@@ -14,8 +15,16 @@
 -- • fidget.nvim: LSP progress notifications (no native alternative)
 -- • gitsigns.nvim: Git integration (no native alternative)
 --
--- This configuration uses ONLY native completion (nvim-cmp has been removed)
--- All completion is handled by vim.lsp.completion with enhanced keymaps in settings.lua
+-- Formatting & Linting:
+-- • Biome LSP - Handles JS/TS/JSON/CSS formatting and linting
+-- • Native format-on-save using vim.lsp.buf.format()
+-- • conform.nvim REMOVED - using native LSP formatting
+-- • nvim-lint REMOVED - using LSP diagnostics (Biome for JS/TS)
+--
+-- This configuration uses:
+-- • ONLY native completion (nvim-cmp removed)
+-- • ONLY native formatting (conform.nvim removed)
+-- • ONLY LSP diagnostics (nvim-lint removed for JS/TS)
 
 -- Using native vim.lsp.supports_method (0.11+) instead of custom wrapper
 local function client_supports_method(client, method, bufnr)
@@ -92,6 +101,39 @@ local on_lsp_attach = function(event)
 			return vim.snippet.jump(-1)
 		end
 	end, { buffer = event.buf, expr = true, desc = "Snippet: Jump backward" })
+
+	-- Native LSP Formatting (replaces conform.nvim)
+	-- Format on save using LSP's native formatting capability
+	if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_formatting, event.buf) then
+		-- Manual format keymap
+		map_lsp("<leader>f", function()
+			vim.lsp.buf.format({ async = true })
+		end, "Format buffer")
+
+		-- Format on save (can be disabled per buffer or globally)
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			buffer = event.buf,
+			callback = function()
+				-- Skip if formatting is disabled
+				if vim.g.disable_autoformat or vim.b[event.buf].disable_autoformat then
+					return
+				end
+				
+				-- Skip node_modules
+				local bufname = vim.api.nvim_buf_get_name(event.buf)
+				if bufname:match("/node_modules/") then
+					return
+				end
+				
+				-- Format synchronously before save
+				vim.lsp.buf.format({ 
+					async = false,
+					timeout_ms = 1000,
+					bufnr = event.buf,
+				})
+			end,
+		})
+	end
 
 	if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
 		vim.lsp.inlay_hint.enable(true, { bufnr = event.buf }) -- enable inlay hints by default with buffer parameter
@@ -248,6 +290,34 @@ local setup = function()
 	vim.api.nvim_create_autocmd("LspAttach", {
 		group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 		callback = on_lsp_attach,
+	})
+
+	-- Commands to enable/disable auto-formatting (replaces conform commands)
+	vim.api.nvim_create_user_command("FormatDisable", function(args)
+		if args.bang then
+			-- FormatDisable! will disable formatting just for this buffer
+			vim.b.disable_autoformat = true
+		else
+			vim.g.disable_autoformat = true
+		end
+		print("Auto-formatting disabled" .. (args.bang and " (buffer)" or " (global)"))
+	end, {
+		desc = "Disable LSP format-on-save",
+		bang = true,
+	})
+
+	vim.api.nvim_create_user_command("FormatEnable", function()
+		vim.b.disable_autoformat = false
+		vim.g.disable_autoformat = false
+		print("Auto-formatting enabled")
+	end, {
+		desc = "Re-enable LSP format-on-save",
+	})
+
+	vim.api.nvim_create_user_command("Format", function()
+		vim.lsp.buf.format({ async = false })
+	end, {
+		desc = "Format current buffer using LSP",
 	})
 end
 

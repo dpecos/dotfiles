@@ -1,47 +1,61 @@
-# Neovim Configuration - Pure Native Features Edition
+# Neovim Configuration - Pure Native Features + Biome Edition
 
-This configuration uses **100% native Neovim features** for LSP and completion, with minimal plugin dependencies.
+This configuration uses **100% native Neovim features** for LSP, completion, and formatting, with **Biome** for blazing-fast JS/TS/JSON/CSS formatting and linting.
 
-## 🚀 Pure Native Setup
+## 🚀 Pure Native + Biome Setup
 
-**nvim-cmp has been removed!** This configuration now uses:
+**All completion and formatting plugins removed!** This configuration now uses:
 - ✅ Native LSP completion (`vim.lsp.completion`)
 - ✅ Native snippets (`vim.snippet`)
+- ✅ Native LSP formatting (`vim.lsp.buf.format`)
+- ✅ Biome for JS/TS/JSON/CSS (replaces Prettier + ESLint)
 - ✅ Native LSP configuration (`vim.lsp.config/enable`)
 - ✅ Native diagnostics and inlay hints
 
 ## 📋 Quick Start
 
-Your configuration is ready! Just restart Neovim.
+Your configuration is ready! Just:
+1. **Restart Neovim**
+2. **Install Biome**: `:MasonInstall biome`
+3. **Create biome.json** in your projects: `npx @biomejs/biome init`
 
 ## 📚 Documentation
 
 ### Essential Reading
-1. **[CHANGES_SUMMARY.md](CHANGES_SUMMARY.md)** - What changed and why
-2. **[KEYMAPS_REFERENCE.md](KEYMAPS_REFERENCE.md)** - Quick reference for all keymaps
+1. **[BIOME_MIGRATION.md](BIOME_MIGRATION.md)** - Biome setup and migration
+2. **[QUICK_START.txt](QUICK_START.txt)** - Quick reference card
+3. **[KEYMAPS_REFERENCE.md](KEYMAPS_REFERENCE.md)** - All keymaps
 
 ### Detailed Guides
-3. **[NATIVE_FEATURES.md](NATIVE_FEATURES.md)** - Complete guide to native features
-4. **[PLUGIN_REMOVAL_GUIDE.md](PLUGIN_REMOVAL_GUIDE.md)** - Background on plugin removal
+4. **[BIOME_SETUP.md](BIOME_SETUP.md)** - Complete Biome guide
+5. **[FINAL_SUMMARY.md](FINAL_SUMMARY.md)** - Complete native setup
+6. **[NATIVE_FEATURES.md](NATIVE_FEATURES.md)** - Native features guide
 
-## ✨ What's Different (Native-Only)
+## ✨ What's Different (Native-Only + Biome)
 
-### Plugins Removed
-- ❌ nvim-cmp (replaced by `vim.lsp.completion`)
-- ❌ All cmp-* sources (cmp-nvim-lsp, cmp-buffer, etc.)
+### Plugins Removed (12 total!)
+- ❌ nvim-cmp → `vim.lsp.completion`
+- ❌ All cmp-* sources
 - ❌ lspkind.nvim
-- ❌ vim-vsnip
-- ❌ cmp-vsnip
+- ❌ vim-vsnip → `vim.snippet`
+- ❌ **conform.nvim** → `vim.lsp.buf.format()`
+- ❌ **nvim-lint** → LSP diagnostics
+- ❌ Prettier → **Biome**
+- ❌ ESLint/oxlint → **Biome**
 
 ### Native Features Used
 - ✅ **vim.lsp.completion** - Native LSP completion with autotrigger
 - ✅ **vim.snippet** - Native snippet expansion and navigation
+- ✅ **vim.lsp.buf.format()** - Native LSP formatting
 - ✅ **vim.lsp.config/enable** - Native LSP server management
 - ✅ **vim.lsp.inlay_hint** - Native inlay hints
 - ✅ **vim.diagnostic** - Native diagnostics
+- ✅ **Biome LSP** - Fast JS/TS/JSON/CSS formatting and linting
 
 ### Key Improvements
-- 🚀 **Much faster startup** - Significantly fewer plugins
+- 🚀 **Much faster startup** - 12 fewer plugins
+- ⚡ **10x faster formatting** - Biome vs Prettier
+- ⚡ **10x faster linting** - Biome vs ESLint
 - 🔧 **Simpler config** - Pure native APIs
 - 📦 **Minimal dependencies** - Only essential plugins
 - 🎯 **Future-proof** - Using official Neovim APIs
@@ -55,6 +69,10 @@ Your configuration is ready! Just restart Neovim.
 - `<CR>` - Accept completion (or newline if menu closed)
 - `<C-e>` - Close completion menu
 - `<C-n>` / `<C-p>` - Navigate completion items
+
+### Formatting (Native + Biome)
+- `<leader>f` - Format current buffer
+- Auto-format on save (enabled by default)
 
 ### Snippets (Native)
 - `<C-f>` - Jump to next snippet field

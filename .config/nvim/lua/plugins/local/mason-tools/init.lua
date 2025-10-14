@@ -1,41 +1,41 @@
 M = {}
 
--- conform
+-- conform - DEPRECATED: Using native LSP formatting instead
+-- Keeping non-JS/TS formatters only
 M.formatters = {
 	lua = { "stylua" },
-	javascript = { "prettier" },
-	typescript = { "prettier" },
-	javascriptreact = { "prettier" },
-	typescriptreact = { "prettier" },
-	graphql = { "prettier" },
 	go = { "gofumpt", "goimports" },
 	sh = { "shfmt" },
 	rust = { "rustfmt" },
-	json = { "prettier" },
 	yaml = { "yamlfmt" },
 	markdown = { "markdownlint" },
 	toml = { "taplo" },
-	html = { "prettier" },
-	css = { "stylelint", "prettier" },
+	-- JS/TS/JSON/CSS now handled by Biome LSP
 }
 
--- nvim-lint
+-- nvim-lint - DEPRECATED: Using Biome LSP for JS/TS
 M.linters = {
-	javascript = { "oxlint" },
-	typescript = { "oxlint" },
-	javascriptreact = { "oxlint" },
-	typescriptreact = { "oxlint" },
-	-- lua = { "luacheck" },
+	-- JS/TS now handled by Biome LSP (formatting + linting)
 	sh = { "shellcheck" },
-	--rust = { "cargo" },
-	json = { "jsonlint" },
 	yaml = { "yamllint" },
 	markdown = { "markdownlint" },
-	css = { "stylelint" },
+	-- CSS handled by Biome or separate LSP
 }
 
 -- lspconfig
 M.servers = {
+	-- Biome - Modern fast formatter/linter for JS/TS/JSON/CSS
+	biome = {
+		root_dir = function(fname)
+			-- Look for biome.json or biome.jsonc
+			local util = require("lspconfig.util")
+			return util.root_pattern("biome.json", "biome.jsonc")(fname)
+				or util.find_git_ancestor(fname)
+				or util.find_package_json_ancestor(fname)
+		end,
+		single_file_support = true,
+	},
+	
 	["typescript-language-server"] = {
 		lsp_server_name = "ts_ls",
 		settings = {
