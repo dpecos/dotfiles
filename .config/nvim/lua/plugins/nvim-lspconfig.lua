@@ -5,17 +5,17 @@
 -- ✓ vim.diagnostic.config (0.10+) - Native diagnostic configuration  
 -- ✓ vim.lsp.inlay_hint (0.10+) - Native inlay hints
 -- ✓ vim.snippet (0.10+) - Native snippet support
--- ✓ vim.lsp.completion (0.11+) - Native LSP completion
+-- ✓ vim.lsp.completion (0.11+) - Native LSP completion (ACTIVE - nvim-cmp removed)
 -- ✓ vim.bo (0.10+) - Modern buffer option setting
 -- ✓ Native document highlight - No plugin needed
 --
--- Plugin dependencies that can potentially be removed:
--- • nvim-lspconfig: Technically optional with 0.11+, but still useful for default configs
--- • fidget.nvim: Still useful for LSP progress notifications (no native alternative)
--- • gitsigns.nvim: Still needed for git integration (no native alternative)
+-- Plugin dependencies:
+-- • nvim-lspconfig: Provides sensible defaults for LSP server configs
+-- • fidget.nvim: LSP progress notifications (no native alternative)
+-- • gitsigns.nvim: Git integration (no native alternative)
 --
--- Note: You can optionally disable nvim-cmp and use only native completion
--- by setting vim.lsp.completion.enable() in on_lsp_attach
+-- This configuration uses ONLY native completion (nvim-cmp has been removed)
+-- All completion is handled by vim.lsp.completion with enhanced keymaps in settings.lua
 
 -- Using native vim.lsp.supports_method (0.11+) instead of custom wrapper
 local function client_supports_method(client, method, bufnr)
@@ -31,9 +31,16 @@ local on_lsp_attach = function(event)
 	vim.bo[event.buf].formatexpr = "v:lua.vim.lsp.formatexpr()"
 	
 	-- Enable native LSP completion (Neovim 0.11+)
-	-- This can work alongside or replace nvim-cmp
+	-- Using native completion exclusively (nvim-cmp removed)
 	if vim.fn.has("nvim-0.11") == 1 then
-		vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
+		vim.lsp.completion.enable(true, client.id, event.buf, { 
+			autotrigger = true,
+			-- Convert LSP completion items to Vim completion items
+			convert = function(item)
+				-- Customize completion item conversion if needed
+				return item
+			end,
+		})
 	end
 
 	-- Setup snippet expansion using native vim.snippet (Neovim 0.10+)

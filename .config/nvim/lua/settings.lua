@@ -27,19 +27,51 @@ opt.smartcase = true
 opt.termguicolors = true
 --opt.colorcolumn = "80"
 
--- Set completeopt to have a better completion experience
--- Neovim 0.11+ has improved native completion
-opt.completeopt = "menuone,noselect"
+-- Native LSP Completion Configuration (Neovim 0.11+)
+-- Using native vim.lsp.completion instead of nvim-cmp
+opt.completeopt = "menu,menuone,noselect"
 
--- Enable native completion popup (Neovim 0.11+)
+-- Completion popup appearance
 opt.pumblend = 10 -- Slight transparency for completion menu
 opt.pumheight = 15 -- Maximum number of items to show in popup menu
 
--- Native completion keymaps (works with both nvim-cmp and native completion)
--- These are useful when using native LSP completion (vim.lsp.completion)
-vim.keymap.set("i", "<C-Space>", "<C-x><C-o>", { desc = "Trigger completion" })
-vim.keymap.set("i", "<C-n>", "<C-n>", { desc = "Next completion item" })
-vim.keymap.set("i", "<C-p>", "<C-p>", { desc = "Previous completion item" })
+-- Native completion keymaps
+vim.keymap.set("i", "<C-Space>", "<C-x><C-o>", { desc = "Trigger LSP completion" })
+
+-- Enhanced Tab/S-Tab navigation in completion menu
+vim.keymap.set("i", "<Tab>", function()
+	if vim.fn.pumvisible() == 1 then
+		return "<C-n>"
+	else
+		return "<Tab>"
+	end
+end, { expr = true, desc = "Next completion or Tab" })
+
+vim.keymap.set("i", "<S-Tab>", function()
+	if vim.fn.pumvisible() == 1 then
+		return "<C-p>"
+	else
+		return "<S-Tab>"
+	end
+end, { expr = true, desc = "Previous completion or Shift-Tab" })
+
+-- Accept completion with Enter
+vim.keymap.set("i", "<CR>", function()
+	if vim.fn.pumvisible() == 1 then
+		return "<C-y>"
+	else
+		return "<CR>"
+	end
+end, { expr = true, desc = "Accept completion or newline" })
+
+-- Close completion menu with Ctrl-e
+vim.keymap.set("i", "<C-e>", function()
+	if vim.fn.pumvisible() == 1 then
+		return "<C-e>"
+	else
+		return "<End>"
+	end
+end, { expr = true, desc = "Close completion or end of line" })
 
 -- EditorConfig
 g.editorconfig = true
@@ -81,10 +113,10 @@ opt.updatetime = 250 -- ms to wait for trigger an event
 -- opt.statusline = "%f - %y %=%S %l / %L"
 -- opt.showcmdloc = "statusline"
 
+-- File-type specific settings
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "gitcommit", "markdown" },
 	callback = function()
-		require("cmp").setup({ enabled = false })
 		opt.wrap = true
 	end,
 })
