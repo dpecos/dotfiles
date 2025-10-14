@@ -28,7 +28,18 @@ opt.termguicolors = true
 --opt.colorcolumn = "80"
 
 -- Set completeopt to have a better completion experience
+-- Neovim 0.11+ has improved native completion
 opt.completeopt = "menuone,noselect"
+
+-- Enable native completion popup (Neovim 0.11+)
+opt.pumblend = 10 -- Slight transparency for completion menu
+opt.pumheight = 15 -- Maximum number of items to show in popup menu
+
+-- Native completion keymaps (works with both nvim-cmp and native completion)
+-- These are useful when using native LSP completion (vim.lsp.completion)
+vim.keymap.set("i", "<C-Space>", "<C-x><C-o>", { desc = "Trigger completion" })
+vim.keymap.set("i", "<C-n>", "<C-n>", { desc = "Next completion item" })
+vim.keymap.set("i", "<C-p>", "<C-p>", { desc = "Previous completion item" })
 
 -- EditorConfig
 g.editorconfig = true

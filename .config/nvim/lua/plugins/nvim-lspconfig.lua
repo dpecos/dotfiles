@@ -1,17 +1,43 @@
+-- LSP Configuration using Neovim native features
+-- 
+-- Native features being used (available in Neovim 0.10+/0.11+):
+-- ✓ vim.lsp.config/enable (0.11+) - Native LSP server configuration
+-- ✓ vim.diagnostic.config (0.10+) - Native diagnostic configuration  
+-- ✓ vim.lsp.inlay_hint (0.10+) - Native inlay hints
+-- ✓ vim.snippet (0.10+) - Native snippet support
+-- ✓ vim.lsp.completion (0.11+) - Native LSP completion
+-- ✓ vim.bo (0.10+) - Modern buffer option setting
+-- ✓ Native document highlight - No plugin needed
+--
+-- Plugin dependencies that can potentially be removed:
+-- • nvim-lspconfig: Technically optional with 0.11+, but still useful for default configs
+-- • fidget.nvim: Still useful for LSP progress notifications (no native alternative)
+-- • gitsigns.nvim: Still needed for git integration (no native alternative)
+--
+-- Note: You can optionally disable nvim-cmp and use only native completion
+-- by setting vim.lsp.completion.enable() in on_lsp_attach
+
+-- Using native vim.lsp.supports_method (0.11+) instead of custom wrapper
 local function client_supports_method(client, method, bufnr)
-	if vim.fn.has("nvim-0.11") == 1 then
-		return client:supports_method(method, bufnr)
-	else
-		return client.supports_method(method, { bufnr = bufnr })
-	end
+	return client:supports_method(method, { bufnr = bufnr })
 end
 
 local on_lsp_attach = function(event)
 	local client = vim.lsp.get_client_by_id(event.data.client_id)
 
 	-- Enable completion triggered by <c-x><c-o>
-	vim.api.nvim_buf_set_option(event.buf, "omnifunc", "v:lua.vim.lsp.omnifunc")
-	vim.api.nvim_buf_set_option(event.buf, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+	-- Using vim.bo instead of deprecated vim.api.nvim_buf_set_option
+	vim.bo[event.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+	vim.bo[event.buf].formatexpr = "v:lua.vim.lsp.formatexpr()"
+	
+	-- Enable native LSP completion (Neovim 0.11+)
+	-- This can work alongside or replace nvim-cmp
+	if vim.fn.has("nvim-0.11") == 1 then
+		vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
+	end
+
+	-- Setup snippet expansion using native vim.snippet (Neovim 0.10+)
+	-- This replaces the need for snippet plugins like vsnip or luasnip
 
 	local function map(scope, mode, keys, func, opts)
 		opts.buffer = event.buf
@@ -46,11 +72,25 @@ local on_lsp_attach = function(event)
 		vim.lsp.buf.signature_help({ border = "rounded" })
 	end, "Signature Documentation")
 
+	-- Native snippet navigation (Neovim 0.10+)
+	-- Jump forward/backward in snippets - replaces vsnip keymaps
+	vim.keymap.set({ "i", "s" }, "<C-f>", function()
+		if vim.snippet.active({ direction = 1 }) then
+			return vim.snippet.jump(1)
+		end
+	end, { buffer = event.buf, expr = true, desc = "Snippet: Jump forward" })
+	
+	vim.keymap.set({ "i", "s" }, "<C-b>", function()
+		if vim.snippet.active({ direction = -1 }) then
+			return vim.snippet.jump(-1)
+		end
+	end, { buffer = event.buf, expr = true, desc = "Snippet: Jump backward" })
+
 	if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
-		vim.lsp.inlay_hint.enable(true) -- enable inlay hints by default
+		vim.lsp.inlay_hint.enable(true, { bufnr = event.buf }) -- enable inlay hints by default with buffer parameter
 
 		map_lsp("<leader>h", function()
-			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }), { bufnr = event.buf })
 		end, "Toggle inlay Hints")
 	end
 
@@ -157,6 +197,7 @@ local on_lsp_attach = function(event)
 end
 
 local setup = function()
+	-- Native diagnostic configuration (Neovim 0.10+)
 	vim.diagnostic.config({
 		virtual_lines = true,
 		-- virtual_text = {
@@ -170,6 +211,7 @@ local setup = function()
 			border = "single",
 			source = true,
 		},
+		-- Native sign configuration (Neovim 0.10+)
 		signs = {
 			text = {
 				[vim.diagnostic.severity.ERROR] = "󰅚 ",
@@ -184,7 +226,8 @@ local setup = function()
 		},
 	})
 
-	-- LSP setup
+	-- Native LSP setup using vim.lsp.config and vim.lsp.enable (Neovim 0.11+)
+	-- This replaces the need for nvim-lspconfig plugin setup
 	local mason_tools = require("plugins/local/mason-tools")
 	for server, config in pairs(mason_tools.servers) do
 		local lsp_server_name = config.lsp_server_name or server
@@ -194,6 +237,7 @@ local setup = function()
 		vim.lsp.enable(lsp_server_name)
 	end
 
+	-- Native LspAttach autocmd (Neovim 0.8+)
 	vim.api.nvim_create_autocmd("LspAttach", {
 		group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 		callback = on_lsp_attach,

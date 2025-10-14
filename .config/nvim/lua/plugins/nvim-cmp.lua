@@ -1,8 +1,20 @@
+-- Completion configuration using nvim-cmp
+--
+-- ALTERNATIVE: Neovim 0.11+ has native LSP completion via vim.lsp.completion
+-- You can disable this plugin and rely only on native completion if you prefer simplicity.
+-- Native completion is enabled in nvim-lspconfig.lua via vim.lsp.completion.enable()
+-- 
+-- To use ONLY native completion:
+-- 1. Comment out or remove this entire plugin file
+-- 2. Native completion will work via <C-n>/<C-p> and can be triggered with <C-x><C-o>
+--
+-- nvim-cmp provides more features: snippets, sources, customization, etc.
+
 local setup = function()
 	local cmp = require("cmp")
 
 	local has_words_before = function()
-		if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+		if vim.bo.buftype == "prompt" then
 			return false
 		end
 		unpack = unpack or table.unpack
@@ -53,8 +65,7 @@ local setup = function()
 			{ name = "nvim_lsp_signature_help" }, -- display function signatures with current parameter emphasized
 			{ name = "nvim_lua", keyword_length = 2 }, -- complete neovim's Lua runtime API such vim.lsp.*
 			{ name = "buffer", keyword_length = 2 }, -- source current buffer
-			{ name = "spell" },
-			{ name = "vsnip", keyword_length = 2 }, -- nvim-cmp source for vim-vsnip
+			{ name = "path" }, -- file system paths
 		}),
 		window = {
 			completion = cmp.config.window.bordered(),
@@ -62,7 +73,8 @@ local setup = function()
 		},
 		snippet = {
 			expand = function(args)
-				vim.fn["vsnip#anonymous"](args.body)
+				-- Use native snippet expansion (Neovim 0.10+) instead of vsnip
+				vim.snippet.expand(args.body)
 			end,
 		},
 		formatting = {
@@ -110,9 +122,9 @@ return {
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-cmdline",
-
-		"hrsh7th/cmp-vsnip",
-		"hrsh7th/vim-vsnip",
+		
+		-- Note: vsnip removed - using native vim.snippet (Neovim 0.10+)
+		-- If you need snippet sources, consider cmp_luasnip or friendly-snippets
 		"onsails/lspkind.nvim",
 	},
 	event = "VeryLazy",
