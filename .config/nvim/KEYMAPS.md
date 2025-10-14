@@ -16,16 +16,17 @@ Complete reference of all keymaps in this Neovim configuration.
 1. [Core Neovim (Custom)](#core-neovim-custom)
 2. [LSP - Language Server Protocol](#lsp---language-server-protocol)
 3. [Completion](#completion)
-4. [Telescope - Fuzzy Finder](#telescope---fuzzy-finder)
-5. [File Explorer (nvim-tree)](#file-explorer-nvim-tree)
-6. [Buffer Management (Barbar)](#buffer-management-barbar)
-7. [Git (GitSigns)](#git-gitsigns)
-8. [Rust Development](#rust-development)
-9. [Refactoring](#refactoring)
-10. [TODO Comments](#todo-comments)
-11. [Folding (UFO)](#folding-ufo)
-12. [Treesitter Text Objects](#treesitter-text-objects)
-13. [Plugin Provided (Internal)](#plugin-provided-internal)
+4. [Code Editing](#code-editing)
+5. [Telescope - Fuzzy Finder](#telescope---fuzzy-finder)
+6. [File Explorer (nvim-tree)](#file-explorer-nvim-tree)
+7. [Buffer Management (Barbar)](#buffer-management-barbar)
+8. [Git (GitSigns)](#git-gitsigns)
+9. [Rust Development](#rust-development)
+10. [Refactoring](#refactoring)
+11. [TODO Comments](#todo-comments)
+12. [Folding (UFO)](#folding-ufo)
+13. [Treesitter Text Objects](#treesitter-text-objects)
+14. [Plugin Provided (Internal)](#plugin-provided-internal)
 
 ---
 
@@ -202,6 +203,59 @@ Native LSP completion keymaps (configured in settings.lua).
 | `<S-Tab>` | Insert | Previous completion item or Shift-Tab | ⚙️ |
 | `<CR>` | Insert | Accept completion or newline | ⚙️ |
 | `<C-e>` | Insert | Close completion menu | ⚙️ |
+
+---
+
+## Code Editing
+
+### Commenting (mini.comment)
+
+| Keymap | Mode | Description | Type |
+|--------|------|-------------|------|
+| `gcc` | Normal | Toggle comment for current line | ⚙️ |
+| `gc{motion}` | Normal | Toggle comment for motion | ⚙️ |
+| `gc` | Visual | Toggle comment for selection | ⚙️ |
+| `gbc` | Normal | Toggle block comment for current line | ⚙️ |
+| `gb{motion}` | Normal | Toggle block comment for motion | ⚙️ |
+| `gb` | Visual | Toggle block comment for selection | ⚙️ |
+
+**Examples:**
+- `gcc` - Comment current line
+- `gc2j` - Comment current line and 2 lines below
+- `gcip` - Comment inner paragraph
+- `gcG` - Comment from cursor to end of file
+
+### Surround (nvim-surround)
+
+Replaces vim-surround with modern Lua implementation.
+
+| Keymap | Mode | Description | Type |
+|--------|------|-------------|------|
+| `ys{motion}{char}` | Normal | Add surround | ⚙️ |
+| `yss{char}` | Normal | Surround entire line | ⚙️ |
+| `yS{motion}{char}` | Normal | Add surround on new lines | ⚙️ |
+| `ySS{char}` | Normal | Surround line on new lines | ⚙️ |
+| `ds{char}` | Normal | Delete surround | ⚙️ |
+| `cs{old}{new}` | Normal | Change surround | ⚙️ |
+| `cS{old}{new}` | Normal | Change surround (on new lines) | ⚙️ |
+| `S{char}` | Visual | Surround selection | ⚙️ |
+| `gS{char}` | Visual | Surround selection (on new lines) | ⚙️ |
+
+**Examples:**
+- `ysiw"` - Surround inner word with quotes
+- `yss)` - Surround line with parentheses
+- `ds"` - Delete surrounding quotes
+- `cs"'` - Change double quotes to single quotes
+- `cs({` - Change `()` to `{ }` with spaces
+- `ySS}` - Surround line with `{}` on new lines
+- Visual select + `S"` - Surround selection with quotes
+
+**Aliases:**
+- `b` → `)` (parentheses)
+- `B` → `}` (braces)
+- `r` → `]` (brackets)
+- `a` → `>` (angle brackets/HTML tag)
+- `q` → Any quote (`"`, `'`, `` ` ``)
 
 ---
 
@@ -648,8 +702,10 @@ Use your file viewer's search:
 All custom keymaps (🔧 and ⚙️) can be modified in:
 
 - **Core Neovim**: `lua/keymaps.lua`
-- **LSP**: `lua/plugins/nvim-lspconfig.lua`
 - **Completion**: `lua/settings.lua`
+- **Commenting**: `lua/plugins/mini-comment.lua`
+- **Surround**: `lua/plugins/nvim-surround.lua`
+- **LSP**: `lua/plugins/nvim-lspconfig.lua`
 - **Telescope**: `lua/plugins/telescope.lua`
 - **File Explorer**: `lua/plugins/nvim-tree.lua`
 - **Buffers**: `lua/plugins/barbar.lua`
@@ -657,6 +713,7 @@ All custom keymaps (🔧 and ⚙️) can be modified in:
 - **Refactoring**: `lua/plugins/refactoring.lua`
 - **TODO**: `lua/plugins/todo-comments.lua`
 - **Folding**: `lua/plugins/nvim-ufo.lua`
+- **Which-Key**: `lua/plugins/which-key.lua`
 
 Plugin-provided keymaps (🔌) are internal to the plugin and typically cannot be changed without modifying the plugin configuration.
 
@@ -668,6 +725,8 @@ Plugin-provided keymaps (🔌) are internal to the plugin and typically cannot b
 
 | Category | Prefix | Example |
 |----------|--------|---------|
+| Commenting | `gc*` | `gcc` (toggle comment) |
+| Surround | `ys*/ds/cs` | `ysiw"` (surround word) |
 | Telescope | `<leader>f*` | `<leader>ff` (find files) |
 | LSP Navigation | `g*` | `gd` (go to definition) |
 | LSP Actions | `gr*` | `grn` (rename) |
@@ -677,6 +736,15 @@ Plugin-provided keymaps (🔌) are internal to the plugin and typically cannot b
 | Crates | `<leader>c*` | `<leader>cu` (update crate) |
 | Refactor | `<leader>r*` | `<leader>re` (extract) |
 | Config | `<leader>v*` | `<leader>ve` (edit init) |
+
+### Which-Key Helper
+
+Press any leader key and wait ~300ms to see available keybindings:
+- `<leader>` - Show all leader mappings
+- `g` - Show all goto mappings
+- `[` / `]` - Show all prev/next mappings
+- `<C-w>` - Show all window mappings
+- `z` - Show all fold/spell mappings
 
 ---
 

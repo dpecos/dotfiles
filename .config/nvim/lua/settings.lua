@@ -1,6 +1,10 @@
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 
+-- Enable native module loader cache (Neovim 0.9+)
+-- This significantly improves startup time
+vim.loader.enable()
+
 local g = vim.g -- Global variables
 local opt = vim.opt -- Set options (global/buffer/windows-scoped)
 
@@ -29,16 +33,16 @@ opt.termguicolors = true
 
 -- Native LSP Completion Configuration (Neovim 0.11+)
 -- Using native vim.lsp.completion instead of nvim-cmp
+-- Completion is enabled in lua/plugins/nvim-lspconfig.lua via vim.lsp.completion.enable()
 opt.completeopt = "menu,menuone,noselect"
 
 -- Completion popup appearance
 opt.pumblend = 10 -- Slight transparency for completion menu
 opt.pumheight = 15 -- Maximum number of items to show in popup menu
 
--- Native completion keymaps
-vim.keymap.set("i", "<C-Space>", "<C-x><C-o>", { desc = "LSP: Trigger LSP completion" })
+-- Completion keymaps
+vim.keymap.set("i", "<C-Space>", "<C-x><C-o>", { desc = "Completion: Trigger LSP completion" })
 
--- Enhanced Tab/S-Tab navigation in completion menu
 vim.keymap.set("i", "<Tab>", function()
 	if vim.fn.pumvisible() == 1 then
 		return "<C-n>"
@@ -55,7 +59,6 @@ vim.keymap.set("i", "<S-Tab>", function()
 	end
 end, { expr = true, desc = "Completion: Previous completion or Shift-Tab" })
 
--- Accept completion with Enter
 vim.keymap.set("i", "<CR>", function()
 	if vim.fn.pumvisible() == 1 then
 		return "<C-y>"
@@ -64,7 +67,6 @@ vim.keymap.set("i", "<CR>", function()
 	end
 end, { expr = true, desc = "Completion: Accept completion or newline" })
 
--- Close completion menu with Ctrl-e
 vim.keymap.set("i", "<C-e>", function()
 	if vim.fn.pumvisible() == 1 then
 		return "<C-e>"
