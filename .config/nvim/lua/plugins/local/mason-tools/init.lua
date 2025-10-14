@@ -1,12 +1,12 @@
 M = {}
 
 -- conform - DEPRECATED: Using native LSP formatting instead
--- Keeping non-JS/TS formatters only
+-- Keeping non-JS/TS/Rust formatters only
 M.formatters = {
 	lua = { "stylua" },
 	go = { "gofumpt", "goimports" },
 	sh = { "shfmt" },
-	rust = { "rustfmt" },
+	-- rust formatting now handled by rust-analyzer LSP
 	yaml = { "yamlfmt" },
 	markdown = { "markdownlint" },
 	toml = { "taplo" },
@@ -66,22 +66,8 @@ M.servers = {
 			},
 		},
 	},
-	["rust-analyzer"] = {
-		lsp_server_name = "rust_analyzer",
-		settings = {
-			["rust-analyzer"] = {
-				diagnostics = {
-					enable = true,
-					experimental = {
-						enable = true,
-					},
-				},
-				checkOnSave = {
-					command = "clippy",
-				},
-			},
-		},
-	},
+	-- NOTE: rust-analyzer is NOT configured here to avoid clash with rustaceanvim
+	-- See M.rust_analyzer_settings below and lua/plugins/rustaceanvim.lua
 	gopls = {},
 	["lua-language-server"] = {
 		lsp_server_name = "lua_ls",
@@ -125,6 +111,95 @@ M.servers = {
 	},
 	["terraform-ls"] = {
 		lsp_server_name = "terraformls",
+	},
+}
+
+-- Rust-analyzer settings (used by rustaceanvim, not lspconfig)
+-- Kept separate to avoid clash - rustaceanvim manages rust-analyzer automatically
+-- Based on rust-analyzer 2024+ schema
+M.rust_analyzer_settings = {
+	-- Enable all features by default
+	cargo = {
+		allFeatures = true,
+		loadOutDirsFromCheck = true,
+		buildScripts = {
+			enable = true,
+		},
+	},
+	-- Enable procedural macro support
+	procMacro = {
+		enable = true,
+		ignored = {
+			["async-trait"] = { "async_trait" },
+			["napi-derive"] = { "napi" },
+			["async-recursion"] = { "async_recursion" },
+		},
+	},
+	-- Enhanced diagnostics
+	diagnostics = {
+		enable = true,
+		experimental = {
+			enable = true,
+		},
+		styleLints = {
+			enable = true,
+		},
+	},
+	-- Run clippy on save (modern schema)
+	check = {
+		command = "clippy",
+		extraArgs = { "--all-targets" },
+	},
+	-- Inlay hints (modern schema - most moved to editor config)
+	inlayHints = {
+		bindingModeHints = {
+			enable = true,
+		},
+		chainingHints = {
+			enable = true,
+		},
+		closingBraceHints = {
+			minLines = 25,
+		},
+		closureReturnTypeHints = {
+			enable = "with_block",
+		},
+		lifetimeElisionHints = {
+			enable = "skip_trivial",
+			useParameterNames = true,
+		},
+		parameterHints = {
+			enable = true,
+		},
+		typeHints = {
+			enable = true,
+			hideClosureInitialization = false,
+			hideNamedConstructor = false,
+		},
+	},
+	-- Lens
+	lens = {
+		enable = true,
+		references = {
+			adt = { enable = true },
+			enumVariant = { enable = true },
+			method = { enable = true },
+			trait = { enable = true },
+		},
+	},
+	-- Hover actions
+	hover = {
+		actions = {
+			enable = true,
+		},
+		documentation = {
+			enable = true,
+		},
+	},
+	-- Assist
+	assist = {
+		importGranularity = "module",
+		importPrefix = "by_crate",
 	},
 }
 
