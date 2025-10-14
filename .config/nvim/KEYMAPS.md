@@ -176,6 +176,18 @@ All LSP keymaps are configured when LSP attaches to a buffer.
 |--------|------|-------------|------|
 | `<leader>h` | Normal | Toggle inlay hints | ⚙️ |
 
+### LSP Commands
+
+| Command | Description | Type |
+|---------|-------------|------|
+| `:LspInfo` | Display LSP client information and capabilities | ⚙️ |
+| `:LspLog` | Open LSP log file | ⚙️ |
+| `:LspRestart` | Restart all LSP clients for current buffer | ⚙️ |
+| `:Format` | Format current buffer using LSP | ⚙️ |
+| `:FormatEnable` | Enable auto-format on save | ⚙️ |
+| `:FormatDisable` | Disable auto-format on save (globally) | ⚙️ |
+| `:FormatDisable!` | Disable auto-format on save (buffer only) | ⚙️ |
+
 ### Snippets
 
 | Keymap | Mode | Description | Type |

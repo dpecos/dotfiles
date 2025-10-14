@@ -428,6 +428,169 @@ local setup = function()
 	end, {
 		desc = "Format current buffer using LSP",
 	})
+
+	-- LspInfo command - Display information about attached LSP clients
+	vim.api.nvim_create_user_command("LspInfo", function()
+		local bufnr = vim.api.nvim_get_current_buf()
+		local clients = vim.lsp.get_clients({ bufnr = bufnr })
+		
+		if #clients == 0 then
+			vim.notify("No LSP clients attached to this buffer", vim.log.levels.INFO)
+			return
+		end
+		
+		-- Create a new buffer for the info display
+		local info_buf = vim.api.nvim_create_buf(false, true)
+		local lines = {}
+		
+		table.insert(lines, "LSP Client Information")
+		table.insert(lines, "======================")
+		table.insert(lines, "")
+		table.insert(lines, "Buffer: " .. vim.api.nvim_buf_get_name(bufnr))
+		table.insert(lines, "Filetype: " .. vim.bo[bufnr].filetype)
+		table.insert(lines, "")
+		table.insert(lines, "Attached Clients (" .. #clients .. "):")
+		table.insert(lines, "")
+		
+		for i, client in ipairs(clients) do
+			table.insert(lines, string.format("Client #%d:", i))
+			table.insert(lines, string.format("  Name: %s", client.name))
+			table.insert(lines, string.format("  ID: %d", client.id))
+			table.insert(lines, string.format("  Root Dir: %s", client.root_dir or "N/A"))
+			
+			-- Show key capabilities
+			local caps = client.server_capabilities
+			table.insert(lines, "  Capabilities:")
+			if caps.completionProvider then
+				table.insert(lines, "    ✓ Completion")
+			end
+			if caps.hoverProvider then
+				table.insert(lines, "    ✓ Hover")
+			end
+			if caps.signatureHelpProvider then
+				table.insert(lines, "    ✓ Signature Help")
+			end
+			if caps.definitionProvider then
+				table.insert(lines, "    ✓ Go to Definition")
+			end
+			if caps.declarationProvider then
+				table.insert(lines, "    ✓ Go to Declaration")
+			end
+			if caps.referencesProvider then
+				table.insert(lines, "    ✓ Find References")
+			end
+			if caps.documentFormattingProvider then
+				table.insert(lines, "    ✓ Formatting")
+			end
+			if caps.documentRangeFormattingProvider then
+				table.insert(lines, "    ✓ Range Formatting")
+			end
+			if caps.renameProvider then
+				table.insert(lines, "    ✓ Rename")
+			end
+			if caps.codeActionProvider then
+				table.insert(lines, "    ✓ Code Actions")
+			end
+			if caps.documentHighlightProvider then
+				table.insert(lines, "    ✓ Document Highlight")
+			end
+			if caps.inlayHintProvider then
+				table.insert(lines, "    ✓ Inlay Hints")
+			end
+			
+			table.insert(lines, "")
+		end
+		
+		-- Show all available LSP servers (configured but maybe not attached)
+		table.insert(lines, "Configured LSP Servers:")
+		table.insert(lines, "")
+		local mason_tools = require("plugins/local/mason-tools")
+		for server, config in pairs(mason_tools.servers) do
+			local lsp_name = config.lsp_server_name or server
+			local is_attached = false
+			for _, client in ipairs(clients) do
+				if client.name == lsp_name then
+					is_attached = true
+					break
+				end
+			end
+			table.insert(lines, string.format("  %s %s", is_attached and "✓" or "○", lsp_name))
+		end
+		
+		vim.api.nvim_buf_set_lines(info_buf, 0, -1, false, lines)
+		vim.bo[info_buf].modifiable = false
+		vim.bo[info_buf].buftype = "nofile"
+		vim.bo[info_buf].bufhidden = "wipe"
+		vim.bo[info_buf].filetype = "lspinfo"
+		
+		-- Open in a split window
+		vim.cmd("split")
+		local win = vim.api.nvim_get_current_win()
+		vim.api.nvim_win_set_buf(win, info_buf)
+		vim.api.nvim_win_set_height(win, math.min(#lines + 2, 30))
+		
+		-- Add keybinding to close the window
+		vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = info_buf, silent = true, desc = "Close LspInfo" })
+	end, {
+		desc = "Display LSP client information",
+	})
+
+	-- LspLog command - Open LSP log file
+	vim.api.nvim_create_user_command("LspLog", function()
+		local log_path = vim.lsp.get_log_path()
+		
+		if vim.fn.filereadable(log_path) == 0 then
+			vim.notify("LSP log file not found at: " .. log_path, vim.log.levels.WARN)
+			return
+		end
+		
+		-- Open log file in a new buffer
+		vim.cmd("split " .. vim.fn.fnameescape(log_path))
+		
+		-- Set some useful options for the log buffer
+		vim.bo.readonly = true
+		vim.bo.modifiable = false
+		vim.wo.wrap = false
+		
+		-- Jump to the end of the file
+		vim.cmd("normal! G")
+		
+		vim.notify("LSP log opened. Press 'q' to close.", vim.log.levels.INFO)
+		
+		-- Add keybinding to close the window
+		vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = true, silent = true, desc = "Close LspLog" })
+	end, {
+		desc = "Open LSP log file",
+	})
+
+	-- LspRestart command - Restart all LSP clients for current buffer
+	vim.api.nvim_create_user_command("LspRestart", function()
+		local bufnr = vim.api.nvim_get_current_buf()
+		local clients = vim.lsp.get_clients({ bufnr = bufnr })
+		
+		if #clients == 0 then
+			vim.notify("No LSP clients attached to this buffer", vim.log.levels.INFO)
+			return
+		end
+		
+		for _, client in ipairs(clients) do
+			vim.notify("Restarting " .. client.name .. "...", vim.log.levels.INFO)
+			-- Stop the client
+			vim.lsp.stop_client(client.id)
+		end
+		
+		-- Re-enable servers after a short delay
+		vim.defer_fn(function()
+			local mason_tools = require("plugins/local/mason-tools")
+			for server, config in pairs(mason_tools.servers) do
+				local lsp_server_name = config.lsp_server_name or server
+				vim.lsp.enable(lsp_server_name)
+			end
+			vim.notify("LSP clients restarted", vim.log.levels.INFO)
+		end, 500)
+	end, {
+		desc = "Restart LSP clients for current buffer",
+	})
 end
 
 return {
