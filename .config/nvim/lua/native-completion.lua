@@ -3,8 +3,8 @@
 -- This file demonstrates how to use ONLY Neovim's native completion
 -- without nvim-cmp. To use this approach:
 --
--- 1. Remove or disable lua/plugins/nvim-cmp.lua
--- 2. The native completion is already enabled in nvim-lspconfig.lua
+-- 1. Remove or disable lua/plugins/nvim-cmp.lua (already removed)
+-- 2. The native completion is already enabled in lua/plugins/lsp.lua
 -- 3. Add custom keymaps and configuration as needed
 --
 -- NOTE: This provides a simpler, lighter setup but with fewer features

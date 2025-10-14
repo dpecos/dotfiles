@@ -1,138 +1,124 @@
--- Modern TypeScript/JavaScript tooling using typescript-tools.nvim
+-- Native TypeScript/JavaScript LSP configuration
 -- 
--- This plugin provides enhanced TypeScript support beyond standard ts_ls:
--- ✓ Better performance and startup time
--- ✓ Organize imports command
--- ✓ Add missing imports
--- ✓ Remove unused imports
--- ✓ Fix all fixable errors
--- ✓ Better inlay hints
--- ✓ File references
--- ✓ Better rename support
+-- Using native vim.lsp.config (Neovim 0.11+) with typescript-language-server (ts_ls)
+-- No plugin dependencies - fully native Neovim LSP
 --
--- Replaces: typescript-language-server (ts_ls)
--- Works with: Biome for formatting/linting
+-- Features:
+-- ✓ Full TypeScript/JavaScript support via ts_ls
+-- ✓ Import organization via LSP code actions
+-- ✓ Native completion and inlay hints
+-- ✓ Works with Biome for formatting/linting
+--
+-- This file is intentionally minimal - no plugin needed!
+-- All configuration is in lua/plugins/local/mason-tools/init.lua
 
-return {
-	"pmizio/typescript-tools.nvim",
-	dependencies = {
-		"nvim-lua/plenary.nvim",
-		"neovim/nvim-lspconfig",
-	},
-	ft = {
-		"javascript",
-		"javascriptreact",
-		"typescript",
-		"typescriptreact",
-	},
-	opts = {
-		on_attach = function(client, bufnr)
-			-- Disable formatting - let Biome handle it
-			client.server_capabilities.documentFormattingProvider = false
-			client.server_capabilities.documentRangeFormattingProvider = false
+-- TypeScript/JavaScript import management helper
+local M = {}
 
-			-- TypeScript-specific keymaps
-			local map = function(mode, keys, func, desc)
-				vim.keymap.set(mode, keys, func, {
-					buffer = bufnr,
-					desc = "TS Tools: " .. desc,
-					silent = true,
-				})
-			end
+-- Helper to check if ts_ls is attached
+local function get_ts_ls_client(bufnr)
+	bufnr = bufnr or vim.api.nvim_get_current_buf()
+	local clients = vim.lsp.get_clients({ bufnr = bufnr, name = "ts_ls" })
+	return clients[1]
+end
 
-			-- Organize imports (enhanced version)
-			map("n", "<leader>oi", "<cmd>TSToolsOrganizeImports<cr>", "Organize imports")
-			
-			-- Sort imports (separate from organize)
-			map("n", "<leader>os", "<cmd>TSToolsSortImports<cr>", "Sort imports")
-			
-			-- Remove unused imports
-			map("n", "<leader>ou", "<cmd>TSToolsRemoveUnusedImports<cr>", "Remove unused imports")
-			
-			-- Add missing imports
-			map("n", "<leader>oa", "<cmd>TSToolsAddMissingImports<cr>", "Add missing imports")
-			
-			-- Fix all fixable errors
-			map("n", "<leader>of", "<cmd>TSToolsFixAll<cr>", "Fix all")
-			
-			-- Go to source definition (useful for .d.ts files)
-			map("n", "gds", "<cmd>TSToolsGoToSourceDefinition<cr>", "Go to source definition")
-			
-			-- File references (show all files importing this file)
-			map("n", "grf", "<cmd>TSToolsFileReferences<cr>", "File references")
-			
-			-- Rename file and update imports
-			map("n", "<leader>rf", "<cmd>TSToolsRenameFile<cr>", "Rename file & update imports")
-		end,
-		settings = {
-			-- Spawn additional tsserver instance to calculate diagnostics on it
-			separate_diagnostic_server = true,
-			
-			-- "change"|"insert_leave" determine when the client asks the server about diagnostic
-			publish_diagnostic_on = "insert_leave",
-			
-			-- Enable/disable inlay hints (managed by Neovim native hints)
-			expose_as_code_action = "all",
-			
-			-- TypeScript server settings
-			tsserver_file_preferences = {
-				-- Inlay hints
-				includeInlayParameterNameHints = "all", -- "none" | "literals" | "all"
-				includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-				includeInlayVariableTypeHints = true,
-				includeInlayFunctionParameterTypeHints = true,
-				includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-				includeInlayPropertyDeclarationTypeHints = true,
-				includeInlayFunctionLikeReturnTypeHints = true,
-				includeInlayEnumMemberValueHints = true,
-				
-				-- Import preferences
-				includeCompletionsForModuleExports = true,
-				includeCompletionsWithInsertText = true,
-				
-				-- Auto-import preferences  
-				includeCompletionsForImportStatements = true,
-				includeAutomaticOptionalChainCompletions = true,
-				
-				-- Organize imports
-				organizeImportsIgnoreCase = false,
-				organizeImportsCollation = "ordinal",
-				organizeImportsCollationLocale = "en",
-				organizeImportsNumericCollation = false,
-				organizeImportsAccentCollation = true,
-				
-				-- Import module specifier
-				importModuleSpecifierPreference = "shortest", -- "shortest" | "project-relative" | "relative" | "non-relative"
-				importModuleSpecifierEnding = "auto", -- "auto" | "minimal" | "index" | "js"
-				
-				-- Quote style
-				quotePreference = "auto", -- "auto" | "double" | "single"
-			},
-			
-			-- Additional tsserver configuration
-			tsserver_plugins = {
-				-- Add TypeScript plugins here if needed
-				-- e.g., "@styled/typescript-styled-plugin"
-			},
-			
-			-- Specify a list of plugins to load
-			tsserver_max_memory = "auto", -- Set max memory for tsserver
-			
-			-- Enable/disable certain features
-			complete_function_calls = true,
-			include_completions_with_insert_text = true,
-			
-			-- Code lens
-			code_lens = "off", -- "off" | "all" | "implementations" | "references"
-			
-			-- Disable certain features for performance
-			disable_member_code_lens = true,
-			
-			-- JSX close tag
-			jsx_close_tag = {
-				enable = false,
-				filetypes = { "javascriptreact", "typescriptreact" },
-			},
+-- Organize imports using native LSP
+M.organize_imports = function(bufnr)
+	bufnr = bufnr or vim.api.nvim_get_current_buf()
+	
+	local client = get_ts_ls_client(bufnr)
+	if not client then
+		vim.notify("ts_ls client not attached", vim.log.levels.WARN)
+		return
+	end
+	
+	local params = {
+		command = "_typescript.organizeImports",
+		arguments = { vim.api.nvim_buf_get_name(bufnr) },
+	}
+	
+	client.request("workspace/executeCommand", params, function(err, result)
+		if err then
+			vim.notify("Error organizing imports: " .. vim.inspect(err), vim.log.levels.ERROR)
+		end
+	end, bufnr)
+end
+
+-- Sort imports using native LSP
+M.sort_imports = function(bufnr)
+	bufnr = bufnr or vim.api.nvim_get_current_buf()
+	
+	local client = get_ts_ls_client(bufnr)
+	if not client then
+		vim.notify("ts_ls client not attached", vim.log.levels.WARN)
+		return
+	end
+	
+	local params = {
+		command = "_typescript.sortImports",
+		arguments = { vim.api.nvim_buf_get_name(bufnr) },
+	}
+	
+	client.request("workspace/executeCommand", params, function(err, result)
+		if err then
+			vim.notify("Error sorting imports: " .. vim.inspect(err), vim.log.levels.ERROR)
+		end
+	end, bufnr)
+end
+
+-- Remove unused imports using code actions
+M.remove_unused_imports = function()
+	vim.lsp.buf.code_action({
+		apply = true,
+		context = {
+			only = { "source.removeUnused" },
+			diagnostics = {},
 		},
-	},
-}
+	})
+end
+
+-- Add missing imports using code actions  
+M.add_missing_imports = function()
+	vim.lsp.buf.code_action({
+		apply = true,
+		context = {
+			only = { "source.addMissingImports" },
+			diagnostics = {},
+		},
+	})
+end
+
+-- Fix all fixable errors
+M.fix_all = function()
+	vim.lsp.buf.code_action({
+		apply = true,
+		context = {
+			only = { "source.fixAll" },
+			diagnostics = {},
+		},
+	})
+end
+
+-- Setup keymaps for TypeScript buffers
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+	callback = function(event)
+		local map = function(keys, func, desc)
+			vim.keymap.set("n", keys, func, {
+				buffer = event.buf,
+				desc = "TS: " .. desc,
+				silent = true,
+			})
+		end
+
+		-- Import management
+		map("<leader>oi", M.organize_imports, "Organize imports")
+		map("<leader>os", M.sort_imports, "Sort imports")
+		map("<leader>ou", M.remove_unused_imports, "Remove unused imports")
+		map("<leader>oa", M.add_missing_imports, "Add missing imports")
+		map("<leader>of", M.fix_all, "Fix all")
+	end,
+})
+
+-- No plugin needed - returning empty table
+return {}

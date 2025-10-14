@@ -133,7 +133,7 @@ All LSP keymaps are configured when LSP attaches to a buffer.
 
 ### TypeScript/JavaScript Import Management
 
-**Automatic on Save:** Imports are automatically cleaned up, sorted, and organized on save for TS/JS files.
+**Automatic on Save:** Imports are automatically organized (sorted and unused removed) on save for TS/JS files via native LSP.
 
 | Keymap | Mode | Description | Type |
 |--------|------|-------------|------|
@@ -142,9 +142,6 @@ All LSP keymaps are configured when LSP attaches to a buffer.
 | `<leader>ou` | Normal | Remove unused imports (TS/JS) | ⚙️ |
 | `<leader>oa` | Normal | Add missing imports (TS/JS) | ⚙️ |
 | `<leader>of` | Normal | Fix all fixable errors (TS/JS) | ⚙️ |
-| `<leader>rf` | Normal | Rename file & update imports (TS/JS) | ⚙️ |
-| `gds` | Normal | Go to source definition (TS/JS) | ⚙️ |
-| `grf` | Normal | File references (TS/JS) | ⚙️ |
 
 ### Documentation
 
@@ -160,10 +157,8 @@ All LSP keymaps are configured when LSP attaches to a buffer.
 | `<leader>f` | Normal | Format buffer | ⚙️ |
 
 **Note:** For TypeScript/JavaScript files, formatting on save automatically includes:
-1. Removing unused imports
-2. Adding missing imports  
-3. Sorting imports
-4. Code formatting (via Biome)
+1. Organizing imports (sorts and removes unused via native ts_ls LSP)
+2. Code formatting (via Biome)
 
 ### Diagnostics
 

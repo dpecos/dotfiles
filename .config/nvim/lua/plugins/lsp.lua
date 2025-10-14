@@ -1,6 +1,8 @@
--- LSP Configuration using Neovim native features + nvim-lspconfig
+-- LSP Configuration using Neovim 0.11+ native vim.lsp.config API
 -- 
 -- Native features being used (available in Neovim 0.10+/0.11+):
+-- ✓ vim.lsp.config (0.11+) - Native LSP configuration (replaces nvim-lspconfig)
+-- ✓ vim.lsp.enable (0.11+) - Native LSP server enabling
 -- ✓ vim.diagnostic.config (0.10+) - Native diagnostic configuration  
 -- ✓ vim.lsp.inlay_hint (0.10+) - Native inlay hints
 -- ✓ vim.snippet (0.10+) - Native snippet support
@@ -10,14 +12,11 @@
 -- ✓ Native document highlight - No plugin needed
 --
 -- Plugin dependencies:
--- • nvim-lspconfig: LSP server configurations and setup (still needed for stability)
 -- • fidget.nvim: LSP progress notifications (no native alternative)
 -- • gitsigns.nvim: Git integration (no native alternative)
 --
--- Note: While vim.lsp.config/enable exist in 0.11+, we use nvim-lspconfig for:
--- - Better defaults and server configurations
--- - More stable and well-tested
--- - Automatic command detection for LSP servers
+-- nvim-lspconfig is NO LONGER NEEDED (deprecated in 0.11+)
+-- Using vim.lsp.config/enable for LSP server configuration
 --
 -- Formatting & Linting:
 -- • Biome LSP - Handles JS/TS/JSON/CSS formatting and linting
@@ -26,9 +25,10 @@
 -- • nvim-lint REMOVED - using LSP diagnostics (Biome for JS/TS)
 --
 -- This configuration uses:
--- • ONLY native completion (nvim-cmp removed)
--- • ONLY native formatting (conform.nvim removed)
--- • ONLY LSP diagnostics (nvim-lint removed for JS/TS)
+-- • ONLY native LSP (vim.lsp.config/enable)
+-- • ONLY native completion
+-- • ONLY native formatting
+-- • ONLY LSP diagnostics
 
 -- Using native vim.lsp.supports_method (0.11+) instead of custom wrapper
 local function client_supports_method(client, method, bufnr)
@@ -94,10 +94,8 @@ local on_lsp_attach = function(event)
 	--   <leader>of - Fix all fixable errors
 	-- 
 	-- On save for TS/JS files, the following happens automatically:
-	--   1. Remove unused imports
-	--   2. Add missing imports
-	--   3. Sort imports
-	--   4. Format with Biome
+	--   1. Organize imports (via ts_ls LSP command)
+	--   2. Format with Biome
 
 	map_lsp("K", function()
 		vim.lsp.buf.hover({ border = "rounded" })
@@ -144,43 +142,52 @@ local on_lsp_attach = function(event)
 				end
 				
 				-- Organize imports for TypeScript/JavaScript files
-				-- typescript-tools.nvim provides better organize imports
+				-- Using native LSP commands for import management
 				local filetype = vim.bo[event.buf].filetype
 				if filetype == "typescript" or filetype == "typescriptreact" 
 					or filetype == "javascript" or filetype == "javascriptreact" then
 					
-					-- Use typescript-tools commands for better import management
-					-- This ensures imports are sorted, organized, and cleaned up
-					pcall(function()
-						-- Step 1: Remove unused imports
-						vim.cmd("TSToolsRemoveUnusedImports")
-					end)
+					-- Use LSP commands for import management
+					-- These are provided by ts_ls (typescript-language-server)
+					local ts_ls_client = vim.lsp.get_clients({ bufnr = event.buf, name = "ts_ls" })[1]
 					
-					-- Small delay to let removal complete
-					vim.defer_fn(function()
-						-- Step 2: Add missing imports
-						pcall(function()
-							vim.cmd("TSToolsAddMissingImports")
-						end)
+					if ts_ls_client then
+						-- Organize imports (sorts and removes unused)
+						local params = {
+							command = "_typescript.organizeImports",
+							arguments = { vim.api.nvim_buf_get_name(event.buf) },
+						}
 						
-						-- Small delay for adding imports
-						vim.defer_fn(function()
-							-- Step 3: Sort imports (maintains organization)
-							pcall(function()
-								vim.cmd("TSToolsSortImports")
-							end)
+						ts_ls_client.request("workspace/executeCommand", params, function(err)
+							if err then
+								-- Silently fail - not critical for save operation
+								vim.notify("Error organizing imports: " .. vim.inspect(err), vim.log.levels.DEBUG)
+							end
 							
-							-- Final delay before formatting
+							-- Format with Biome after organizing imports
 							vim.defer_fn(function()
-								-- Step 4: Format with Biome
 								vim.lsp.buf.format({ 
 									async = false,
 									timeout_ms = 2000,
 									bufnr = event.buf,
+									-- Filter to only use Biome for formatting
+									filter = function(client_filter)
+										return client_filter.name == "biome"
+									end,
 								})
 							end, 100)
-						end, 100)
-					end, 100)
+						end, event.buf)
+					else
+						-- If ts_ls not attached, just format with Biome
+						vim.lsp.buf.format({ 
+							async = false,
+							timeout_ms = 2000,
+							bufnr = event.buf,
+							filter = function(client_filter)
+								return client_filter.name == "biome"
+							end,
+						})
+					end
 				else
 					-- For non-JS/TS files, just format
 					vim.lsp.buf.format({ 
@@ -374,19 +381,18 @@ local setup = function()
 		},
 	})
 
-	-- LSP setup using nvim-lspconfig
-	-- While vim.lsp.config/enable are available in 0.11+, nvim-lspconfig provides
-	-- better defaults and is more stable
+	-- LSP setup using native vim.lsp.config/enable (Neovim 0.11+)
+	-- This replaces nvim-lspconfig completely
 	local mason_tools = require("plugins/local/mason-tools")
-	local lspconfig = require("lspconfig")
 	
 	for server, config in pairs(mason_tools.servers) do
 		local lsp_server_name = config.lsp_server_name or server
 		local server_config = vim.tbl_deep_extend("force", {}, config)
 		server_config.lsp_server_name = nil
 		
-		-- Setup the server with lspconfig
-		lspconfig[lsp_server_name].setup(server_config)
+		-- Configure and enable the server using native API
+		vim.lsp.config(lsp_server_name, server_config)
+		vim.lsp.enable(lsp_server_name)
 	end
 
 	-- Native LspAttach autocmd (Neovim 0.8+)
@@ -425,30 +431,29 @@ local setup = function()
 end
 
 return {
-	"neovim/nvim-lspconfig",
-	dependencies = {
-		"neovim/nvim-lspconfig",
-
+	-- Note: No longer need nvim-lspconfig as a plugin
+	-- Using native vim.lsp.config/enable (Neovim 0.11+)
+	{
 		-- Useful status updates for LSP
-		{
-			"j-hui/fidget.nvim",
-			opts = {
-				notification = {
-					window = {
-						winblend = 0, -- transparent
-					},
+		"j-hui/fidget.nvim",
+		opts = {
+			notification = {
+				window = {
+					winblend = 0, -- transparent
 				},
-				integration = {
-					["nvim-tree"] = {
-						enable = true,
-					},
+			},
+			integration = {
+				["nvim-tree"] = {
+					enable = true,
 				},
 			},
 		},
-
-		"lewis6991/gitsigns.nvim",
+		config = function(_, opts)
+			require("fidget").setup(opts)
+			-- Setup LSP after fidget is ready
+			setup()
+		end,
 	},
-	config = function()
-		setup()
-	end,
+
+	"lewis6991/gitsigns.nvim",
 }

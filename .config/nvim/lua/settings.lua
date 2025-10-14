@@ -33,7 +33,7 @@ opt.termguicolors = true
 
 -- Native LSP Completion Configuration (Neovim 0.11+)
 -- Using native vim.lsp.completion instead of nvim-cmp
--- Completion is enabled in lua/plugins/nvim-lspconfig.lua via vim.lsp.completion.enable()
+-- Completion is enabled in lua/plugins/lsp.lua via vim.lsp.completion.enable()
 opt.completeopt = "menu,menuone,noselect"
 
 -- Completion popup appearance

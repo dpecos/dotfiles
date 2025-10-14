@@ -22,30 +22,107 @@ M.linters = {
 	-- CSS handled by Biome or separate LSP
 }
 
--- lspconfig
+-- lspconfig -> vim.lsp.config (Neovim 0.11+)
 M.servers = {
 	-- Biome - Modern fast formatter/linter for JS/TS/JSON/CSS
 	biome = {
-		root_dir = function(fname)
-			-- Look for biome.json or biome.jsonc
-			local util = require("lspconfig.util")
-			return util.root_pattern("biome.json", "biome.jsonc")(fname)
-				or util.find_git_ancestor(fname)
-				or util.find_package_json_ancestor(fname)
-		end,
-		single_file_support = true,
+		cmd = { "biome", "lsp-proxy" },
+		root_markers = { "biome.json", "biome.jsonc", ".git", "package.json" },
+		filetypes = {
+			"javascript",
+			"javascriptreact",
+			"typescript",
+			"typescriptreact",
+			"json",
+			"jsonc",
+		},
 	},
 	
-	-- NOTE: TypeScript/JavaScript now handled by typescript-tools.nvim
-	-- See lua/plugins/typescript-tools.lua for configuration
-	-- The old typescript-language-server (ts_ls) is replaced by typescript-tools
-	-- which provides better performance and more features
+	-- TypeScript Language Server (ts_ls) - Native LSP configuration
+	["typescript-language-server"] = {
+		lsp_server_name = "ts_ls",
+		cmd = { "typescript-language-server", "--stdio" },
+		filetypes = {
+			"javascript",
+			"javascriptreact",
+			"typescript",
+			"typescriptreact",
+		},
+		root_markers = {
+			"tsconfig.json",
+			"jsconfig.json",
+			"package.json",
+			".git",
+		},
+		init_options = {
+			hostInfo = "neovim",
+		},
+		on_attach = function(client, bufnr)
+			-- Disable formatting - Biome handles it
+			client.server_capabilities.documentFormattingProvider = false
+			client.server_capabilities.documentRangeFormattingProvider = false
+		end,
+		settings = {
+			typescript = {
+				inlayHints = {
+					includeInlayParameterNameHints = "all",
+					includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayVariableTypeHints = true,
+					includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+					includeInlayPropertyDeclarationTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayEnumMemberValueHints = true,
+				},
+				preferences = {
+					importModuleSpecifierPreference = "shortest",
+					importModuleSpecifierEnding = "auto",
+					quotePreference = "auto",
+				},
+			},
+			javascript = {
+				inlayHints = {
+					includeInlayParameterNameHints = "all",
+					includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayVariableTypeHints = true,
+					includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+					includeInlayPropertyDeclarationTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayEnumMemberValueHints = true,
+				},
+				preferences = {
+					importModuleSpecifierPreference = "shortest",
+					importModuleSpecifierEnding = "auto",
+					quotePreference = "auto",
+				},
+			},
+		},
+	},
 	
 	-- NOTE: rust-analyzer is NOT configured here to avoid clash with rustaceanvim
 	-- See M.rust_analyzer_settings below and lua/plugins/rustaceanvim.lua
-	gopls = {},
+	
+	gopls = {
+		cmd = { "gopls" },
+		filetypes = { "go", "gomod", "gowork", "gotmpl" },
+		root_markers = { "go.work", "go.mod", ".git" },
+	},
+	
 	["lua-language-server"] = {
 		lsp_server_name = "lua_ls",
+		cmd = { "lua-language-server" },
+		filetypes = { "lua" },
+		root_markers = {
+			".luarc.json",
+			".luarc.jsonc",
+			".luacheckrc",
+			".stylua.toml",
+			"stylua.toml",
+			"selene.toml",
+			"selene.yml",
+			".git",
+		},
 		settings = {
 			Lua = {
 				diagnostics = {
@@ -67,25 +144,47 @@ M.servers = {
 			},
 		},
 	},
+	
 	["json-lsp"] = {
 		lsp_server_name = "jsonls",
+		cmd = { "vscode-json-language-server", "--stdio" },
+		filetypes = { "json", "jsonc" },
+		init_options = {
+			provideFormatter = true,
+		},
 	},
+	
 	["yaml-language-server"] = {
 		lsp_server_name = "yamlls",
+		cmd = { "yaml-language-server", "--stdio" },
+		filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
+		root_markers = { ".git" },
 		settings = {
 			yaml = {
 				keyOrdering = false,
 			},
 		},
 	},
+	
 	["bash-language-server"] = {
 		lsp_server_name = "bashls",
+		cmd = { "bash-language-server", "start" },
+		filetypes = { "sh", "bash" },
+		root_markers = { ".git" },
 	},
+	
 	["prosemd-lsp"] = {
 		lsp_server_name = "prosemd_lsp",
+		cmd = { "prosemd-lsp", "--stdio" },
+		filetypes = { "markdown" },
+		root_markers = { ".git" },
 	},
+	
 	["terraform-ls"] = {
 		lsp_server_name = "terraformls",
+		cmd = { "terraform-ls", "serve" },
+		filetypes = { "terraform", "terraform-vars" },
+		root_markers = { ".terraform", ".git" },
 	},
 }
 
