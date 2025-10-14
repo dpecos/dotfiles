@@ -1,16 +1,9 @@
--- Native TypeScript/JavaScript LSP configuration
--- 
--- Using native vim.lsp.config (Neovim 0.11+) with typescript-language-server (ts_ls)
--- No plugin dependencies - fully native Neovim LSP
+-- TypeScript Tools
+-- Native TypeScript/JavaScript LSP with typescript-language-server (ts_ls)
 --
--- Features:
--- ✓ Full TypeScript/JavaScript support via ts_ls
--- ✓ Import organization via LSP code actions
--- ✓ Native completion and inlay hints
--- ✓ Works with Biome for formatting/linting
---
--- This file is intentionally minimal - no plugin needed!
--- All configuration is in lua/plugins/local/mason-tools/init.lua
+-- Uses native vim.lsp.config (Neovim 0.11+) with ts_ls for full TypeScript/JavaScript support
+-- Includes import organization, code actions, and works with Biome for formatting
+-- Manual commands available under <leader>o for import management
 
 -- TypeScript/JavaScript import management helper
 local M = {}

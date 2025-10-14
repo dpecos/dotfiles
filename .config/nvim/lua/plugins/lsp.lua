@@ -1,34 +1,9 @@
--- LSP Configuration using Neovim 0.11+ native vim.lsp.config API
--- 
--- Native features being used (available in Neovim 0.10+/0.11+):
--- ✓ vim.lsp.config (0.11+) - Native LSP configuration (replaces nvim-lspconfig)
--- ✓ vim.lsp.enable (0.11+) - Native LSP server enabling
--- ✓ vim.diagnostic.config (0.10+) - Native diagnostic configuration  
--- ✓ vim.lsp.inlay_hint (0.10+) - Native inlay hints
--- ✓ vim.snippet (0.10+) - Native snippet support
--- ✓ vim.lsp.completion (0.11+) - Native LSP completion (nvim-cmp removed)
--- ✓ vim.lsp.buf.format (0.8+) - Native LSP formatting (conform.nvim removed)
--- ✓ vim.bo (0.10+) - Modern buffer option setting
--- ✓ Native document highlight - No plugin needed
+-- LSP Configuration
+-- Native Neovim 0.11+ LSP setup (no nvim-lspconfig needed)
 --
--- Plugin dependencies:
--- • fidget.nvim: LSP progress notifications (no native alternative)
--- • gitsigns.nvim: Git integration (no native alternative)
---
--- nvim-lspconfig is NO LONGER NEEDED (deprecated in 0.11+)
--- Using vim.lsp.config/enable for LSP server configuration
---
--- Formatting & Linting:
--- • Biome LSP - Handles JS/TS/JSON/CSS formatting and linting
--- • Native format-on-save using vim.lsp.buf.format()
--- • conform.nvim REMOVED - using native LSP formatting
--- • nvim-lint REMOVED - using LSP diagnostics (Biome for JS/TS)
---
--- This configuration uses:
--- • ONLY native LSP (vim.lsp.config/enable)
--- • ONLY native completion
--- • ONLY native formatting
--- • ONLY LSP diagnostics
+-- Uses native vim.lsp.config/enable for LSP configuration with native completion, formatting, and diagnostics
+-- Includes fidget.nvim for LSP progress notifications and gitsigns.nvim for git integration
+-- Format-on-save with Biome for JS/TS and automatic import organization
 
 -- Using native vim.lsp.supports_method (0.11+) instead of custom wrapper
 local function client_supports_method(client, method, bufnr)

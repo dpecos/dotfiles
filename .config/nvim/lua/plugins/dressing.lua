@@ -1,14 +1,8 @@
--- Dressing.nvim - Better UI for vim.ui.select and vim.ui.input
--- 
--- Enhances native Neovim UI elements with better interfaces:
--- • vim.ui.select → Telescope picker (when available) or custom picker
--- • vim.ui.input → Better input dialog with border and highlighting
+-- Dressing
+-- https://github.com/stevearc/dressing.nvim
 --
--- Used by:
--- • LSP code actions
--- • LSP rename
--- • Plugin selections
--- • Any plugin using native vim.ui
+-- Better UI for vim.ui.select (LSP code actions, etc.) and vim.ui.input (LSP rename, etc.)
+-- Integrates with Telescope for selection menus
 
 return {
 	"stevearc/dressing.nvim",

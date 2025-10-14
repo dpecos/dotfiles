@@ -1,33 +1,9 @@
--- nvim-surround - Modern surround text objects
--- 
--- Replaces vim-surround with a native Lua implementation
--- 
--- Features:
--- • Add surrounding pairs (ys)
--- • Delete surrounding pairs (ds)
--- • Change surrounding pairs (cs)
--- • Works with motions, text objects, and visual selections
--- • Supports custom surroundings
--- • Better than vim-surround: native Lua, more features, better maintained
+-- Nvim Surround
+-- https://github.com/kylechui/nvim-surround
 --
--- Basic usage:
--- • ysiw" - Surround inner word with "
--- • yss) - Surround entire line with ()
--- • ds" - Delete surrounding "
--- • cs"' - Change surrounding " to '
--- • cs({ - Change surrounding ( to { with space
--- • ySS) - Surround line with () on new lines
--- • Visual mode: S" - Surround selection with "
---
--- Text objects:
--- • iw - inner word
--- • aw - a word
--- • i" - inside quotes
--- • a" - around quotes
--- • ip - inner paragraph
--- • ap - around paragraph
--- • it - inner tag (HTML)
--- • at - around tag
+-- Add, delete, and change surrounding pairs (quotes, brackets, tags, etc.)
+-- Keymaps: ys (add), ds (delete), cs (change), S (visual mode)
+-- Examples: ysiw", ds", cs"', yss)
 
 return {
 	"kylechui/nvim-surround",

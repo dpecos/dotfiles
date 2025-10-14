@@ -1,3 +1,11 @@
+-- Nvim Tree
+-- https://github.com/nvim-tree/nvim-tree.lua
+--
+-- File explorer tree with git integration, icons, and auto-sync across tabs
+-- Keymaps: Ctrl+n (toggle), <leader>n (find file), <leader>r (refresh)
+-- Custom keybindings: v (vsplit), h (hsplit), a (create), d (delete), r (rename)
+-- Auto-opens when starting Neovim without a file and closes when last buffer
+
 local function on_attach(bufnr)
 	local api = require("nvim-tree.api")
 

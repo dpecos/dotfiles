@@ -1,15 +1,8 @@
--- Which-Key - Display keybindings in a popup
--- 
--- Features:
--- • Shows available keybindings as you type
--- • Groups keybindings by prefix
--- • Helps discover keymaps
--- • Shows descriptions from keymap definitions
+-- Which Key
+-- https://github.com/folke/which-key.nvim
 --
--- Usage:
--- • Start typing a keymap (e.g., <leader>)
--- • After a short delay, see all available options
--- • <leader>? - Show all keymaps
+-- Display keybinding popup as you type to help discover available keymaps
+-- Shows grouped keybindings by prefix with descriptions
 
 return {
 	"folke/which-key.nvim",

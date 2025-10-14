@@ -1,30 +1,97 @@
 # Neovim Configuration
 
-**Version:** Modern & Optimized  
-**Neovim:** 0.11.4+  
+**Version:** Modern & Optimized
+**Neovim:** 0.11.4+
 **Philosophy:** Native-first, Performance-focused, Well-documented
 
 ---
 
 ## 🚀 Quick Start
 
-New to this config? **Start here:**
+### First Time Setup
 
-📖 **[QUICK_START.md](QUICK_START.md)** - Get up and running in 5 minutes
+1. **Open Neovim** - Plugins will auto-install on first launch
+   ```bash
+   nvim
+   ```
+
+2. **Sync plugins** (if needed)
+   ```vim
+   :Lazy sync
+   ```
+
+3. **Install LSP servers and tools**
+   ```vim
+   :Mason
+   ```
+
+4. **Check health**
+   ```vim
+   :checkhealth
+   ```
+
+### Test Your Setup
+
+Try these commands to verify everything works:
+
+```vim
+" Open a file and test completion
+<C-Space>       " Trigger LSP completion
+<Tab>           " Navigate completions
+<CR>            " Accept completion
+
+" Test LSP features
+gd              " Go to definition
+K               " Show documentation
+grn             " Rename symbol
+gra             " Code actions
+
+" Test file navigation
+<leader>ff      " Find files
+<leader>fg      " Live grep
+<C-n>           " Toggle file tree
+
+" Test editing
+gcc             " Comment line
+ysiw"           " Surround word with quotes
+```
 
 ---
 
 ## 📚 Documentation
 
-### Essential Reading
-- **[QUICK_START.md](QUICK_START.md)** - Quick setup and testing guide
-- **[KEYMAPS.md](KEYMAPS.md)** - Complete keymap reference (100+ keymaps)
-- **[FINAL_REPORT.md](FINAL_REPORT.md)** - Configuration analysis & assessment
+### Essential
+- **[KEYMAPS_REFERENCE.md](KEYMAPS_REFERENCE.md)** - Complete keymap reference (100+ keymaps)
 
-### Advanced Reading
-- **[CONFIG_REVIEW_AND_RECOMMENDATIONS.md](CONFIG_REVIEW_AND_RECOMMENDATIONS.md)** - Detailed analysis
-- **[IMPROVEMENTS_SUMMARY.md](IMPROVEMENTS_SUMMARY.md)** - Recent changes
-- **[.improvements-log.txt](.improvements-log.txt)** - Change log
+### Configuration Files
+- `init.lua` - Entry point
+- `lua/settings.lua` - Neovim options
+- `lua/keymaps.lua` - General keymaps
+- `lua/plugins/` - Plugin configurations
+
+---
+
+## ⌨️ Key Bindings
+
+**Leader key:** `<Space>`
+
+### Most Used Commands
+
+| Action | Keymap | Description |
+|--------|--------|-------------|
+| Comment line | `gcc` | Toggle comment |
+| Find files | `<leader>ff` | Fuzzy find files |
+| Live grep | `<leader>fg` | Search in files |
+| File tree | `<C-n>` or `<leader>ee` | Toggle file explorer |
+| Go to definition | `gd` | Jump to definition |
+| Code action | `gra` | Show code actions |
+| Rename | `grn` | Rename symbol |
+| Format | `<leader>f` | Format buffer |
+| Show keymaps | `<leader>` + wait | Which-key popup |
+| Next buffer | `<A-.>` | Next buffer |
+| Previous buffer | `<A-,>` | Previous buffer |
+
+**Full reference:** See [KEYMAPS_REFERENCE.md](KEYMAPS_REFERENCE.md)
 
 ---
 
@@ -76,137 +143,45 @@ New to this config? **Start here:**
 
 ---
 
-## ⌨️ Key Bindings
-
-### Most Used (Quick Reference)
-
-| Action | Keymap | Plugin |
-|--------|--------|--------|
-| Comment line | `gcc` | mini.comment |
-| Find files | `<leader>ff` | Telescope |
-| Live grep | `<leader>fg` | Telescope |
-| Go to definition | `gd` | LSP |
-| Code action | `gra` | LSP |
-| Rename | `grn` | LSP |
-| Format | `<leader>f` | LSP |
-| Show keymaps | `<leader>` + wait | which-key |
-| File tree | `<leader>e` | nvim-tree |
-| Next buffer | `<A-.>` | barbar |
-
-**Full reference:** See [KEYMAPS.md](KEYMAPS.md)
-
----
-
-## 📊 Stats
-
-- **Plugins:** ~31 (essential only)
-- **Startup Time:** ~60-90ms (very fast)
-- **Lines of Config:** ~2500 (well-organized)
-- **Documentation:** 6 comprehensive guides
-- **Keymaps:** 100+ (all documented)
-
----
-
-## 🎯 Philosophy
-
-### 1. Native-First
-Use Neovim's native features when available instead of plugins:
-- Native completion > nvim-cmp
-- Native formatting > conform.nvim
-- Native snippets > snippet plugins
-- Native diagnostics > custom implementations
-
-### 2. Performance-Focused
-- Lazy load everything possible
-- Use native features (faster than plugins)
-- Enable module caching
-- Minimal dependencies
-
-### 3. Well-Documented
-- Every plugin has a clear purpose
-- Every keymap has a description
-- Multiple reference guides
-- Clear inline comments
-
-### 4. Modern & Maintained
-- Use actively maintained plugins
-- Prefer Lua over Vimscript
-- Stay updated with Neovim releases
-- Replace deprecated patterns
-
----
-
-## 🛠️ Installation
-
-### Prerequisites
-```bash
-# Neovim 0.11.4 or later
-nvim --version
-
-# Required tools (install via Mason or package manager)
-# - LSP servers: typescript-language-server, rust-analyzer, lua-language-server, etc.
-# - Formatters: biome, stylua, etc.
-# - Linters: shellcheck, etc.
-```
-
-### Setup
-```bash
-# 1. Clone or copy this config to ~/.config/nvim
-
-# 2. Open Neovim (plugins will auto-install)
-nvim
-
-# 3. Sync plugins
-:Lazy sync
-
-# 4. Install LSP servers/tools
-:Mason
-
-# 5. Check health
-:checkhealth
-```
-
-### First Time Users
-Read [QUICK_START.md](QUICK_START.md) for a guided walkthrough.
-
----
-
 ## 🔧 Customization
 
 ### File Structure
+
 ```
 ~/.config/nvim/
 ├── init.lua                 # Entry point
 ├── lua/
-│   ├── settings.lua         # Neovim options
+│   ├── settings.lua         # Neovim options & completion
 │   ├── keymaps.lua          # General keymaps
 │   ├── plugins-bootstrap.lua # Lazy.nvim setup
 │   └── plugins/             # Plugin configurations
-│       ├── nvim-lspconfig.lua    # LSP setup
-│       ├── typescript-tools.lua  # TypeScript
-│       ├── rustaceanvim.lua      # Rust
-│       ├── telescope.lua         # Fuzzy finder
-│       ├── mini-comment.lua      # Commenting
-│       ├── nvim-surround.lua     # Surround
-│       ├── which-key.lua         # Keymap helper
-│       ├── dressing.lua          # UI enhancement
-│       └── ... (28 total)
+│       ├── lsp.lua              # LSP setup
+│       ├── typescript-tools.lua # TypeScript
+│       ├── rustaceanvim.lua     # Rust
+│       ├── telescope.lua        # Fuzzy finder
+│       ├── mini-comment.lua     # Commenting
+│       ├── nvim-surround.lua    # Surround
+│       ├── which-key.lua        # Keymap helper
+│       └── ... (more plugins)
 └── ftplugin/                # Filetype-specific settings
 ```
 
 ### Common Customizations
 
-**Change leader key:** Edit `lua/keymaps.lua`
+**Change leader key:**
+Edit `lua/keymaps.lua`
 ```lua
-vim.g.mapleader = ","  -- Change to your preference
+vim.g.mapleader = ","  -- Default is <Space>
 ```
 
-**Add new keymap:** Edit `lua/keymaps.lua`
+**Add new keymap:**
+Edit `lua/keymaps.lua`
 ```lua
 vim.keymap.set("n", "<leader>x", ":YourCommand<CR>", { desc = "Description" })
 ```
 
-**Add new plugin:** Create `lua/plugins/your-plugin.lua`
+**Add new plugin:**
+Create `lua/plugins/your-plugin.lua`
 ```lua
 return {
   "author/plugin-name",
@@ -217,7 +192,11 @@ return {
 }
 ```
 
-**Add LSP server:** Edit `lua/plugins/local/mason-tools/init.lua`
+**Modify LSP settings:**
+Edit `lua/plugins/lsp.lua`
+
+**Add/Remove LSP servers:**
+Edit `lua/plugins/lsp.lua` and update the `servers` table
 
 ---
 
@@ -231,9 +210,9 @@ return {
 
 ### LSP not working
 ```vim
-:LspInfo
-:Mason
-:checkhealth lsp
+:LspInfo          " Check attached LSP servers
+:Mason            " Install/update LSP servers
+:checkhealth lsp  " Check LSP health
 ```
 
 ### Slow startup
@@ -242,78 +221,137 @@ nvim --startuptime startup.log
 tail -20 startup.log
 ```
 
-### Check general health
+### General issues
 ```vim
-:checkhealth
+:checkhealth      " Check overall health
 ```
 
 ---
 
 ## 📈 Performance
 
-### Optimizations Applied
-- ✅ `vim.loader.enable()` - Module caching
-- ✅ Lazy loading - All plugins load on-demand
-- ✅ Native features - Faster than plugin alternatives
-- ✅ Minimal dependencies - Only essential plugins
-- ✅ Filetype-specific loading - Plugins load only when needed
+### Stats
+- **Startup Time:** ~60-90ms (very fast)
+- **Plugin Count:** ~31 (essential only)
+- **Memory Usage:** ~50MB at startup
+- **LSP Attach Time:** <100ms
 
-### Benchmark Results
-```
-Startup Time: ~60-90ms (measured with --startuptime)
-Plugin Count: 31 (lean)
-Memory Usage: ~50MB at startup
-LSP Attach Time: <100ms
-```
+### Optimizations Applied
+- ✅ `vim.loader.enable()` - Module caching for faster startup
+- ✅ Lazy loading - Plugins load on-demand
+- ✅ Native features - Using Neovim built-ins over plugins
+- ✅ Minimal dependencies - Only essential plugins
+- ✅ Filetype-specific loading - Plugins load when needed
 
 ---
 
 ## 🔄 Updates
 
 ### Keep Config Updated
+
 ```vim
-# Update plugins
+" Update plugins
 :Lazy update
 
-# Update Treesitter parsers
+" Update Treesitter parsers
 :TSUpdate
 
-# Update LSP servers
+" Update LSP servers and tools
 :Mason
 ```
 
 ### Stay Informed
 - Check [Neovim releases](https://github.com/neovim/neovim/releases)
-- Watch plugin changelogs
-- Review deprecation warnings
+- Review plugin changelogs
+- Monitor deprecation warnings
+
+---
+
+## 🎯 TypeScript/JavaScript Import Management
+
+Imports are automatically organized on save for TS/JS files:
+- **Sorted alphabetically** - Clean and consistent
+- **Unused imports removed** - No clutter
+- **Via native LSP** - Fast and reliable
+
+Manual commands available:
+```vim
+<leader>oi    " Organize imports (sort + remove unused)
+<leader>os    " Sort imports only
+<leader>ou    " Remove unused imports only
+<leader>oa    " Add missing imports
+<leader>of    " Fix all fixable errors
+```
+
+Powered by `typescript-tools.nvim` using native TypeScript language server.
+
+---
+
+## 🦀 Rust Development
+
+Special features for Rust files:
+
+### Keymaps (in .rs files)
+```vim
+<leader>rr    " Run runnables (cargo run, test, bench)
+<leader>rt    " Run testables
+<leader>rd    " Run debuggables
+<leader>re    " Expand macro
+<leader>rc    " Open Cargo.toml
+K             " Hover with actions
+```
+
+### Cargo.toml Management
+When editing `Cargo.toml`:
+```vim
+<leader>ct    " Toggle crates UI
+<leader>cu    " Update crate
+<leader>cU    " Upgrade crate (major version)
+<leader>cv    " Show available versions
+<leader>cf    " Show features
+<leader>cd    " Open documentation
+```
+
+Powered by `rustaceanvim` and `crates.nvim`.
 
 ---
 
 ## 🙏 Credits
 
-Built with modern Neovim features and carefully selected plugins:
+Built with modern Neovim features and carefully selected plugins.
 
-**Core:**
-- [lazy.nvim](https://github.com/folke/lazy.nvim) - Plugin manager
-- [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) - LSP configs
+### Core Plugins
+
+**Plugin Manager:**
+- [lazy.nvim](https://github.com/folke/lazy.nvim) - Fast plugin manager
+
+**LSP & Language Tools:**
+- [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) - LSP configurations
+- [typescript-tools.nvim](https://github.com/pmizio/typescript-tools.nvim) - Enhanced TypeScript/JavaScript
+- [rustaceanvim](https://github.com/mrcjkb/rustaceanvim) - Best-in-class Rust support
+- [mason.nvim](https://github.com/williamboman/mason.nvim) - LSP/tool installer
 
 **Editing:**
-- [mini.comment](https://github.com/echasnovski/mini.comment) - Commenting
-- [nvim-surround](https://github.com/kylechui/nvim-surround) - Surround
-- [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) - Syntax
+- [mini.comment](https://github.com/echasnovski/mini.comment) - Fast commenting
+- [nvim-surround](https://github.com/kylechui/nvim-surround) - Surround text objects
+- [nvim-autopairs](https://github.com/windwp/nvim-autopairs) - Auto-close pairs
+- [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) - Syntax highlighting
 
 **Navigation:**
 - [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) - Fuzzy finder
-- [nvim-tree](https://github.com/nvim-tree/nvim-tree.lua) - File explorer
-
-**Language:**
-- [typescript-tools.nvim](https://github.com/pmizio/typescript-tools.nvim) - TypeScript
-- [rustaceanvim](https://github.com/mrcjkb/rustaceanvim) - Rust
+- [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua) - File explorer
+- [barbar.nvim](https://github.com/romgrk/barbar.nvim) - Buffer/tab management
 
 **UI:**
 - [which-key.nvim](https://github.com/folke/which-key.nvim) - Keymap helper
-- [dressing.nvim](https://github.com/stevearc/dressing.nvim) - Better UI
+- [dressing.nvim](https://github.com/stevearc/dressing.nvim) - Better UI elements
 - [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) - Status line
+- [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) - Git integration
+
+**Utilities:**
+- [nvim-ufo](https://github.com/kevinhwang91/nvim-ufo) - Better folding
+- [todo-comments.nvim](https://github.com/folke/todo-comments.nvim) - Highlight TODOs
+- [nvim-spectre](https://github.com/nvim-pack/nvim-spectre) - Search & replace
 
 ---
 
@@ -323,17 +361,8 @@ This configuration is free to use, modify, and distribute.
 
 ---
 
-## 🤝 Contributing
-
-This is a personal configuration, but feel free to:
-- Open issues for bugs or suggestions
-- Submit PRs for improvements
-- Use it as inspiration for your own config
-
----
-
-**Last Updated:** 2024  
-**Maintained:** Active  
-**Support:** Neovim 0.11.4+
+**Last Updated:** 2025/10/14
+**Neovim Version:** 0.11.4+
+**Status:** Active & Maintained
 
 **Happy Coding! 🚀**

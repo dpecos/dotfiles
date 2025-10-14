@@ -1,3 +1,9 @@
+-- Nvim Spectre
+-- https://github.com/nvim-pack/nvim-spectre
+--
+-- Find and replace across multiple files with live preview and regex support
+-- Keymaps: <leader>S (open), <leader>sw (search word), <leader>sp (search in file)
+
 return {
   'windwp/nvim-spectre',
   dependencies = {

@@ -1,3 +1,10 @@
+-- Nvim Spider
+-- https://github.com/chrisgrieser/nvim-spider
+--
+-- Enhanced word motion that skips punctuation and handles camelCase/snake_case intelligently
+-- Overrides: w, e, b, ge with smarter movement patterns
+-- More natural navigation for modern programming with compound identifiers
+
 return {
   "chrisgrieser/nvim-spider",
   event = "VeryLazy",

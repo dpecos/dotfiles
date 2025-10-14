@@ -1,3 +1,10 @@
+-- Mason Tool Installer
+-- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
+--
+-- Automatically install and manage LSP servers, formatters, and linters via Mason
+-- Reads configuration from plugins/local/mason-tools for centralized tool management
+-- Ensures all required development tools are installed on startup
+
 local mason_tools = require("plugins/local/mason-tools")
 
 local function tools_to_autoinstall(servers, formatters, linters)

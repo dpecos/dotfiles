@@ -1,3 +1,10 @@
+-- Telescope
+-- https://github.com/nvim-telescope/telescope.nvim
+--
+-- Fuzzy finder for files, grep, buffers, git, and more with preview support
+-- Keymaps: <leader>ff (files), <leader>fs (live grep), <leader>fb (buffers), <leader>fh (help)
+-- Includes hidden files and custom history navigation with Ctrl+p/o
+
 local setup = function()
 	local telescope = require("telescope")
 

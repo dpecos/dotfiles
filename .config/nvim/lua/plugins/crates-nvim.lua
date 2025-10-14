@@ -1,11 +1,8 @@
--- Crates.nvim - Cargo.toml dependency management
--- 
--- Features:
--- • Shows available versions inline
--- • Update dependencies
--- • Check for outdated crates
--- • Jump to documentation
--- • Completion for crate names and versions
+-- Crates.nvim
+-- https://github.com/saecki/crates.nvim
+--
+-- Cargo.toml dependency management with inline version display, updates, and documentation links
+-- Auto-loads on Cargo.toml files with keymaps under <leader>c
 
 return {
 	"saecki/crates.nvim",

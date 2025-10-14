@@ -1,3 +1,11 @@
+-- Refactoring
+-- https://github.com/ThePrimeagen/refactoring.nvim
+--
+-- Treesitter-based refactoring operations for multiple languages
+-- Keymaps: <leader>rr (refactor menu), <leader>re (extract function), <leader>rv (extract variable)
+-- Supports: extract function/variable, inline variable, extract block to file
+-- Integrates with Telescope for refactoring operation selection
+
 return {
   'ThePrimeagen/refactoring.nvim',
   dependencies = {

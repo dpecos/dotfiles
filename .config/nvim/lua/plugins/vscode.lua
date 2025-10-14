@@ -1,3 +1,10 @@
+-- VSCode Theme
+-- https://github.com/Mofiqul/vscode.nvim
+--
+-- VSCode-inspired color scheme for Neovim with dark and light variants
+-- Configured with: dark style, transparent background, and italic comments
+-- Familiar color palette for developers coming from VSCode
+
 return {
 	"Mofiqul/vscode.nvim",
 	event = "VeryLazy",

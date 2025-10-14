@@ -1,3 +1,10 @@
+-- Todo Comments
+-- https://github.com/folke/todo-comments.nvim
+--
+-- Highlight and search for TODO, FIXME, NOTE, and other comment annotations
+-- Keymaps: ]t/[t (next/prev todo), <leader>ft (telescope list all todos)
+-- Custom colors for error, warning, info, hint, and test annotations
+
 return {
   "folke/todo-comments.nvim",
   dependencies = {

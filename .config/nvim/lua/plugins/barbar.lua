@@ -1,3 +1,10 @@
+-- Barbar
+-- https://github.com/romgrk/barbar.nvim
+--
+-- Tabline plugin with buffer management, icons, and auto-hide support
+-- Keymaps: Alt+,/. (navigate), Alt+1-9 (goto buffer), Alt+c (close), Ctrl+p (pick)
+-- Integrates with nvim-tree to adjust offset automatically
+
 local setup = function()
 	local nvim_tree_events = require("nvim-tree.events")
 	local bufferline_api = require("bufferline.api")

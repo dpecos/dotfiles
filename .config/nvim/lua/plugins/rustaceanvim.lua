@@ -1,13 +1,8 @@
--- Rustaceanvim - Modern Rust development plugin
--- Replaces rust-tools.nvim with better features and performance
--- 
--- Features:
--- • Automatic rust-analyzer configuration
--- • Cargo commands integration
--- • Test runner
--- • Debugger support (with codelldb)
--- • Standalone file support
--- • Better performance than rust-tools
+-- Rustaceanvim
+-- https://github.com/mrcjkb/rustaceanvim
+--
+-- Modern Rust development plugin with rust-analyzer, cargo integration, test runner, and debugger
+-- Replaces rust-tools.nvim with better performance and features
 
 return {
 	"mrcjkb/rustaceanvim",

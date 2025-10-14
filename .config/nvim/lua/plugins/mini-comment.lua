@@ -1,16 +1,8 @@
--- Mini.comment - Modern commenting plugin
--- 
--- Features:
--- • Respects commentstring from treesitter
--- • Works with multiline selections
--- • Handles edge cases well
--- • Lightweight and fast
+-- Mini Comment
+-- https://github.com/echasnovski/mini.comment
 --
--- Default keymaps:
--- • gcc - Toggle comment for line
--- • gc - Toggle comment for motion/visual selection
--- • gbc - Toggle block comment for line
--- • gb - Toggle block comment for motion/visual
+-- Modern commenting plugin with Treesitter support
+-- Keymaps: gcc (line), gc (motion/visual), gbc (block line), gb (block motion/visual)
 
 return {
 	"echasnovski/mini.comment",

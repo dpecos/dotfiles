@@ -1,3 +1,10 @@
+-- Nvim UFO
+-- https://github.com/kevinhwang91/nvim-ufo
+--
+-- Modern code folding with better performance and LSP/Treesitter support
+-- Keymaps: zR (open all folds), zM (close all folds)
+-- High foldlevel (99) by default for better initial view
+
 return {
   'kevinhwang91/nvim-ufo',
   dependencies = {
