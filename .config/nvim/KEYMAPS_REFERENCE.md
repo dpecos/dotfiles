@@ -16,17 +16,18 @@ Complete reference of all keymaps in this Neovim configuration.
 1. [Core Neovim (Custom)](#core-neovim-custom)
 2. [LSP - Language Server Protocol](#lsp---language-server-protocol)
 3. [Completion](#completion)
-4. [Code Editing](#code-editing)
-5. [Telescope - Fuzzy Finder](#telescope---fuzzy-finder)
-6. [File Explorer (nvim-tree)](#file-explorer-nvim-tree)
-7. [Buffer Management (Barbar)](#buffer-management-barbar)
-8. [Git (GitSigns)](#git-gitsigns)
-9. [Rust Development](#rust-development)
-10. [Refactoring](#refactoring)
-11. [TODO Comments](#todo-comments)
-12. [Folding (UFO)](#folding-ufo)
-13. [Treesitter Text Objects](#treesitter-text-objects)
-14. [Plugin Provided (Internal)](#plugin-provided-internal)
+4. [Copilot](#copilot)
+5. [Code Editing](#code-editing)
+6. [Telescope - Fuzzy Finder](#telescope---fuzzy-finder)
+7. [File Explorer (nvim-tree)](#file-explorer-nvim-tree)
+8. [Buffer Management (Barbar)](#buffer-management-barbar)
+9. [Git (GitSigns)](#git-gitsigns)
+10. [Rust Development](#rust-development)
+11. [Refactoring](#refactoring)
+12. [TODO Comments](#todo-comments)
+13. [Folding (UFO)](#folding-ufo)
+14. [Treesitter Text Objects](#treesitter-text-objects)
+15. [Plugin Provided (Internal)](#plugin-provided-internal)
 
 ---
 
@@ -210,6 +211,28 @@ Native LSP completion keymaps (configured in settings.lua).
 | `<S-Tab>` | Insert | Previous completion item or Shift-Tab | ⚙️ |
 | `<CR>` | Insert | Accept completion or newline | ⚙️ |
 | `<C-e>` | Insert | Close completion menu | ⚙️ |
+
+---
+
+## Copilot
+
+GitHub Copilot keymaps for AI-powered code completion.
+
+### Suggestions (Insert Mode)
+
+| Keymap | Mode | Description | Type |
+|--------|------|-------------|------|
+| `<C-a>` | Insert | Accept Copilot suggestion | ⚙️ |
+| `<C-j>` | Insert | Next Copilot suggestion | ⚙️ |
+| `<C-k>` | Insert | Previous Copilot suggestion | ⚙️ |
+| `<C-e>` | Insert | Dismiss Copilot suggestion | ⚙️ |
+
+### Management
+
+| Keymap | Mode | Description | Type |
+|--------|------|-------------|------|
+| `<leader>ct` | Normal | Toggle Copilot for current buffer | ⚙️ |
+| `<leader>cs` | Normal | Show Copilot status | ⚙️ |
 
 ---
 
@@ -710,6 +733,7 @@ All custom keymaps (🔧 and ⚙️) can be modified in:
 
 - **Core Neovim**: `lua/keymaps.lua`
 - **Completion**: `lua/settings.lua`
+- **Copilot**: `lua/plugins/copilot.lua`
 - **Commenting**: `lua/plugins/mini-comment.lua`
 - **Surround**: `lua/plugins/nvim-surround.lua`
 - **LSP**: `lua/plugins/nvim-lspconfig.lua`
@@ -739,6 +763,7 @@ Plugin-provided keymaps (🔌) are internal to the plugin and typically cannot b
 | LSP Actions | `gr*` | `grn` (rename) |
 | Buffers | `<A-*>` | `<A-.>` (next buffer) |
 | Git | `<leader>h*` | `<leader>hs` (stage hunk) |
+| Copilot | `<leader>c*` | `<leader>ct` (toggle) |
 | Rust | `<leader>r*` | `<leader>rr` (runnables) |
 | Crates | `<leader>c*` | `<leader>cu` (update crate) |
 | Refactor | `<leader>r*` | `<leader>re` (extract) |

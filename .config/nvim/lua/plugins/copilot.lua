@@ -6,23 +6,29 @@
 -- Auto-triggers on insert mode with 75ms debounce
 
 return {
-	"zbirenbaum/copilot.lua",
-	build = ":Copilot auth",
-	event = "InsertEnter",
-	config = function()
-		require("copilot").setup({
-			suggestion = {
-				enabled = true,
-				auto_trigger = true,
-				debounce = 75,
-				keymap = {
-					accept = "<C-a>",
-					next = "<c-j>",
-					prev = "<c-k>",
-					dismiss = "<C-e>",
-				},
-			},
-			panel = { enabled = false },
-		})
-	end,
+  "zbirenbaum/copilot.lua",
+  build = ":Copilot auth",
+  event = "InsertEnter",
+  config = function()
+    require("copilot").setup({
+      suggestion = {
+        enabled = true,
+        auto_trigger = true,
+        debounce = 75,
+        keymap = {
+          accept = "<C-a>",
+          next = "<c-j>",
+          prev = "<c-k>",
+          dismiss = "<C-e>",
+        },
+      },
+      panel = { enabled = false },
+    })
+
+    vim.keymap.set("n", "<leader>ct", "<cmd>Copilot toggle<cr>",
+      { desc = "Copilot: Toggle Copilot", silent = true })
+
+    vim.keymap.set("n", "<leader>cs", "<cmd>Copilot status<cr>",
+      { desc = "Copilot: Show Copilot status", silent = true })
+  end,
 }
