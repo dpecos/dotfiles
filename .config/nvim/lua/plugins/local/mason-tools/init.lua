@@ -31,6 +31,11 @@ M.servers = {
       "typescriptreact",
       "json",
       "jsonc",
+      "html",
+      "css",
+      "scss",
+      "less",
+      "graphql",
     },
   },
 
