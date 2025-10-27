@@ -35,7 +35,6 @@ plugins=(
   autojump
   docker
   mvn
-  rust
   gcloud
   sdk
 )
