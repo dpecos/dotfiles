@@ -31,11 +31,6 @@ opt.smartcase = true
 opt.termguicolors = true
 --opt.colorcolumn = "80"
 
--- Native LSP Completion Configuration (Neovim 0.11+)
--- Using native vim.lsp.completion instead of nvim-cmp
--- Completion is enabled in lua/plugins/lsp.lua via vim.lsp.completion.enable()
-opt.completeopt = "menu,menuone,noselect"
-
 -- Completion popup appearance
 opt.pumblend = 10  -- Slight transparency for completion menu
 opt.pumheight = 15 -- Maximum number of items to show in popup menu
