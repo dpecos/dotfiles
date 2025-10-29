@@ -8,6 +8,7 @@
 return {
   "zbirenbaum/copilot.lua",
   build = ":Copilot auth",
+  cmd = "Copilot",
   event = "InsertEnter",
   config = function()
     require("copilot").setup({
@@ -23,10 +24,17 @@ return {
         },
       },
       panel = { enabled = false },
+      workspace_folders = {
+        "~/projects",
+        "~/projects-dplabs",
+      }
     })
 
     vim.keymap.set("n", "<leader>ct", "<cmd>Copilot toggle<cr>",
-      { desc = "Copilot: Toggle Copilot", silent = true })
+      { desc = "Copilot: Toggle Copilot (current buffer)", silent = true })
+
+    vim.keymap.set("n", "<leader>cd", "<cmd>Copilot disable<cr>",
+      { desc = "Copilot: Disable Copilot", silent = true })
 
     vim.keymap.set("n", "<leader>cs", "<cmd>Copilot status<cr>",
       { desc = "Copilot: Show Copilot status", silent = true })
