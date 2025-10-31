@@ -84,7 +84,8 @@ M.setup = function()
   vim.opt.pumblend = 10
 
   -- Enable preview window for completion documentation
-  vim.opt.completeopt:append("preview")
+  -- vim.opt.completeopt:append("preview")
+  vim.opt.completeopt:append("popup")
 end
 
 M.setup()
