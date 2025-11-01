@@ -33,32 +33,33 @@ local setup = function()
 
   -- See `:help telescope.builtin`
   local builtin = require("telescope.builtin")
+  local map = require("utils.keymap").map
 
-  vim.keymap.set("n", "<leader>?", builtin.oldfiles, { desc = "Telescope: Find recently opened files" })
-  vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope: Find existing buffers" })
-  vim.keymap.set("n", "<leader>/", function()
+  map("<leader>?", builtin.oldfiles, "Telescope", "Find recently opened files")
+  map("<leader>fb", builtin.buffers, "Telescope", "Find existing buffers")
+  map("<leader>/", function()
     -- You can pass additional configuration to telescope to change theme, layout, etc.
     require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
       winblend = 10,
       previewer = false,
     }))
-  end, { desc = "Telescope: Fuzzy search in current buffer" })
+  end, "Telescope", "Fuzzy search in current buffer")
 
-  vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope: Find files" })
-  vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope: Search help" })
-  vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "Telescope: Search current word" })
-  vim.keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Telescope: Live grep" })
-  vim.keymap.set("n", "<leader>fg", builtin.grep_string, { desc = "Telescope: Search word under cursor" })
-  vim.keymap.set("n", "<leader>fD", builtin.diagnostics, { desc = "Telescope: Search diagnostics" })
-  vim.keymap.set("n", "<leader>fx", builtin.resume, { desc = "Telescope: Resume last search" })
+  map("<leader>ff", builtin.find_files, "Telescope", "Find files")
+  map("<leader>fh", builtin.help_tags, "Telescope", "Search help")
+  map("<leader>fw", builtin.grep_string, "Telescope", "Search current word")
+  map("<leader>fs", builtin.live_grep, "Telescope", "Live grep")
+  map("<leader>fg", builtin.grep_string, "Telescope", "Search word under cursor")
+  map("<leader>fD", builtin.diagnostics, "Telescope", "Search diagnostics")
+  map("<leader>fx", builtin.resume, "Telescope", "Resume last search")
 
-  vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Telescope: Search keymaps" })
-  vim.keymap.set("n", "<leader>fm", builtin.marks, { desc = "Telescope: Search marks" })
+  map("<leader>fk", builtin.keymaps, "Telescope", "Search keymaps")
+  map("<leader>fm", builtin.marks, "Telescope", "Search marks")
 
-  vim.keymap.set("n", "<leader>gs", builtin.git_status, { desc = "Telescope: Git status" })
-  vim.keymap.set("n", "<leader>gl", builtin.git_commits, { desc = "Telescope: Git commits" })
-  vim.keymap.set("n", "<leader>gh", builtin.git_bcommits, { desc = "Telescope: Git commits (current buffer)" })
-  vim.keymap.set("n", "<leader>gb", builtin.git_branches, { desc = "Telescope: Git branches" })
+  map("<leader>gs", builtin.git_status, "Telescope", "Git status")
+  map("<leader>gl", builtin.git_commits, "Telescope", "Git commits")
+  map("<leader>gh", builtin.git_bcommits, "Telescope", "Git commits (current buffer)")
+  map("<leader>gb", builtin.git_branches, "Telescope", "Git branches")
 end
 
 return {

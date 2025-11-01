@@ -30,13 +30,10 @@ return {
       }
     })
 
-    vim.keymap.set("n", "<leader>ct", "<cmd>Copilot toggle<cr>",
-      { desc = "Copilot: Toggle Copilot (current buffer)", silent = true })
+    local map = require("utils.keymap").map
 
-    vim.keymap.set("n", "<leader>cd", "<cmd>Copilot disable<cr>",
-      { desc = "Copilot: Disable Copilot", silent = true })
-
-    vim.keymap.set("n", "<leader>cs", "<cmd>Copilot status<cr>",
-      { desc = "Copilot: Show Copilot status", silent = true })
+    map("<leader>ct", "<cmd>Copilot toggle<cr>", "Copilot", "Toggle Copilot (current buffer)", { silent = true })
+    map("<leader>cd", "<cmd>Copilot disable<cr>", "Copilot", "Disable Copilot", { silent = true })
+    map("<leader>cs", "<cmd>Copilot status<cr>", "Copilot", "Show Copilot status", { silent = true })
   end,
 }

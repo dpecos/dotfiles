@@ -50,38 +50,36 @@ return {
 		vim.api.nvim_create_autocmd("BufRead", {
 			pattern = "Cargo.toml",
 			callback = function(event)
-				local function map(mode, keys, func, desc)
-					vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "Crates: " .. desc })
-				end
+				local map = require("utils.keymap").map
 
 				-- Version management
-				map("n", "<leader>ct", crates.toggle, "Toggle crates UI")
-				map("n", "<leader>cr", crates.reload, "Reload crates")
+				map("<leader>ct", crates.toggle, "Crates", "Toggle crates UI", { buffer = event.buf })
+				map("<leader>cr", crates.reload, "Crates", "Reload crates", { buffer = event.buf })
 
 				-- Update crates
-				map("n", "<leader>cu", crates.update_crate, "Update crate")
-				map("v", "<leader>cu", crates.update_crates, "Update crates")
-				map("n", "<leader>ca", crates.update_all_crates, "Update all crates")
+				map("<leader>cu", crates.update_crate, "Crates", "Update crate", { buffer = event.buf })
+				map("<leader>cu", crates.update_crates, "Crates", "Update crates", { mode = "v", buffer = event.buf })
+				map("<leader>ca", crates.update_all_crates, "Crates", "Update all crates", { buffer = event.buf })
 
 				-- Upgrade crates
-				map("n", "<leader>cU", crates.upgrade_crate, "Upgrade crate")
-				map("v", "<leader>cU", crates.upgrade_crates, "Upgrade crates")
-				map("n", "<leader>cA", crates.upgrade_all_crates, "Upgrade all crates")
+				map("<leader>cU", crates.upgrade_crate, "Crates", "Upgrade crate", { buffer = event.buf })
+				map("<leader>cU", crates.upgrade_crates, "Crates", "Upgrade crates", { mode = "v", buffer = event.buf })
+				map("<leader>cA", crates.upgrade_all_crates, "Crates", "Upgrade all crates", { buffer = event.buf })
 
 				-- Documentation
-				map("n", "<leader>cd", crates.open_documentation, "Open documentation")
-				map("n", "<leader>ch", crates.open_homepage, "Open homepage")
-				map("n", "<leader>cp", crates.open_repository, "Open repository")
-				map("n", "<leader>cC", crates.open_crates_io, "Open crates.io")
+				map("<leader>cd", crates.open_documentation, "Crates", "Open documentation", { buffer = event.buf })
+				map("<leader>ch", crates.open_homepage, "Crates", "Open homepage", { buffer = event.buf })
+				map("<leader>cp", crates.open_repository, "Crates", "Open repository", { buffer = event.buf })
+				map("<leader>cC", crates.open_crates_io, "Crates", "Open crates.io", { buffer = event.buf })
 
 				-- Version popup
-				map("n", "<leader>cv", crates.show_versions_popup, "Show versions")
-				map("n", "<leader>cf", crates.show_features_popup, "Show features")
-				map("n", "<leader>cD", crates.show_dependencies_popup, "Show dependencies")
+				map("<leader>cv", crates.show_versions_popup, "Crates", "Show versions", { buffer = event.buf })
+				map("<leader>cf", crates.show_features_popup, "Crates", "Show features", { buffer = event.buf })
+				map("<leader>cD", crates.show_dependencies_popup, "Crates", "Show dependencies", { buffer = event.buf })
 
 				-- Expansion
-				map("n", "<leader>cx", crates.expand_plain_crate_to_inline_table, "Expand to inline table")
-				map("n", "<leader>cX", crates.extract_crate_into_table, "Extract to table")
+				map("<leader>cx", crates.expand_plain_crate_to_inline_table, "Crates", "Expand to inline table", { buffer = event.buf })
+				map("<leader>cX", crates.extract_crate_into_table, "Crates", "Extract to table", { buffer = event.buf })
 			end,
 		})
 	end,

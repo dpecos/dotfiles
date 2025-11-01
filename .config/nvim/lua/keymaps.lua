@@ -3,64 +3,66 @@
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
+local map = require("utils.keymap").map
+
 -- Quicky escape to normal mode
-vim.keymap.set("i", "jk", "<esc>", { desc = "Neovim: Exit insert mode with jk" })
+map("jk", "<esc>", "Neovim", "Exit insert mode with jk", { mode = "i" })
 
 -- exit vim without saving
-vim.keymap.set("n", "<C-q>", ":qa!<CR>", { desc = "Neovim: Quit all without saving" })
+map("<C-q>", ":qa!<CR>", "Neovim", "Quit all without saving")
 
 -- Allow gf to open non-existent files
-vim.keymap.set("n", "gf", ":edit <cfile><CR>", { desc = "Neovim: Open file under cursor (create if needed)" })
+map("gf", ":edit <cfile><CR>", "Neovim", "Open file under cursor (create if needed)")
 
 --vim.api.nvim_set_keymap('n', '<leader>vr', ':source $MYVIMRC<CR>', { desc = 'Neovim: Reload NeoVim config' })
-vim.keymap.set("n", "<leader>ve", ":edit ~/.config/nvim/init.lua<CR>", { desc = "Neovim: Edit init file" })
-vim.keymap.set("n", "<leader>vk", ":edit ~/.config/nvim/lua/keymaps.lua<CR>", { desc = "Neovim: Edit keymaps file" })
-vim.keymap.set("n", "<leader>vp", ":edit ~/.config/nvim/lua/plugins.lua<CR>", { desc = "Neovim: Edit plugins file" })
-vim.keymap.set("n", "<leader>vs", ":edit ~/.config/nvim/lua/settings.lua<CR>", { desc = "Neovim: Edit settings file" })
+map("<leader>ve", ":edit ~/.config/nvim/init.lua<CR>", "Neovim", "Edit init file")
+map("<leader>vk", ":edit ~/.config/nvim/lua/keymaps.lua<CR>", "Neovim", "Edit keymaps file")
+map("<leader>vp", ":edit ~/.config/nvim/lua/plugins.lua<CR>", "Neovim", "Edit plugins file")
+map("<leader>vs", ":edit ~/.config/nvim/lua/settings.lua<CR>", "Neovim", "Edit settings file")
 
 -- Remap for dealing with word wrap
-vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true, desc = "Neovim: Move up (wrapped lines)" })
-vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true, desc = "Neovim: Move down (wrapped lines)" })
+map("k", "v:count == 0 ? 'gk' : 'k'", "Neovim", "Move up (wrapped lines)", { expr = true, silent = true })
+map("j", "v:count == 0 ? 'gj' : 'j'", "Neovim", "Move down (wrapped lines)", { expr = true, silent = true })
 
 -- Move selected lines up and down
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Neovim: Move selected line down" })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Neovim: Move selected line up" })
+map("J", ":m '>+1<CR>gv=gv", "Neovim", "Move selected line down", { mode = "v" })
+map("K", ":m '<-2<CR>gv=gv", "Neovim", "Move selected line up", { mode = "v" })
 
 -- Keep movements centered
-vim.keymap.set("n", "J", "mzJ`z", { desc = "Neovim: Join line below (keep cursor)" })
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Neovim: Scroll down (centered)" })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Neovim: Scroll up (centered)" })
-vim.keymap.set("n", "n", "nzzzv", { desc = "Neovim: Next search result (centered)" })
-vim.keymap.set("n", "N", "Nzzzv", { desc = "Neovim: Previous search result (centered)" })
+map("J", "mzJ`z", "Neovim", "Join line below (keep cursor)")
+map("<C-d>", "<C-d>zz", "Neovim", "Scroll down (centered)")
+map("<C-u>", "<C-u>zz", "Neovim", "Scroll up (centered)")
+map("n", "nzzzv", "Neovim", "Next search result (centered)")
+map("N", "Nzzzv", "Neovim", "Previous search result (centered)")
 
 -- clear search highlights
-vim.keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Neovim: Clear search highlights" })
+map("<leader>nh", ":nohl<CR>", "Neovim", "Clear search highlights")
 
 -- Better tabbing: reselect visual selection after indenting
-vim.keymap.set("v", "<", "<gv", { desc = "Neovim: Indent left (keep selection)" })
-vim.keymap.set("v", ">", ">gv", { desc = "Neovim: Indent right (keep selection)" })
+map("<", "<gv", "Neovim", "Indent left (keep selection)", { mode = "v" })
+map(">", ">gv", "Neovim", "Indent right (keep selection)", { mode = "v" })
 
 -- copy / paste / delete to system clipboard
-vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "Neovim: Yank to system clipboard" })
-vim.keymap.set({ "n", "v" }, "<leader>Y", '"+Y', { desc = "Neovim: Yank line to system clipboard" })
-vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', { desc = "Neovim: Paste from system clipboard" })
-vim.keymap.set({ "n", "v" }, "<leader>P", '"+P', { desc = "Neovim: Paste from system clipboard (before)" })
-vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Neovim: Delete to black hole register" })
-vim.keymap.set("i", "<C-v>", '<Esc>"+pa', { desc = "Neovim: Paste from system clipboard (insert)" })
+map("<leader>y", '"+y', "Neovim", "Yank to system clipboard", { mode = { "n", "v" } })
+map("<leader>Y", '"+Y', "Neovim", "Yank line to system clipboard", { mode = { "n", "v" } })
+map("<leader>p", '"+p', "Neovim", "Paste from system clipboard", { mode = { "n", "v" } })
+map("<leader>P", '"+P', "Neovim", "Paste from system clipboard (before)", { mode = { "n", "v" } })
+map("<leader>d", '"_d', "Neovim", "Delete to black hole register", { mode = { "n", "v" } })
+map("<C-v>", '<Esc>"+pa', "Neovim", "Paste from system clipboard (insert)", { mode = "i" })
 
 -- Paste over currently selected text without yanking it
-vim.keymap.set("v", "p", '"_dP', { desc = "Neovim: Paste over selection (keep register)" })
+map("p", '"_dP', "Neovim", "Paste over selection (keep register)", { mode = "v" })
 
 -- Delete without copying
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Neovim: Delete to black hole register" })
+map("<leader>d", [["_d]], "Neovim", "Delete to black hole register", { mode = { "n", "v" } })
 
 -- Select pasted text
 vim.cmd("nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'")
 
 -- Maintain the cursor position when yanking a visual selection
 -- http://ddrscott.github.io/blog/2016/yank-without-jank/
-vim.keymap.set("v", "y", "myy`y", { desc = "Neovim: Yank (keep cursor position)" })
-vim.keymap.set("v", "Y", "myY`y", { desc = "Neovim: Yank line (keep cursor position)" })
+map("y", "myy`y", "Neovim", "Yank (keep cursor position)", { mode = "v" })
+map("Y", "myY`y", "Neovim", "Yank line (keep cursor position)", { mode = "v" })
 
 -- See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -72,32 +74,32 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- split
-vim.keymap.set("n", "<C-w>h", ":split<Return>", { desc = "Neovim: Horizontal split" })
-vim.keymap.set("n", "<C-w>v", ":vsplit<Return>", { desc = "Neovim: Vertical split" })
+map("<C-w>h", ":split<Return>", "Neovim", "Horizontal split")
+map("<C-w>v", ":vsplit<Return>", "Neovim", "Vertical split")
 
-vim.keymap.set("n", "<C-w>f", function()
+map("<C-w>f", function()
 	require("nvim-tree.api").tree.close()
 	require("toggle-fullscreen"):toggle_fullscreen()
-end, { desc = "Toggle Fullscreen: Toggle split fullscreen" })
+end, "Toggle Fullscreen", "Toggle split fullscreen")
 
 -- split resize
-vim.keymap.set("n", "<C-w><Left>", "<C-w><5", { desc = "Neovim: Increase split size - left" })
-vim.keymap.set("n", "<C-w><Right>", "<C-w>>5", { desc = "Neovim: Increase split size - right" })
-vim.keymap.set("n", "<C-w><Up>", "<C-w>+5", { desc = "Neovim: Increase split size - up" })
-vim.keymap.set("n", "<C-w><Down>", "<C-w>-5", { desc = "Neovim: Increase split size - down" })
+map("<C-w><Left>", "<C-w><5", "Neovim", "Increase split size - left")
+map("<C-w><Right>", "<C-w>>5", "Neovim", "Increase split size - right")
+map("<C-w><Up>", "<C-w>+5", "Neovim", "Increase split size - up")
+map("<C-w><Down>", "<C-w>-5", "Neovim", "Increase split size - down")
 
 -- classic mistakes
 -- saving with :W instead of :w
 vim.cmd("cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))")
 
 -- don't yank an empty line into your default register (https://www.reddit.com/r/neovim/comments/12rqyl8/5_smart_minisnippets_for_making_text_editing_more/)
-vim.keymap.set("n", "dd", function()
+map("dd", function()
 	if vim.api.nvim_get_current_line():match("^%s*$") then
 		return '"_dd'
 	else
 		return "dd"
 	end
-end, { expr = true, desc = "Neovim: Delete line (empty lines to black hole)" })
+end, "Neovim", "Delete line (empty lines to black hole)", { expr = true })
 
 -- close quickfix / locations menu after selecting choice
 vim.api.nvim_create_autocmd("FileType", {

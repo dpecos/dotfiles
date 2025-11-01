@@ -34,38 +34,26 @@ local on_lsp_attach = function(event)
   -- Setup snippet expansion using native vim.snippet (Neovim 0.10+)
   -- This replaces the need for snippet plugins like vsnip or luasnip
 
-  local function map(scope, mode, keys, func, opts)
-    opts.buffer = event.buf
-    opts.desc = (scope or "Unknown scope") .. ": " .. opts.desc
+  local map = require("utils.keymap").map
 
-    vim.keymap.set(mode, keys, func, opts)
-  end
-
-  local map_lsp = function(keys, func, desc, opts)
-    opts = opts or {}
-    opts.desc = desc
-
-    map("LSP", "n", keys, func, opts)
-  end
-
-  map_lsp("gD", vim.lsp.buf.declaration, "Goto Declaration")
-  map_lsp("gDv", ":vsplit | lua vim.lsp.buf.declaration()<CR>", "Goto Declaration (vertical split)")
-  map_lsp("gd", vim.lsp.buf.definition, "Goto Definition")
-  map_lsp("gdv", ":vsplit | lua vim.lsp.buf.definition()<CR>", "Goto Definition (vertical split)")
-  map_lsp("grr", require("telescope.builtin").lsp_references, "List References")
-  map_lsp("gri", require("telescope.builtin").lsp_implementations, "List Implementation")
+  map("gD", vim.lsp.buf.declaration, "LSP", "Goto Declaration", { buffer = event.buf })
+  map("gDv", ":vsplit | lua vim.lsp.buf.declaration()<CR>", "LSP", "Goto Declaration (vertical split)", { buffer = event.buf })
+  map("gd", vim.lsp.buf.definition, "LSP", "Goto Definition", { buffer = event.buf })
+  map("gdv", ":vsplit | lua vim.lsp.buf.definition()<CR>", "LSP", "Goto Definition (vertical split)", { buffer = event.buf })
+  map("grr", require("telescope.builtin").lsp_references, "LSP", "List References", { buffer = event.buf })
+  map("gri", require("telescope.builtin").lsp_implementations, "LSP", "List Implementation", { buffer = event.buf })
   -- nmap_lsp("gld", require("telescope.builtin").lsp_definitions, "List Definitions")
   -- nmap_lsp("gltd", require("telescope.builtin").lsp_type_definitions, "List Type Definitions")
-  map_lsp("gO", require("telescope.builtin").lsp_document_symbols, "List Document Symbols")
-  map_lsp("grn", vim.lsp.buf.rename, "Rename")
-  map_lsp("gra", vim.lsp.buf.code_action, "Code Action")
+  map("gO", require("telescope.builtin").lsp_document_symbols, "LSP", "List Document Symbols", { buffer = event.buf })
+  map("grn", vim.lsp.buf.rename, "LSP", "Rename", { buffer = event.buf })
+  map("gra", vim.lsp.buf.code_action, "LSP", "Code Action", { buffer = event.buf })
 
-  map_lsp("K", function()
+  map("K", function()
     vim.lsp.buf.hover({ border = "rounded" })
-  end, "Documentation")
-  map_lsp("<leader>k", function()
+  end, "LSP", "Documentation", { buffer = event.buf })
+  map("<leader>k", function()
     vim.lsp.buf.signature_help({ border = "rounded" })
-  end, "Signature Documentation")
+  end, "LSP", "Signature Documentation", { buffer = event.buf })
 
   -- Native snippet navigation (Neovim 0.10+)
   -- Jump forward/backward in snippets - replaces vsnip keymaps
@@ -119,9 +107,9 @@ local on_lsp_attach = function(event)
     end
 
     -- Manual format keymap
-    map_lsp("<leader>f", function()
+    map("<leader>f", function()
       formatFn()
-    end, "Format buffer")
+    end, "LSP", "Format buffer", { buffer = event.buf })
 
     -- Format on save (can be disabled per buffer or globally)
     vim.api.nvim_create_autocmd("BufWritePre", {
@@ -133,13 +121,13 @@ local on_lsp_attach = function(event)
   if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
     vim.lsp.inlay_hint.enable(true, { bufnr = event.buf }) -- enable inlay hints by default with buffer parameter
 
-    map_lsp("<leader>h", function()
+    map("<leader>h", function()
       vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }), { bufnr = event.buf })
-    end, "Toggle inlay Hints")
+    end, "LSP", "Toggle inlay Hints", { buffer = event.buf })
   end
 
   -- Toggle diagnostic virtual text (inline linting messages)
-  map_lsp("<leader>d", function()
+  map("<leader>d", function()
     local current_config = vim.diagnostic.config()
 
     -- Cycle through 3 modes:
@@ -176,37 +164,32 @@ local on_lsp_attach = function(event)
       })
       vim.notify("Diagnostics: Virtual text (inline)", vim.log.levels.INFO)
     end
-  end, "Toggle diagnostic display mode")
+  end, "LSP", "Toggle diagnostic display mode", { buffer = event.buf })
 
-  map_lsp("[e", function()
+  map("[e", function()
     vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
-  end, "Previous error")
-  map_lsp("]e", function()
+  end, "LSP", "Previous error", { buffer = event.buf })
+  map("]e", function()
     vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
-  end, "Next error")
-  map_lsp("[w", function()
+  end, "LSP", "Next error", { buffer = event.buf })
+  map("[w", function()
     vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN })
-  end, "Previous warn")
-  map_lsp("]w", function()
+  end, "LSP", "Previous warn", { buffer = event.buf })
+  map("]w", function()
     vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN })
-  end, "Next warn")
+  end, "LSP", "Next warn", { buffer = event.buf })
 
   -- GitSigns mappings --
-  local map_gs = function(mode, keys, func, desc, opts)
+  local map_gs = function(keys, func, desc, opts)
     opts = opts or {}
-    opts.desc = desc
-
-    map("GitSigns", "n", keys, func, opts)
-  end
-
-  local nmap_gs = function(keys, func, desc, opts)
-    map_gs("n", keys, func, desc, opts)
+    opts.buffer = event.buf
+    map(keys, func, "GitSigns", desc, opts)
   end
 
   local gs = package.loaded.gitsigns
 
   -- Navigation
-  nmap_gs("]c", function()
+  map_gs("]c", function()
     if vim.wo.diff then
       return "]c"
     end
@@ -216,7 +199,7 @@ local on_lsp_attach = function(event)
     return "<Ignore>"
   end, "Next change", { expr = true })
 
-  nmap_gs("[c", function()
+  map_gs("[c", function()
     if vim.wo.diff then
       return "[c"
     end
@@ -227,23 +210,23 @@ local on_lsp_attach = function(event)
   end, "Previous change", { expr = true })
 
   -- Actions
-  map_gs({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", "hunk stage")
-  map_gs({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>", "hunk reset")
-  nmap_gs("<leader>hS", gs.stage_buffer, "stage buffer")
-  nmap_gs("<leader>hu", gs.undo_stage_hunk, "hunk unstage")
-  nmap_gs("<leader>hR", gs.reset_buffer, "reset buffer")
-  nmap_gs("<leader>hp", gs.preview_hunk, "hunk preview")
-  nmap_gs("<leader>hb", function()
+  map_gs("<leader>hs", ":Gitsigns stage_hunk<CR>", "hunk stage", { mode = { "n", "v" } })
+  map_gs("<leader>hr", ":Gitsigns reset_hunk<CR>", "hunk reset", { mode = { "n", "v" } })
+  map_gs("<leader>hS", gs.stage_buffer, "stage buffer")
+  map_gs("<leader>hu", gs.undo_stage_hunk, "hunk unstage")
+  map_gs("<leader>hR", gs.reset_buffer, "reset buffer")
+  map_gs("<leader>hp", gs.preview_hunk, "hunk preview")
+  map_gs("<leader>hb", function()
     gs.blame_line({ full = true })
   end, "hunk blame")
-  nmap_gs("<leader>tb", gs.toggle_current_line_blame, "toggle blame for current line")
-  nmap_gs("<leader>hd", gs.diffthis, "hunk diff")
-  nmap_gs("<leader>hD", function()
+  map_gs("<leader>tb", gs.toggle_current_line_blame, "toggle blame for current line")
+  map_gs("<leader>hd", gs.diffthis, "hunk diff")
+  map_gs("<leader>hD", function()
     gs.diffthis("~")
   end, "hunk diff ~")
-  nmap_gs("<leader>td", gs.toggle_deleted, "toggle deleted")
+  map_gs("<leader>td", gs.toggle_deleted, "toggle deleted")
   -- Text object
-  map_gs({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "select hunk")
+  map_gs("ih", ":<C-U>Gitsigns select_hunk<CR>", "select hunk", { mode = { "o", "x" } })
 
   -- End of GitSigns mappings --
 

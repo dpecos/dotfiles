@@ -27,51 +27,49 @@ return {
       server = {
         on_attach = function(client, bufnr)
           -- Rustacean-specific keymaps
-          local function map(mode, keys, func, desc)
-            vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = "Rustacean: " .. desc })
-          end
+          local map = require("utils.keymap").map
 
           -- Rust-specific keymaps
-          map("n", "<leader>rr", function()
+          map("<leader>rr", function()
             vim.cmd.RustLsp("runnables")
-          end, "Runnables")
+          end, "Rustacean", "Runnables", { buffer = bufnr })
 
-          map("n", "<leader>rt", function()
+          map("<leader>rt", function()
             vim.cmd.RustLsp("testables")
-          end, "Testables")
+          end, "Rustacean", "Testables", { buffer = bufnr })
 
-          map("n", "<leader>rd", function()
+          map("<leader>rd", function()
             vim.cmd.RustLsp("debuggables")
-          end, "Debuggables")
+          end, "Rustacean", "Debuggables", { buffer = bufnr })
 
-          map("n", "<leader>re", function()
+          map("<leader>re", function()
             vim.cmd.RustLsp("expandMacro")
-          end, "Expand macro")
+          end, "Rustacean", "Expand macro", { buffer = bufnr })
 
-          map("n", "<leader>rc", function()
+          map("<leader>rc", function()
             vim.cmd.RustLsp("openCargo")
-          end, "Open Cargo.toml")
+          end, "Rustacean", "Open Cargo.toml", { buffer = bufnr })
 
-          map("n", "<leader>rp", function()
+          map("<leader>rp", function()
             vim.cmd.RustLsp("parentModule")
-          end, "Parent module")
+          end, "Rustacean", "Parent module", { buffer = bufnr })
 
-          map("n", "<leader>rj", function()
+          map("<leader>rj", function()
             vim.cmd.RustLsp("joinLines")
-          end, "Join lines")
+          end, "Rustacean", "Join lines", { buffer = bufnr })
 
-          map("n", "<leader>rm", function()
+          map("<leader>rm", function()
             vim.cmd.RustLsp({ "view", "mir" })
-          end, "View MIR")
+          end, "Rustacean", "View MIR", { buffer = bufnr })
 
-          map("n", "<leader>rh", function()
+          map("<leader>rh", function()
             vim.cmd.RustLsp({ "view", "hir" })
-          end, "View HIR")
+          end, "Rustacean", "View HIR", { buffer = bufnr })
 
           -- Hover with actions
-          map("n", "K", function()
+          map("K", function()
             vim.cmd.RustLsp({ "hover", "actions" })
-          end, "Hover with actions")
+          end, "Rustacean", "Hover with actions", { buffer = bufnr })
 
           -- Code actions (use LSP default)
           -- Formatting handled by native LSP format-on-save

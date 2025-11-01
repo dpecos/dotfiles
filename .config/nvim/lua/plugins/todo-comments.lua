@@ -23,14 +23,16 @@ return {
       },
     }
 
-    vim.keymap.set("n", "]t", function()
+    local map = require("utils.keymap").map
+
+    map("]t", function()
       require("todo-comments").jump_next()
-    end, { desc = "TodoComments: Next todo comment" })
+    end, "TodoComments", "Next todo comment")
 
-    vim.keymap.set("n", "[t", function()
+    map("[t", function()
       require("todo-comments").jump_prev()
-    end, { desc = "TodoComments: Previous todo comment" })
+    end, "TodoComments", "Previous todo comment")
 
-    vim.keymap.set('n', '<leader>ft', ':TodoTelescope<CR>', { desc = 'TodoComments: List all TODOs' })
+    map('<leader>ft', ':TodoTelescope<CR>', 'TodoComments', 'List all TODOs')
   end
 }

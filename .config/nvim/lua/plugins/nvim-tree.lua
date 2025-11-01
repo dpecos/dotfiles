@@ -8,31 +8,30 @@
 
 local function on_attach(bufnr)
   local api = require("nvim-tree.api")
+  local map = require("utils.keymap").map
 
-  local function opts(desc)
-    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-  end
+  local opts = { buffer = bufnr, noremap = true, silent = true, nowait = true }
 
-  vim.keymap.set("n", "<CR>", api.node.open.edit, opts("Open"))
-  vim.keymap.set("n", "v", api.node.open.vertical, opts("Open: Vertical Split"))
-  vim.keymap.set("n", "h", api.node.open.horizontal, opts("Open: Horizontal Split"))
-  vim.keymap.set("n", "<Tab>", api.node.open.preview, opts("Open Preview"))
-  vim.keymap.set("n", "<2-LeftMouse>", api.node.open.edit, opts("Open"))
+  map("<CR>", api.node.open.edit, "nvim-tree", "Open", opts)
+  map("v", api.node.open.vertical, "nvim-tree", "Open: Vertical Split", opts)
+  map("h", api.node.open.horizontal, "nvim-tree", "Open: Horizontal Split", opts)
+  map("<Tab>", api.node.open.preview, "nvim-tree", "Open Preview", opts)
+  map("<2-LeftMouse>", api.node.open.edit, "nvim-tree", "Open", opts)
 
-  vim.keymap.set("n", "a", api.fs.create, opts("Create"))
-  vim.keymap.set("n", "yy", api.fs.copy.node, opts("Copy"))
-  vim.keymap.set("n", "Y", api.fs.copy.relative_path, opts("Copy Relative Path"))
-  vim.keymap.set("n", "gy", api.fs.copy.filename, opts("Copy Name"))
-  vim.keymap.set("n", "gY", api.fs.copy.absolute_path, opts("Copy Absolute Path"))
-  vim.keymap.set("n", "p", api.fs.paste, opts("Paste"))
-  vim.keymap.set("n", "d", api.fs.remove, opts("Delete"))
-  vim.keymap.set("n", "r", api.fs.rename, opts("Rename"))
+  map("a", api.fs.create, "nvim-tree", "Create", opts)
+  map("yy", api.fs.copy.node, "nvim-tree", "Copy", opts)
+  map("Y", api.fs.copy.relative_path, "nvim-tree", "Copy Relative Path", opts)
+  map("gy", api.fs.copy.filename, "nvim-tree", "Copy Name", opts)
+  map("gY", api.fs.copy.absolute_path, "nvim-tree", "Copy Absolute Path", opts)
+  map("p", api.fs.paste, "nvim-tree", "Paste", opts)
+  map("d", api.fs.remove, "nvim-tree", "Delete", opts)
+  map("r", api.fs.rename, "nvim-tree", "Rename", opts)
 
-  vim.keymap.set("n", ">", api.node.navigate.sibling.next, opts("Next Sibling"))
-  vim.keymap.set("n", "<", api.node.navigate.sibling.prev, opts("Previous Sibling"))
-  vim.keymap.set("n", "K", api.node.show_info_popup, opts("Info"))
-  vim.keymap.set("n", "H", api.tree.toggle_hidden_filter, opts("Toggle Dotfiles"))
-  vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
+  map(">", api.node.navigate.sibling.next, "nvim-tree", "Next Sibling", opts)
+  map("<", api.node.navigate.sibling.prev, "nvim-tree", "Previous Sibling", opts)
+  map("K", api.node.show_info_popup, "nvim-tree", "Info", opts)
+  map("H", api.tree.toggle_hidden_filter, "nvim-tree", "Toggle Dotfiles", opts)
+  map("?", api.tree.toggle_help, "nvim-tree", "Help", opts)
 end
 
 local setup = function()
@@ -86,10 +85,11 @@ local setup = function()
   })
 
   local api = require("nvim-tree.api")
+  local map = require("utils.keymap").map
 
-  vim.keymap.set("n", "<C-n>", api.tree.toggle, { desc = "NvimTree: Toggle file explorer" })
-  vim.keymap.set("n", "<leader>r", ":NvimTreeRefresh<CR>", { desc = "NvimTree: Refresh file explorer" })
-  vim.keymap.set("n", "<leader>n", ":NvimTreeFindFile<CR>", { desc = "NvimTree: Show current file in explorer" })
+  map("<C-n>", api.tree.toggle, "NvimTree", "Toggle file explorer")
+  map("<leader>r", ":NvimTreeRefresh<CR>", "NvimTree", "Refresh file explorer")
+  map("<leader>n", ":NvimTreeFindFile<CR>", "NvimTree", "Show current file in explorer")
 
   -- close vim if nvim-tree is the last buffer
   local function tab_win_closed(winnr)

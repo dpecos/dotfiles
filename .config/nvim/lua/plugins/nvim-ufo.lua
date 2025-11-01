@@ -17,9 +17,11 @@ return {
     vim.o.foldlevelstart = 99
     vim.o.foldenable = true
 
+    local map = require("utils.keymap").map
+    
     -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
-    vim.keymap.set('n', 'zR', require('ufo').openAllFolds, { desc = "UFO: Open all folds" })
-    vim.keymap.set('n', 'zM', require('ufo').closeAllFolds, { desc = "UFO: Close all folds" })
+    map('zR', require('ufo').openAllFolds, "UFO", "Open all folds")
+    map('zM', require('ufo').closeAllFolds, "UFO", "Close all folds")
 
     require('ufo').setup()
   end,
