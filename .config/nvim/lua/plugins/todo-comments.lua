@@ -7,10 +7,8 @@
 
 return {
   "folke/todo-comments.nvim",
-  dependencies = {
-    "nvim-lua/plenary.nvim"
-  },
   event = 'VeryLazy',
+  optional = true,
   config = function()
     require("todo-comments").setup {
       colors = {
@@ -33,6 +31,12 @@ return {
       require("todo-comments").jump_prev()
     end, "TodoComments", "Previous todo comment")
 
-    map('<leader>ft', ':TodoTelescope<CR>', 'TodoComments', 'List all TODOs')
+    map('<leader>st', function()
+      Snacks.picker.todo_comments()
+    end, 'TODOs', 'Show all TODO Comments')
+
+    map('<leader>sT', function()
+      Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
+    end, 'TODOs', 'TODO/FIX/FIXME Comments')
   end
 }

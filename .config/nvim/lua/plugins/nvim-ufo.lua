@@ -18,11 +18,12 @@ return {
     vim.o.foldenable = true
 
     local map = require("utils.keymap").map
-    
-    -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
-    map('zR', require('ufo').openAllFolds, "UFO", "Open all folds")
-    map('zM', require('ufo').closeAllFolds, "UFO", "Close all folds")
+    local ufo = require('ufo')
 
-    require('ufo').setup()
+    -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+    map('zR', ufo.openAllFolds, "UFO", "Open all folds")
+    map('zM', ufo.closeAllFolds, "UFO", "Close all folds")
+
+    ufo.setup()
   end,
 }
