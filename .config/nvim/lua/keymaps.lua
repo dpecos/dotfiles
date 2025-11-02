@@ -56,6 +56,15 @@ map("p", '"_dP', "Neovim", "Paste over selection (keep register)", { mode = "v" 
 -- Delete without copying
 map("<leader>d", [["_d]], "Neovim", "Delete to black hole register", { mode = { "n", "v" } })
 
+-- don't yank an empty line into your default register (https://www.reddit.com/r/neovim/comments/12rqyl8/5_smart_minisnippets_for_making_text_editing_more/)
+map("dd", function()
+  if vim.api.nvim_get_current_line():match("^%s*$") then
+    return '"_dd'
+  else
+    return "dd"
+  end
+end, "Neovim", "Delete line (empty lines to black hole)", { expr = true })
+
 -- Select pasted text
 vim.cmd("nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'")
 
@@ -86,15 +95,6 @@ map("<C-w><Down>", "<C-w>-5", "Neovim", "Increase split size - down")
 -- classic mistakes
 -- saving with :W instead of :w
 vim.cmd("cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))")
-
--- don't yank an empty line into your default register (https://www.reddit.com/r/neovim/comments/12rqyl8/5_smart_minisnippets_for_making_text_editing_more/)
-map("dd", function()
-  if vim.api.nvim_get_current_line():match("^%s*$") then
-    return '"_dd'
-  else
-    return "dd"
-  end
-end, "Neovim", "Delete line (empty lines to black hole)", { expr = true })
 
 -- close quickfix / locations menu after selecting choice
 vim.api.nvim_create_autocmd("FileType", {

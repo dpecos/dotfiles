@@ -10,7 +10,6 @@ return {
   "nvim-lualine/lualine.nvim",
   dependencies = {
     "Mofiqul/vscode.nvim",
-    "AndreM222/copilot-lualine",
   },
   config = function()
     require("lualine").setup({
@@ -44,7 +43,6 @@ return {
         lualine_z = {},
       },
       tabline = {},
-      extensions = { "nvim-tree" },
     })
   end,
 }
