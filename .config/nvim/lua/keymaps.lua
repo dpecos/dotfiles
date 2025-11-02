@@ -66,21 +66,16 @@ map("Y", "myY`y", "Neovim", "Yank line (keep cursor position)", { mode = "v" })
 
 -- See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+  desc = "Highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
 
 -- split
 map("<C-w>h", ":split<Return>", "Neovim", "Horizontal split")
 map("<C-w>v", ":vsplit<Return>", "Neovim", "Vertical split")
-
-map("<C-w>f", function()
-	require("nvim-tree.api").tree.close()
-	require("toggle-fullscreen"):toggle_fullscreen()
-end, "Toggle Fullscreen", "Toggle split fullscreen")
 
 -- split resize
 map("<C-w><Left>", "<C-w><5", "Neovim", "Increase split size - left")
@@ -94,15 +89,15 @@ vim.cmd("cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('
 
 -- don't yank an empty line into your default register (https://www.reddit.com/r/neovim/comments/12rqyl8/5_smart_minisnippets_for_making_text_editing_more/)
 map("dd", function()
-	if vim.api.nvim_get_current_line():match("^%s*$") then
-		return '"_dd'
-	else
-		return "dd"
-	end
+  if vim.api.nvim_get_current_line():match("^%s*$") then
+    return '"_dd'
+  else
+    return "dd"
+  end
 end, "Neovim", "Delete line (empty lines to black hole)", { expr = true })
 
 -- close quickfix / locations menu after selecting choice
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "qf" },
-	command = [[nnoremap <buffer> <CR> <CR>:cclose<CR>]],
+  pattern = { "qf" },
+  command = [[nnoremap <buffer> <CR> <CR>:cclose<CR>]],
 })
