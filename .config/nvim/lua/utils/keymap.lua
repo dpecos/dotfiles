@@ -11,10 +11,11 @@ local M = {}
 --- @param opts table|nil Optional configuration (mode, buffer, nowait, expr, etc.)
 function M.map(keymap, handler, plugin, description, opts)
   opts = opts or {}
-  
+
   -- Default to normal mode if no mode specified
   local mode = opts.mode or "n"
-  
+  opts.mode = nil
+
   -- Build the final options table
   local final_opts = {}
   for k, v in pairs(opts) do
@@ -22,10 +23,10 @@ function M.map(keymap, handler, plugin, description, opts)
       final_opts[k] = v
     end
   end
-  
+
   -- Set the description with plugin prefix
   final_opts.desc = plugin .. ": " .. description
-  
+
   -- Create the keymap
   vim.keymap.set(mode, keymap, handler, final_opts)
 end
