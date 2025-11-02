@@ -4,7 +4,7 @@
 local M = {}
 
 --- Create a keymap with consistent formatting
---- @param keymap string The key combination to map
+--- @param keymap table|string The key combination(s) to map
 --- @param handler string|function The command or function to execute
 --- @param plugin string The plugin/scope name (e.g., "LSP", "Telescope", "Neovim")
 --- @param description string Description of what the keymap does
@@ -28,7 +28,13 @@ function M.map(keymap, handler, plugin, description, opts)
   final_opts.desc = plugin .. ": " .. description
 
   -- Create the keymap
-  vim.keymap.set(mode, keymap, handler, final_opts)
+  if type(keymap) == "table" then
+    for _, key in ipairs(keymap) do
+      vim.keymap.set(mode, key, handler, final_opts)
+    end
+  else
+    vim.keymap.set(mode, keymap, handler, final_opts)
+  end
 end
 
 return M

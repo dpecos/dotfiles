@@ -31,22 +31,21 @@ local on_lsp_attach = function(event)
     })
   end
 
-  -- Setup snippet expansion using native vim.snippet (Neovim 0.10+)
-  -- This replaces the need for snippet plugins like vsnip or luasnip
 
   local map = require("utils.keymap").map
 
-  -- map("gD", vim.lsp.buf.declaration, "LSP", "Goto Declaration", { buffer = event.buf })
-  -- map("gDv", ":vsplit | lua vim.lsp.buf.declaration()<CR>", "LSP", "Goto Declaration (vertical split)", { buffer = event.buf })
-  -- map("gd", vim.lsp.buf.definition, "LSP", "Goto Definition", { buffer = event.buf })
-  -- map("gdv", ":vsplit | lua vim.lsp.buf.definition()<CR>", "LSP", "Goto Definition (vertical split)", { buffer = event.buf })
-  -- map("grr", require("telescope.builtin").lsp_references, "LSP", "List References", { buffer = event.buf })
-  -- map("gri", require("telescope.builtin").lsp_implementations, "LSP", "List Implementation", { buffer = event.buf })
-  -- -- nmap_lsp("gld", require("telescope.builtin").lsp_definitions, "List Definitions")
-  -- -- nmap_lsp("gltd", require("telescope.builtin").lsp_type_definitions, "List Type Definitions")
-  -- map("gO", require("telescope.builtin").lsp_document_symbols, "LSP", "List Document Symbols", { buffer = event.buf })
-  -- map("grn", vim.lsp.buf.rename, "LSP", "Rename", { buffer = event.buf })
-  -- map("gra", vim.lsp.buf.code_action, "LSP", "Code Action", { buffer = event.buf })
+  map("gd", function() Snacks.picker.lsp_definitions() end, "LSP", "Goto Definition")
+  map("gD", function() Snacks.picker.lsp_declarations() end, "LSP", "Goto Declaration")
+  map("grr", function() Snacks.picker.lsp_references() end, "LSP", "References", { nowait = true })
+  map("gri", function() Snacks.picker.lsp_implementations() end, "LSP", "Goto Implementation")
+  map("grt", function() Snacks.picker.lsp_type_definitions() end, "LSP", "Goto Type Definition")
+  map("gai", function() Snacks.picker.lsp_incoming_calls() end, "LSP", "Calls Incoming")
+  map("gao", function() Snacks.picker.lsp_outgoing_calls() end, "LSP", "Calls Outgoing")
+  map("gO", function() Snacks.picker.lsp_symbols() end, "LSP", "LSP Document Symbols")
+  map("<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, "LSP", "LSP Workspace Symbols")
+
+  map("grn", vim.lsp.buf.rename, "LSP", "Rename", { buffer = event.buf })
+  map("gra", vim.lsp.buf.code_action, "LSP", "Code Action", { buffer = event.buf })
 
   map("K", function()
     vim.lsp.buf.hover({ border = "rounded" })
@@ -54,20 +53,6 @@ local on_lsp_attach = function(event)
   map("<leader>k", function()
     vim.lsp.buf.signature_help({ border = "rounded" })
   end, "LSP", "Signature Documentation", { buffer = event.buf })
-
-  -- Native snippet navigation (Neovim 0.10+)
-  -- Jump forward/backward in snippets - replaces vsnip keymaps
-  vim.keymap.set({ "i", "s" }, "<C-f>", function()
-    if vim.snippet.active({ direction = 1 }) then
-      return vim.snippet.jump(1)
-    end
-  end, { buffer = event.buf, expr = true, desc = "Snippet: Jump forward" })
-
-  vim.keymap.set({ "i", "s" }, "<C-b>", function()
-    if vim.snippet.active({ direction = -1 }) then
-      return vim.snippet.jump(-1)
-    end
-  end, { buffer = event.buf, expr = true, desc = "Snippet: Jump backward" })
 
   -- Native LSP Formatting (replaces conform.nvim)
   -- Format on save using LSP's native formatting capability
@@ -115,6 +100,28 @@ local on_lsp_attach = function(event)
     vim.api.nvim_create_autocmd("BufWritePre", {
       buffer = event.buf,
       callback = formatFn,
+    })
+
+    -- Commands to enable/disable auto-formatting (replaces conform commands)
+    vim.api.nvim_create_user_command("FormatDisable", function(args)
+      if args.bang then
+        -- FormatDisable! will disable formatting just for this buffer
+        vim.b.disable_autoformat = true
+      else
+        vim.g.disable_autoformat = true
+      end
+      print("Auto-formatting disabled" .. (args.bang and " (buffer)" or " (global)"))
+    end, {
+      desc = "Disable LSP format-on-save",
+      bang = true,
+    })
+
+    vim.api.nvim_create_user_command("FormatEnable", function()
+      vim.b.disable_autoformat = false
+      vim.g.disable_autoformat = false
+      print("Auto-formatting enabled")
+    end, {
+      desc = "Re-enable LSP format-on-save",
     })
   end
 
@@ -179,56 +186,6 @@ local on_lsp_attach = function(event)
     vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN })
   end, "LSP", "Next warn", { buffer = event.buf })
 
-  -- GitSigns mappings --
-  local map_gs = function(keys, func, desc, opts)
-    opts = opts or {}
-    opts.buffer = event.buf
-    map(keys, func, "GitSigns", desc, opts)
-  end
-
-  local gs = package.loaded.gitsigns
-
-  -- Navigation
-  map_gs("]c", function()
-    if vim.wo.diff then
-      return "]c"
-    end
-    vim.schedule(function()
-      gs.next_hunk()
-    end)
-    return "<Ignore>"
-  end, "Next change", { expr = true })
-
-  map_gs("[c", function()
-    if vim.wo.diff then
-      return "[c"
-    end
-    vim.schedule(function()
-      gs.prev_hunk()
-    end)
-    return "<Ignore>"
-  end, "Previous change", { expr = true })
-
-  -- Actions
-  map_gs("<leader>hs", ":Gitsigns stage_hunk<CR>", "hunk stage", { mode = { "n", "v" } })
-  map_gs("<leader>hr", ":Gitsigns reset_hunk<CR>", "hunk reset", { mode = { "n", "v" } })
-  map_gs("<leader>hS", gs.stage_buffer, "stage buffer")
-  map_gs("<leader>hu", gs.undo_stage_hunk, "hunk unstage")
-  map_gs("<leader>hR", gs.reset_buffer, "reset buffer")
-  map_gs("<leader>hp", gs.preview_hunk, "hunk preview")
-  map_gs("<leader>hb", function()
-    gs.blame_line({ full = true })
-  end, "hunk blame")
-  map_gs("<leader>tb", gs.toggle_current_line_blame, "toggle blame for current line")
-  map_gs("<leader>hd", gs.diffthis, "hunk diff")
-  map_gs("<leader>hD", function()
-    gs.diffthis("~")
-  end, "hunk diff ~")
-  map_gs("<leader>td", gs.toggle_deleted, "toggle deleted")
-  -- Text object
-  map_gs("ih", ":<C-U>Gitsigns select_hunk<CR>", "select hunk", { mode = { "o", "x" } })
-
-  -- End of GitSigns mappings --
 
   -- The following autocommands are used to highlight references of the word under your cursor when your cursor rests there for a little while.
   if
@@ -306,34 +263,6 @@ local setup = function()
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
     callback = on_lsp_attach,
-  })
-
-  -- Commands to enable/disable auto-formatting (replaces conform commands)
-  vim.api.nvim_create_user_command("FormatDisable", function(args)
-    if args.bang then
-      -- FormatDisable! will disable formatting just for this buffer
-      vim.b.disable_autoformat = true
-    else
-      vim.g.disable_autoformat = true
-    end
-    print("Auto-formatting disabled" .. (args.bang and " (buffer)" or " (global)"))
-  end, {
-    desc = "Disable LSP format-on-save",
-    bang = true,
-  })
-
-  vim.api.nvim_create_user_command("FormatEnable", function()
-    vim.b.disable_autoformat = false
-    vim.g.disable_autoformat = false
-    print("Auto-formatting enabled")
-  end, {
-    desc = "Re-enable LSP format-on-save",
-  })
-
-  vim.api.nvim_create_user_command("Format", function()
-    vim.lsp.buf.format({ async = false })
-  end, {
-    desc = "Format current buffer using LSP",
   })
 
   -- LspInfo command - Display information about attached LSP clients
@@ -524,6 +453,4 @@ return {
       setup()
     end,
   },
-
-  "lewis6991/gitsigns.nvim",
 }

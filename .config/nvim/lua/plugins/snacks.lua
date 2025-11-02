@@ -24,23 +24,13 @@ return {
           { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
         },
-        header = [[
-███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
-████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
-██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
-██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
-██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
-╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝]],
-        --   header = [[
-        --                                                 
-        --          ████ ██████           █████      ██
-        --         ███████████             █████ 
-        --         █████████ ███████████████████ ███   ███████████
-        --        █████████  ███    █████████████ █████ ██████████████
-        --       █████████ ██████████ █████████ █████ █████ ████ █████
-        --     ███████████ ███    ███ █████████ █████ █████ ████ █████
-        --    ██████  █████████████████████ ████ █████ █████ ████ ██████
-        -- ]],
+        --         header = [[
+        -- ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
+        -- ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
+        -- ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
+        -- ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
+        -- ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
+        -- ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝]],
       },
       sections = {
         { section = 'header' },
@@ -63,7 +53,7 @@ return {
     indent = { enabled = true },
     input = { enabled = true },
     picker = { enabled = true },
-    notifier = { enabled = true, timeout = 3000 },
+    notifier = { enabled = true, timeout = 5000 },
     quickfile = { enabled = true },
     scope = { enabled = true },
     -- scroll = { enabled = true }, -- smooth scrolling
@@ -94,12 +84,12 @@ return {
       end,
       set = function(state)
         if state == nil then
-          require("noice").enable()
+          -- require("noice").enable()
           require("ufo").enable()
           vim.o.foldenable = true
           vim.o.foldcolumn = "1"
         else
-          require("noice").disable()
+          -- require("noice").disable()
           require("ufo").disable()
           vim.o.foldenable = false
           vim.o.foldcolumn = "0"
@@ -115,10 +105,9 @@ return {
     map("<leader>/", function() Snacks.picker.grep() end, "Snacks", "Grep")
     map("<leader>:", function() Snacks.picker.command_history() end, "Snacks", "Command History")
     map("<leader>n", function() Snacks.picker.notifications() end, "Snacks", "Notification History")
-    map("<leader>e", function() Snacks.explorer() end, "Snacks", "File Explorer")
+    map({ "<leader>e", "<C-n>" }, function() Snacks.explorer() end, "Snacks", "File Explorer")
 
     -- find
-    map("<leader>fb", function() Snacks.picker.buffers() end, "Buffers", "Buffers")
     map("<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, "Snacks",
       "Find Config File")
     map("<leader>ff", function() Snacks.picker.files() end, "Snacks", "Find Files")
@@ -170,21 +159,13 @@ return {
     map("<leader>su", function() Snacks.picker.undo() end, "Snacks", "Undo History")
     map("<leader>uC", function() Snacks.picker.colorschemes() end, "Snacks", "Colorschemes")
 
-    -- LSP
-    map("gd", function() Snacks.picker.lsp_definitions() end, "Snacks", "Goto Definition")
-    map("gD", function() Snacks.picker.lsp_declarations() end, "Snacks", "Goto Declaration")
-    map("gr", function() Snacks.picker.lsp_references() end, "Snacks", "References", { nowait = true })
-    map("gI", function() Snacks.picker.lsp_implementations() end, "Snacks", "Goto Implementation")
-    map("gy", function() Snacks.picker.lsp_type_definitions() end, "Snacks", "Goto T[y]pe Definition")
-    map("gai", function() Snacks.picker.lsp_incoming_calls() end, "Snacks", "C[a]lls Incoming")
-    map("gao", function() Snacks.picker.lsp_outgoing_calls() end, "Snacks", "C[a]lls Outgoing")
-    map("<leader>ss", function() Snacks.picker.lsp_symbols() end, "Snacks", "LSP Symbols")
-    map("<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, "Snacks", "LSP Workspace Symbols")
-
     -- buffers
+    map({ "<leader>fb", "<leader>bb" }, function() Snacks.picker.buffers() end, "Buffers", "Buffers")
     map("<leader>bd", function() Snacks.bufdelete() end, "Buffers", "Delete Buffer")
     map("<leader>ba", function() Snacks.bufdelete.all() end, "Buffers", "Delete All Buffers")
     map("<leader>bo", function() Snacks.bufdelete.other() end, "Buffers", "Delete Other Buffers")
+    map({ "<leader>bn", "<Tab>" }, ":bnext<CR>", "Buffers", "Next Buffer")
+    map({ "<leader>bp", "<S-Tab>" }, ":bprevious<CR>", "Buffers", "Previous Buffer")
 
     -- Other
     map("<leader>z", function() Snacks.zen() end, "Snacks", "Toggle Zen Mode")
