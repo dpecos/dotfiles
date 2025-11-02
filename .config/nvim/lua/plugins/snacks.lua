@@ -2,6 +2,9 @@ return {
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
+  dependencies = {
+    "MaximilianLloyd/ascii.nvim"
+  },
   ---@type snacks.Config
   opts = {
     -- your configuration comes here
@@ -48,7 +51,8 @@ return {
     },
     explorer = {
       enabled = true,
-      trash = false
+      trash = false,
+      follow_file = true,
     },
     indent = { enabled = true },
     input = { enabled = true },
@@ -58,7 +62,7 @@ return {
     scope = { enabled = true },
     -- scroll = { enabled = true }, -- smooth scrolling
     statuscolumn = { enabled = true },
-    -- words = { enabled = true }, -- auto-show LSP references and quickly navigate between them
+    words = { enabled = true }, -- auto-show LSP references and quickly navigate between them
     zen = {
       enabled = true,
       toggles = {
@@ -74,6 +78,12 @@ return {
     },
   },
   config = function(_, opts)
+    -- before initialize snacks, set a random ascii art header
+    local logo = require("ascii").get_random("text", "neovim")
+    for i, line in ipairs(logo) do
+      opts.dashboard.preset.header = (opts.dashboard.preset.header or "") .. line .. "\n"
+    end
+
     require("snacks").setup(opts)
 
     Snacks.toggle.new({
@@ -105,7 +115,29 @@ return {
     map("<leader>/", function() Snacks.picker.grep() end, "Snacks", "Grep")
     map("<leader>:", function() Snacks.picker.command_history() end, "Snacks", "Command History")
     map("<leader>n", function() Snacks.picker.notifications() end, "Snacks", "Notification History")
-    map({ "<leader>e", "<C-n>" }, function() Snacks.explorer() end, "Snacks", "File Explorer")
+    -- map({ "<leader>e", "<C-n>" }, function() Snacks.explorer() end, "Snacks", "File Explorer")
+    map('<leader>e',
+      function()
+        local explorer_win = nil
+
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+          local buf = vim.api.nvim_win_get_buf(win)
+          local ft = vim.bo[buf].filetype
+          if ft == 'snacks_picker_list' then
+            explorer_win = win
+            break
+          end
+        end
+
+        if vim.api.nvim_get_current_win() ~= explorer_win and explorer_win then
+          vim.api.nvim_set_current_win(explorer_win)
+        else
+          Snacks.explorer()
+        end
+      end,
+      "Snacks",
+      'File Explorer'
+    )
 
     -- find
     map("<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, "Snacks",
@@ -178,8 +210,10 @@ return {
     map("<leader>un", function() Snacks.notifier.hide() end, "Snacks", "Dismiss All Notifications")
     map("<c-/>", function() Snacks.terminal() end, "Snacks", "Toggle Terminal")
     map("<c-_>", function() Snacks.terminal() end, "Snacks", "which_key_ignore")
-    -- { "]]",              function() Snacks.words.jump(vim.v.count1) end,                         desc = "Next Reference",             mode = { "n", "t" } },
-    -- { "[[",              function() Snacks.words.jump(-vim.v.count1) end,                        desc = "Prev Reference",             mode = { "n", "t" } },
+    map("]]", function() Snacks.words.jump(vim.v.count1) end, "Snacks", "Next Reference",
+      { mode = { "n", "t" } })
+    map("[[", function() Snacks.words.jump(-vim.v.count1) end, "Snacks", "Prev Reference",
+      { mode = { "n", "t" } })
 
     map("<leader>N", function()
       Snacks.win({
