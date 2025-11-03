@@ -56,7 +56,33 @@ return {
     },
     indent = { enabled = true },
     input = { enabled = true },
-    picker = { enabled = true },
+    picker = {
+      enabled = true,
+      auto_close = true,
+      win = {
+        list = {
+          keys = {
+            -- ["v"] = "edit_vsplit",
+            -- ["s"] = "edit_split",
+          }
+        },
+
+      },
+      sources = {
+        explorer = {
+          auto_close = true,
+          win = {
+            list = {
+              keys = {
+                -- ["v"] = "edit_vsplit",
+                -- ["s"] = "edit_split",
+              }
+            }
+          }
+        }
+      }
+
+    },
     notifier = { enabled = true, timeout = 5000 },
     quickfile = { enabled = true },
     scope = { enabled = true },
