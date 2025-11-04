@@ -35,6 +35,7 @@ local on_lsp_attach = function(event)
   local map = require("utils.keymap").map
 
   map("gd", function() Snacks.picker.lsp_definitions() end, "LSP", "Goto Definition")
+  map("gdv", ":vsplit | lua vim.lsp.buf.definition()<CR>", "LSP", "Goto Definition (vertical split)");
   map("gD", function() Snacks.picker.lsp_declarations() end, "LSP", "Goto Declaration")
   map("grr", function() Snacks.picker.lsp_references() end, "LSP", "References", { nowait = true })
   map("gri", function() Snacks.picker.lsp_implementations() end, "LSP", "Goto Implementation")

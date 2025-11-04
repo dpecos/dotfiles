@@ -220,7 +220,11 @@ return {
     -- buffers
     map({ "<leader>fb", "<leader>bb" }, function() Snacks.picker.buffers() end, "Buffers", "Buffers")
     map("<leader>bd", function() Snacks.bufdelete() end, "Buffers", "Delete Buffer")
-    map("<leader>ba", function() Snacks.bufdelete.all() end, "Buffers", "Delete All Buffers")
+    map("<leader>ba", function()
+      Snacks.bufdelete.all()
+      -- close other splits too (ctrl-w o)
+      vim.cmd("only")
+    end, "Buffers", "Delete All Buffers")
     map("<leader>bo", function()
       Snacks.bufdelete.other();
       -- close other splits too (ctrl-w o)
