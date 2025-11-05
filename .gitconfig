@@ -119,5 +119,5 @@
 [includeIf "gitdir:~/projects/"]
   path = ~/projects/.gitconfig
 
-[includeIf "gitdir:~/projects-abcam/"]
-  path = ~/projects-abcam/.gitconfig
+[includeIf "gitdir:~/projects-dplabs/"]
+  path = ~/projects-dplabs/.gitconfig
