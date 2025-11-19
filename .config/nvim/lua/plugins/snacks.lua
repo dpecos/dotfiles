@@ -71,6 +71,7 @@ return {
       sources = {
         explorer = {
           auto_close = true,
+          hidden = true,
           win = {
             list = {
               keys = {
