@@ -82,3 +82,6 @@ vim.api.nvim_create_autocmd("FileType", {
     opt.wrap = true
   end,
 })
+
+opt.cursorline = true -- enable cursor line
+opt.autoread = true   -- auto update file if changed outside of nvim

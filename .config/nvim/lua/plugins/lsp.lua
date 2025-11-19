@@ -187,7 +187,6 @@ local on_lsp_attach = function(event)
     vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN })
   end, "LSP", "Next warn", { buffer = event.buf })
 
-
   -- The following autocommands are used to highlight references of the word under your cursor when your cursor rests there for a little while.
   if
       client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf)

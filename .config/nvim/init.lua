@@ -1,5 +1,6 @@
 require("keymaps")
 require("settings")
+require("autocmds")
 require("plugins-bootstrap")
 require("utils.native-completion")
 require("utils.typescript-tools")

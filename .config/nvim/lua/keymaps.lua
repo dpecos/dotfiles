@@ -73,15 +73,6 @@ vim.cmd("nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'")
 map("y", "myy`y", "Neovim", "Yank (keep cursor position)", { mode = "v" })
 map("Y", "myY`y", "Neovim", "Yank line (keep cursor position)", { mode = "v" })
 
--- See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "Highlight when yanking (copying) text",
-  group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
-
 -- split
 map("<C-w>h", ":split<Return>", "Neovim", "Horizontal split")
 map("<C-w>v", ":vsplit<Return>", "Neovim", "Vertical split")
@@ -95,9 +86,3 @@ map("<C-w><Down>", "<C-w>-5", "Neovim", "Increase split size - down")
 -- classic mistakes
 -- saving with :W instead of :w
 vim.cmd("cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))")
-
--- close quickfix / locations menu after selecting choice
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "qf" },
-  command = [[nnoremap <buffer> <CR> <CR>:cclose<CR>]],
-})
