@@ -21,9 +21,10 @@ return {
       disable_nvimtree_bg = false,
 
       -- Override colors (see ./lua/vscode/colors.lua)
-      -- color_overrides = {
-      --   vscLineNumber = '#FF0000',
-      -- },
+      color_overrides = {
+        -- vscLineNumber = '#FF0000',
+        vscCursorDarkDark = '#363636'
+      },
     })
 
     require("vscode").load()
