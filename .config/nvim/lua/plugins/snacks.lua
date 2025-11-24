@@ -43,7 +43,7 @@ return {
           padding = 2,
           gap = 1,
         },
-        { section = "recent_files", icon = " ", title = "Recent Files", indent = 3, padding = 2 },
+        { section = "recent_files", icon = " ", title = "Recent Files", cwd = vim.fn.getcwd(), indent = 3, padding = 2 },
         { section = "projects", icon = " ", title = "Projects", indent = 3, padding = 2 },
         { section = "startup" },
 
