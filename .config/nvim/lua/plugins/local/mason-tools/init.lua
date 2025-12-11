@@ -171,19 +171,13 @@ M.servers = {
     root_markers = { ".git" },
   },
 
-  ["prosemd-lsp"] = {
-    lsp_server_name = "prosemd_lsp",
-    cmd = { "prosemd-lsp", "--stdio" },
-    filetypes = { "markdown" },
-    root_markers = { ".git" },
-  },
-
   ["terraform-ls"] = {
     lsp_server_name = "terraformls",
     cmd = { "terraform-ls", "serve" },
     filetypes = { "terraform", "terraform-vars" },
     root_markers = { ".terraform", ".git" },
   },
+
 }
 
 -- Rust-analyzer settings (used by rustaceanvim, not lspconfig)
