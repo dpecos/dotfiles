@@ -46,5 +46,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
   alias pbpaste='wl-paste'
 fi
 
+alias dq="doqium-cli"
+
 [[ -f ~/.aliases.local ]] && . ~/.aliases.local
 
