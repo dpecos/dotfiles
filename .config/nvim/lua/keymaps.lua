@@ -86,3 +86,20 @@ map("<C-w><Down>", "<C-w>-5", "Neovim", "Increase split size - down")
 -- classic mistakes
 -- saving with :W instead of :w
 vim.cmd("cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))")
+
+-- Toggle between single, double, and backtick quotes
+map("<leader>tq", function()
+  local line = vim.api.nvim_get_current_line()
+  local col = vim.fn.col "."
+  local new_line = line:gsub("(['\"`])(.-[^\\])%1", function(q, content)
+    if q == "'" then
+      return '"' .. content .. '"'
+    elseif q == '"' then
+      return "`" .. content .. "`"
+    else
+      return "'" .. content .. "'"
+    end
+  end)
+  vim.api.nvim_set_current_line(new_line)
+  vim.fn.cursor(vim.fn.line ".", col)
+end, "Neovim", "Toggle quote style")
