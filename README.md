@@ -128,6 +128,12 @@ For MacOS:
     program = "/opt/homebrew/bin/tmux"
     args = ["new-session", "-A", "-D", "-s", "main"]
 
+    [[hints.enabled]]
+    regex = '[^ ]+(?:\s*)$'
+    command = { program = "/opt/homebrew/bin/tmux", args = ["split-window", "-h", "-c", "#{pane_current_path}", "sh", "-c", "/opt/homebrew/bin/nvim \"$0\""] }
+    binding = { key = "1", mods = "Control" }
+
+
 For Linux:
 
     [font]
@@ -139,6 +145,11 @@ For Linux:
     [terminal.shell]
     program = "/usr/bin/tmux"
     args = ["new-session", "-A", "-D", "-s", "main"]
+
+    [[hints.enabled]]
+    regex = '[^ ]+(?:\s*)$'
+    command = { program = "/usr/bin/tmux", args = ["split-window", "-h", "-c", "#{pane_current_path}", "sh", "-c", "nvim \"$0\""] }
+    binding = { key = "1", mods = "Control" }
 
 ## Adding new content to the dotfiles repo
 
