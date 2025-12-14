@@ -12,6 +12,10 @@ local opt = vim.opt -- Set options (global/buffer/windows-scoped)
 g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1
 
+-- Case insensitive searching UNLESS /C or capital in search
+opt.ignorecase = true
+opt.smartcase = true
+
 -- Set highlight on search
 opt.hlsearch = true
 opt.incsearch = true
@@ -22,10 +26,6 @@ opt.relativenumber = true
 
 -- Enable mouse mode
 -- vim.opt.mouse = 'a'
-
--- Case insensitive searching UNLESS /C or capital in search
-opt.ignorecase = true
-opt.smartcase = true
 
 -- Set colorscheme
 opt.termguicolors = true
@@ -85,3 +85,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 opt.cursorline = true -- enable cursor line
 opt.autoread = true   -- auto update file if changed outside of nvim
+
+-- native theme
+-- vim.cmd.colorscheme("habamax")
+-- vim.cmd.colorscheme("slate")

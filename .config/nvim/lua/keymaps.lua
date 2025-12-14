@@ -14,6 +14,9 @@ map("<C-q>", ":qa!<CR>", "Neovim", "Quit all without saving")
 -- Allow gf to open non-existent files
 map("gf", ":edit <cfile><CR>", "Neovim", "Open file under cursor (create if needed)")
 
+-- clear search highlights
+map("<leader>nh", ":nohl<CR>", "Neovim", "Clear search highlights")
+
 --vim.api.nvim_set_keymap('n', '<leader>vr', ':source $MYVIMRC<CR>', { desc = 'Neovim: Reload NeoVim config' })
 map("<leader>ve", ":edit ~/.config/nvim/init.lua<CR>", "Neovim", "Edit init file")
 map("<leader>vk", ":edit ~/.config/nvim/lua/keymaps.lua<CR>", "Neovim", "Edit keymaps file")
@@ -34,9 +37,6 @@ map("<C-d>", "<C-d>zz", "Neovim", "Scroll down (centered)")
 map("<C-u>", "<C-u>zz", "Neovim", "Scroll up (centered)")
 map("n", "nzzzv", "Neovim", "Next search result (centered)")
 map("N", "Nzzzv", "Neovim", "Previous search result (centered)")
-
--- clear search highlights
-map("<leader>nh", ":nohl<CR>", "Neovim", "Clear search highlights")
 
 -- Better tabbing: reselect visual selection after indenting
 map("<", "<gv", "Neovim", "Indent left (keep selection)", { mode = "v" })
