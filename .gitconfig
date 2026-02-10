@@ -41,7 +41,7 @@
   defaultBranch = master
 
 [pull]
-  rebase = false
+  rebase = true
 
 [push]
   followTags = true
