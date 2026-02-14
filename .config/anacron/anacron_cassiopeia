@@ -1,0 +1,2 @@
+#@weekly tar -cJpf /run/media/dani/secure-storage-2/Cloud\ Storage/Nextcloud/Hobbies/HAM\ Radio/ADIF\ exports/qlog_backup_$(date +\%Y\%m\%d).tar.xz /home/dani/.local/share/hamradio/QLog/
+@weekly /home/dani/bin/rotating_backup.sh /home/dani/.local/share/hamradio/QLog/ /run/media/dani/secure-storage-2/Cloud\ Storage/Nextcloud/Hobbies/HAM\ Radio/ADIF\ exports 5
