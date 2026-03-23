@@ -136,13 +136,7 @@ return {
 
     local map = require("utils.keymap").map
 
-    -- Top Pickers & Explorer
-    map("<leader><space>", function() Snacks.picker.smart() end, "Snacks", "Smart Find Files")
-    -- { "<leader>,",       function() Snacks.picker.buffers() end,                                 desc = "Buffers" },
-    map("<leader>/", function() Snacks.picker.grep() end, "Snacks", "Grep")
-    map("<leader>:", function() Snacks.picker.command_history() end, "Snacks", "Command History")
-    map("<leader>n", function() Snacks.picker.notifications() end, "Snacks", "Notification History")
-    -- map({ "<leader>e", "<C-n>" }, function() Snacks.explorer() end, "Snacks", "File Explorer")
+    -- Explorer
     map('<leader>e',
       function()
         local explorer_win = nil
@@ -235,6 +229,7 @@ return {
     map({ "<leader>bp", "<S-Tab>" }, ":bprevious<CR>", "Buffers", "Previous Buffer")
 
     -- Other
+    map("<leader><space>", function() Snacks.picker.smart() end, "Snacks", "Smart Find Files")
     map("<leader>z", function() Snacks.zen() end, "Snacks", "Toggle Zen Mode")
     map("<leader>Z", function() Snacks.zen.zoom() end, "Snacks", "Toggle Zoom")
     map("<leader>.", function() Snacks.scratch() end, "Snacks", "Toggle Scratch Buffer")
@@ -242,7 +237,8 @@ return {
     map("<leader>cR", function() Snacks.rename.rename_file() end, "Snacks", "Rename File")
     map("<leader>gB", function() Snacks.gitbrowse() end, "Snacks", "Git Browse", { mode = { "n", "v" } })
     map("<leader>gg", function() Snacks.lazygit() end, "Snacks", "Lazygit")
-    map("<leader>un", function() Snacks.notifier.hide() end, "Snacks", "Dismiss All Notifications")
+    map("<leader>n", function() Snacks.picker.notifications() end, "Snacks", "Notification History")
+    map("<leader>nx", function() Snacks.notifier.hide() end, "Snacks", "Dismiss All Notifications")
     map("<c-/>", function() Snacks.terminal() end, "Snacks", "Toggle Terminal")
     map("<c-_>", function() Snacks.terminal() end, "Snacks", "which_key_ignore")
     map("]]", function() Snacks.words.jump(vim.v.count1) end, "Snacks", "Next Reference",
