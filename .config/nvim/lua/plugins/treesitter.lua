@@ -26,7 +26,6 @@ local languages = {
   'make',
   'markdown',
   'markdown_inline',
-  'norg',
   'python',
   'query',
   'regex',
@@ -50,6 +49,7 @@ return {
   },
   {
     'MeanderingProgrammer/treesitter-modules.nvim',
+    branch = 'main',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     opts = {
       ensure_installed = languages,
