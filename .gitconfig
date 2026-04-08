@@ -32,6 +32,8 @@
 
   wip = for-each-ref --sort='authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
 
+	graph = "!git log --format=\"%ad\" --date=format:\"%Y-%m\" | sort | uniq -c | awk \"{ count=\\$1; label=\\$2; printf \\\"%s | \\\", label; for(i=0; i<count; i++) printf \\\"█\\\"; print \\\" \\\" count }\""
+
 [core]
   editor = nvim
   excludesfile = ~/.gitignore_global
