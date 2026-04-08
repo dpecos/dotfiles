@@ -5,7 +5,7 @@
 -- Supports: Rust, JS/TS/TSX, Lua, Markdown, JSON, HTML, CSS, YAML, Bash, and more
 -- Text objects: af/if (function), ac/ic (class), ab/ib (block), ai/ii (call)
 -- Incremental selection: gnn (init), grn (expand), grm (shrink)
--- Includes nvim-treesitter-textobjects for advanced code navigation
+-- Includes treesitter-modules for module configuration
 
 local languages = {
   'bash',
@@ -41,23 +41,11 @@ local languages = {
   'xml',
 }
 
-return {
-  {
-    'nvim-treesitter/nvim-treesitter',
-    branch = 'main',
-    build = ':TSUpdate',
-  },
-  {
-    'MeanderingProgrammer/treesitter-modules.nvim',
-    branch = 'main',
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    opts = {
-      ensure_installed = languages,
-      auto_install = false,
-      fold = { enable = true },
-      highlight = { enable = true },
-      indent = { enable = true },
-      incremental_selection = { enable = true },
-    },
-  },
-}
+require("treesitter-modules").setup({
+  ensure_installed = languages,
+  auto_install = false,
+  fold = { enable = true },
+  highlight = { enable = true },
+  indent = { enable = true },
+  incremental_selection = { enable = true },
+})

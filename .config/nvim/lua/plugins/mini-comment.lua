@@ -2,33 +2,22 @@
 -- https://github.com/echasnovski/mini.comment
 --
 -- Modern commenting plugin with Treesitter support
--- Keymaps: gcc (line), gc (motion/visual), gbc (block line), gb (block motion/visual)
+-- Keymaps: gcc (line), gc (motion/visual)
 
-return {
-	"echasnovski/mini.comment",
-	event = "VeryLazy",
-	opts = {
-		options = {
-			-- Use treesitter for getting correct commentstring
-			custom_commentstring = function()
-				return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
-			end,
-		},
-		mappings = {
-			-- Toggle comment on current line
-			comment_line = "gcc",
-			-- Toggle comment on visual selection
-			comment = "gc",
-			-- Define 'comment' textobject (for "gcip" - comment inner paragraph)
-			textobject = "gc",
-		},
+require("ts_context_commentstring").setup({
+	enable_autocmd = false,
+})
+
+require("mini.comment").setup({
+	options = {
+		custom_commentstring = function()
+			return require("ts_context_commentstring.internal").calculate_commentstring()
+				or vim.bo.commentstring
+		end,
 	},
-	dependencies = {
-		{
-			"JoosepAlviste/nvim-ts-context-commentstring",
-			opts = {
-				enable_autocmd = false,
-			},
-		},
+	mappings = {
+		comment_line = "gcc",
+		comment      = "gc",
+		textobject   = "gc",
 	},
-}
+})

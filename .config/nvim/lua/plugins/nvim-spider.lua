@@ -1,17 +1,11 @@
 -- Nvim Spider
 -- https://github.com/chrisgrieser/nvim-spider
 --
--- Enhanced word motion that skips punctuation and handles camelCase/snake_case intelligently
--- Overrides: w, e, b, ge with smarter movement patterns
--- More natural navigation for modern programming with compound identifiers
+-- Enhanced word motion for camelCase/snake_case
 
-return {
-  "chrisgrieser/nvim-spider",
-  event = "VeryLazy",
-  keys = {
-    { "w",  "<cmd>lua require('spider').motion('w')<CR>",  desc = "Spider-w" },
-    { "e",  "<cmd>lua require('spider').motion('e')<CR>",  desc = "Spider-e" },
-    { "b",  "<cmd>lua require('spider').motion('b')<CR>",  desc = "Spider-b" },
-    { "ge", "<cmd>lua require('spider').motion('ge')<CR>", desc = "Spider-ge" },
-  }
-}
+local map = require("utils.keymap").map
+
+map("w",  function() require("spider").motion("w")  end, "Spider", "Spider-w")
+map("e",  function() require("spider").motion("e")  end, "Spider", "Spider-e")
+map("b",  function() require("spider").motion("b")  end, "Spider", "Spider-b")
+map("ge", function() require("spider").motion("ge") end, "Spider", "Spider-ge")

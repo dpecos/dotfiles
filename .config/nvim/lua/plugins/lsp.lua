@@ -429,28 +429,18 @@ local setup = function()
   })
 end
 
-return {
-  -- Note: No longer need nvim-lspconfig as a plugin
-  -- Using native vim.lsp.config/enable (Neovim 0.11+)
-  {
-    -- Useful status updates for LSP
-    "j-hui/fidget.nvim",
-    opts = {
-      notification = {
-        window = {
-          winblend = 0, -- transparent
-        },
-      },
-      integration = {
-        ["nvim-tree"] = {
-          enable = true,
-        },
-      },
+-- Using native vim.lsp.config/enable (Neovim 0.11+)
+require("fidget").setup({
+  notification = {
+    window = {
+      winblend = 0,
     },
-    config = function(_, opts)
-      require("fidget").setup(opts)
-      -- Setup LSP after fidget is ready
-      setup()
-    end,
   },
-}
+  integration = {
+    ["nvim-tree"] = {
+      enable = true,
+    },
+  },
+})
+
+setup()

@@ -1,42 +1,30 @@
 -- Which Key
 -- https://github.com/folke/which-key.nvim
 --
--- Display keybinding popup as you type to help discover available keymaps
--- Shows grouped keybindings by prefix with descriptions
+-- Display keybinding popup as you type
 
-return {
-  "folke/which-key.nvim",
-  event = "VeryLazy",
-  init = function()
-    vim.o.timeout = true
-    vim.o.timeoutlen = 300
-  end,
-  config = function()
-    local wk = require("which-key")
+vim.o.timeout    = true
+vim.o.timeoutlen = 300
 
-    wk.setup({
-      reset = "helix",
-      plugins = {
-        marks = false,
-        operators = false,
-        windows = false,
-        nav = false,
-      },
-      win = {
-        padding = { 0, 1 },
-        title = false,
-        border = "rounded", -- none, single, double, shadow, rounded
-      },
-    })
+require("which-key").setup({
+  reset = "helix",
+  plugins = {
+    marks     = false,
+    operators = false,
+    windows   = false,
+    nav       = false,
+  },
+  win = {
+    padding = { 0, 1 },
+    title   = false,
+    border  = "rounded",
+  },
+})
 
-    local map = require("utils.keymap").map
+local map = require("utils.keymap").map
 
-    map("<leader>?",
-      function()
-        require("which-key").show({ global = false })
-      end,
-      "Wchich Key",
-      "Buffer Local Keymaps"
-    )
-  end,
-}
+map("<leader>?",
+  function() require("which-key").show({ global = false }) end,
+  "Which Key",
+  "Buffer Local Keymaps"
+)

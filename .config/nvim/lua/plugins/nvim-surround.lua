@@ -1,12 +1,6 @@
 -- Nvim Surround
 -- https://github.com/kylechui/nvim-surround
 --
--- Add, delete, and change surrounding pairs (quotes, brackets, tags, etc.)
--- Keymaps: ys (add), ds (delete), cs (change), S (visual mode)
--- Examples: ysiw", ds", cs"', yss)
+-- Add, delete, and change surrounding pairs
 
-return {
-  "kylechui/nvim-surround",
-  version = "*",
-  event = "VeryLazy",
-}
+require("nvim-surround").setup()
