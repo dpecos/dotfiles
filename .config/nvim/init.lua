@@ -2,6 +2,8 @@
 ---@diagnostic disable-next-line: deprecated
 vim.tbl_flatten = function(t) return vim.iter(t):flatten():totable() end
 
+require('vim._core.ui2').enable()
+
 require("keymaps")
 require("settings")
 require("autocmds")

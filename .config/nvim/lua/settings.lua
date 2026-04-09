@@ -89,3 +89,6 @@ opt.autoread = true   -- auto update file if changed outside of nvim
 -- native theme
 -- vim.cmd.colorscheme("habamax")
 -- vim.cmd.colorscheme("slate")
+
+-- copilot autocomplete clashing with native autocomplete
+opt.autocomplete = false
