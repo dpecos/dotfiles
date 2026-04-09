@@ -1,11 +1,5 @@
--- LSP Configuration
--- Native Neovim 0.11+ LSP setup (no nvim-lspconfig needed)
---
--- Uses native vim.lsp.config/enable for LSP configuration with native completion, formatting, and diagnostics
--- Includes fidget.nvim for LSP progress notifications and gitsigns.nvim for git integration
--- Format-on-save with Biome for JS/TS and automatic import organization
+vim.pack.add({ "https://github.com/j-hui/fidget.nvim" })
 
--- Using native vim.lsp.supports_method (0.11+) instead of custom wrapper
 local function client_supports_method(client, method, bufnr)
   return client:supports_method(method, { bufnr = bufnr })
 end

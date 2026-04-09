@@ -1,7 +1,6 @@
--- Diffview
--- https://github.com/sindrets/diffview.nvim
---
--- Enhanced diff view for reviewing git changes with file history and merge conflict resolution
--- Commands: :DiffviewOpen (show changes), :DiffviewFileHistory (file history)
+vim.pack.add({
+  "https://github.com/nvim-lua/plenary.nvim",
+  "https://github.com/sindrets/diffview.nvim",
+})
 
 require("diffview").setup({})

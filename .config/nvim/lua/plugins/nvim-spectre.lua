@@ -1,7 +1,7 @@
--- Nvim Spectre
--- https://github.com/nvim-pack/nvim-spectre
---
--- Find and replace across multiple files with live preview and regex support
+vim.pack.add({
+  "https://github.com/nvim-lua/plenary.nvim",
+  "https://github.com/windwp/nvim-spectre",
+})
 
 local map = require("utils.keymap").map
 

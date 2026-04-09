@@ -1,10 +1,4 @@
--- Lualine
--- https://github.com/nvim-lualine/lualine.nvim
---
--- Fast and customizable statusline with mode, branch, diagnostics, and file info
--- Uses onedark theme with custom separators
--- Shows: mode, git branch, diff, diagnostics, filename, encoding, filetype, progress, location
--- Integrates with nvim-tree and copilot
+vim.pack.add({ "https://github.com/nvim-lualine/lualine.nvim" })
 
 require("lualine").setup({
   options = {

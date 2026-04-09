@@ -1,3 +1,8 @@
+vim.pack.add({
+  "https://github.com/nvim-lua/plenary.nvim",
+  "https://github.com/olimorris/codecompanion.nvim",
+})
+
 require("codecompanion").setup({
   extensions = {},
   adapters = {

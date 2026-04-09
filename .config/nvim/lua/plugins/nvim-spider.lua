@@ -1,7 +1,4 @@
--- Nvim Spider
--- https://github.com/chrisgrieser/nvim-spider
---
--- Enhanced word motion for camelCase/snake_case
+vim.pack.add({ "https://github.com/chrisgrieser/nvim-spider" })
 
 local map = require("utils.keymap").map
 

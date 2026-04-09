@@ -1,8 +1,4 @@
--- Todo Comments
--- https://github.com/folke/todo-comments.nvim
---
--- Highlight and search for TODO, FIXME, NOTE, and other comment annotations
--- Keymaps: ]t/[t (next/prev todo), <leader>st (show all todos)
+vim.pack.add({ "https://github.com/folke/todo-comments.nvim" })
 
 require("todo-comments").setup({
   colors = {

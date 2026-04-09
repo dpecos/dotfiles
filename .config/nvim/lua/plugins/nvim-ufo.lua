@@ -1,8 +1,7 @@
--- Nvim UFO
--- https://github.com/kevinhwang91/nvim-ufo
---
--- Modern code folding with LSP/Treesitter support
--- Keymaps: zR (open all folds), zM (close all folds)
+vim.pack.add({
+  "https://github.com/kevinhwang91/promise-async",
+  "https://github.com/kevinhwang91/nvim-ufo",
+})
 
 vim.o.foldcolumn    = "0"
 vim.o.foldlevel     = 99

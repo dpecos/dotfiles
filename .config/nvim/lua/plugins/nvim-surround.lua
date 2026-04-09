@@ -1,6 +1,3 @@
--- Nvim Surround
--- https://github.com/kylechui/nvim-surround
---
--- Add, delete, and change surrounding pairs
+vim.pack.add({ "https://github.com/kylechui/nvim-surround" })
 
 require("nvim-surround").setup()

@@ -1,7 +1,6 @@
--- Rustaceanvim
--- https://github.com/mrcjkb/rustaceanvim
---
--- Modern Rust development plugin with rust-analyzer, cargo integration, test runner, and debugger
+vim.pack.add({
+  { src = "https://github.com/mrcjkb/rustaceanvim", version = vim.version.range(">=6") },
+})
 
 vim.g.rustaceanvim = {
   tools = {

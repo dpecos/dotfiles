@@ -1,11 +1,7 @@
--- Nvim Treesitter
--- https://github.com/nvim-treesitter/nvim-treesitter
---
--- Advanced syntax highlighting, indentation, and text objects using treesitter parsers
--- Supports: Rust, JS/TS/TSX, Lua, Markdown, JSON, HTML, CSS, YAML, Bash, and more
--- Text objects: af/if (function), ac/ic (class), ab/ib (block), ai/ii (call)
--- Incremental selection: gnn (init), grn (expand), grm (shrink)
--- Includes treesitter-modules for module configuration
+vim.pack.add({
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
+  { src = "https://github.com/MeanderingProgrammer/treesitter-modules.nvim", version = "main" },
+})
 
 local languages = {
   'bash',

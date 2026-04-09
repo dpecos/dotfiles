@@ -1,7 +1,7 @@
--- Mason Tool Installer
--- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
---
--- Automatically install and manage LSP servers, formatters, and linters via Mason
+vim.pack.add({
+  "https://github.com/mason-org/mason.nvim",
+  "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
+})
 
 local mason_tools = require("plugins/local/mason-tools")
 

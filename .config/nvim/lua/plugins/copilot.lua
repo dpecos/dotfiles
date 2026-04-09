@@ -1,9 +1,4 @@
--- Copilot
--- https://github.com/zbirenbaum/copilot.lua
---
--- GitHub Copilot integration written in pure Lua with inline suggestions
--- Keymaps: Ctrl+a (accept), Ctrl+j/k (next/prev suggestion), Ctrl+e (dismiss)
--- Auto-triggers on insert mode with 75ms debounce
+vim.pack.add({ "https://github.com/zbirenbaum/copilot.lua" })
 
 require("copilot").setup({
   suggestion = {

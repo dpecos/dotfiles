@@ -1,8 +1,7 @@
--- Mini Comment
--- https://github.com/echasnovski/mini.comment
---
--- Modern commenting plugin with Treesitter support
--- Keymaps: gcc (line), gc (motion/visual)
+vim.pack.add({
+  "https://github.com/JoosepAlviste/nvim-ts-context-commentstring",
+  "https://github.com/echasnovski/mini.comment",
+})
 
 require("ts_context_commentstring").setup({
 	enable_autocmd = false,

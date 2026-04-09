@@ -1,8 +1,7 @@
--- Crates.nvim
--- https://github.com/saecki/crates.nvim
---
--- Cargo.toml dependency management with inline version display, updates, and documentation links
--- Auto-loads on Cargo.toml files with keymaps under <leader>c
+vim.pack.add({
+  "https://github.com/nvim-lua/plenary.nvim",
+  "https://github.com/saecki/crates.nvim",
+})
 
 require("crates").setup({
 	popup = {
