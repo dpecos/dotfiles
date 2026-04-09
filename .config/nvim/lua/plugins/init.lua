@@ -1,24 +1,20 @@
-require("plugins.vscode")
-require("plugins.snacks")
-require("plugins.treesitter")
-require("plugins.lsp")
-require("plugins.mason")
-require("plugins.lualine")
-require("plugins.which-key")
-require("plugins.nvim-ufo")
-require("plugins.nvim-surround")
-require("plugins.nvim-autopairs")
-require("plugins.nvim-spider")
-require("plugins.mini-comment")
-require("plugins.nvim-colorizer")
-require("plugins.todo-comments")
-require("plugins.nvim-spectre")
-require("plugins.copilot")
-require("plugins.crates-nvim")
-require("plugins.diffview")
-require("plugins.codecompanion")
-require("plugins.rustaceanvim")
+local plugins_dir = vim.fs.joinpath(vim.fn.stdpath("config"), "lua", "plugins")
+local plugin_modules = {}
 
+for name, kind in vim.fs.dir(plugins_dir) do
+  if kind == "file" and name:sub(-4) == ".lua" and name ~= "init.lua" then
+    table.insert(plugin_modules, "plugins." .. name:sub(1, -5))
+  end
+end
+
+table.sort(plugin_modules)
+
+for _, module_name in ipairs(plugin_modules) do
+  require(module_name)
+end
+
+
+-- local plugins need to be loaded manually
 require('plugins.local.pack-ui')
 require('plugins.local.toggle_char').setup({
   keys = { ",", ";" },
