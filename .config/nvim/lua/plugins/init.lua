@@ -1,16 +1,3 @@
--- Build hook: run :TSUpdate after treesitter installs or updates
--- Must be registered before any vim.pack.add() calls
-vim.api.nvim_create_autocmd("PackChanged", {
-  callback = function(ev)
-    local name, kind = ev.data.spec.name, ev.data.kind
-    if name == "nvim-treesitter" and (kind == "install" or kind == "update") then
-      vim.schedule(function()
-        pcall(vim.cmd, "TSUpdate")
-      end)
-    end
-  end,
-})
-
 -- auto-load all plugin modules in the plugins directory, except for init.lua
 local plugins_dir = vim.fs.joinpath(vim.fn.stdpath("config"), "lua", "plugins")
 local plugin_modules = {}
