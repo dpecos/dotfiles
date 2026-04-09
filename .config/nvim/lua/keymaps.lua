@@ -9,7 +9,10 @@ local map = require("utils.keymap").map
 map("jk", "<esc>", "Neovim", "Exit insert mode with jk", { mode = "i" })
 
 -- exit vim without saving
-map("<C-q>", ":qa!<CR>", "Neovim", "Quit all without saving")
+map({ "<leader>Q", "<C-q>" }, ":qa!<CR>", "Neovim", "Quit all without saving")
+
+-- restart neovim
+map("<leader>X", ":restart<CR>", "Neovim", "Restart Neovim")
 
 -- Allow gf to open non-existent files
 map("gf", ":edit <cfile><CR>", "Neovim", "Open file under cursor (create if needed)")
