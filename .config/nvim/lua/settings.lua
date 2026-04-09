@@ -21,7 +21,7 @@ opt.hlsearch = true
 opt.incsearch = true
 
 -- Make line numbers default
-vim.wo.number = true
+opt.number = true
 opt.relativenumber = true
 
 -- Enable mouse mode
@@ -54,6 +54,15 @@ opt.backup = false
 opt.scrolloff = 8
 opt.sidescrolloff = 8
 
+-- Folding (native treesitter folding)
+opt.foldmethod    = "expr"
+opt.foldexpr      = "v:lua.vim.treesitter.foldexpr()"
+opt.foldtext      = ""  -- render actual fold content (Neovim 0.10+)
+opt.foldcolumn    = "0"
+opt.foldlevel     = 99
+opt.foldlevelstart = 99
+opt.foldenable    = true
+
 -- clipboard
 --vim.opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 
@@ -62,7 +71,6 @@ opt.splitright = true -- split vertical window to the right
 opt.splitbelow = true -- split horizontal window to the bottom
 
 -- optimizations
-opt.hidden = true -- Enable background buffers
 --opt.history = 100 -- Remember N lines in history
 --opt.lazyredraw = true -- Faster scrolling
 --opt.synmaxcol = 240 -- Max column for syntax highlight

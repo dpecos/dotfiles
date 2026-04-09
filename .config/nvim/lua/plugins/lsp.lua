@@ -1,21 +1,17 @@
 vim.pack.add({ "https://github.com/j-hui/fidget.nvim" })
 
-local function client_supports_method(client, method, bufnr)
-  return client:supports_method(method, { bufnr = bufnr })
+local function client_supports_method(client, method, _bufnr)
+  return client:supports_method(method)
 end
 
 local on_lsp_attach = function(event)
   local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-  -- Enable completion triggered by <c-x><c-o>
-  -- Using vim.bo instead of deprecated vim.api.nvim_buf_set_option
-  vim.bo[event.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
   vim.bo[event.buf].formatexpr = "v:lua.vim.lsp.formatexpr()"
 
-  -- Enable native LSP completion (Neovim 0.11+)
+  -- Enable native LSP completion (Neovim 0.12+)
   -- Using native completion exclusively (nvim-cmp removed)
-  if vim.fn.has("nvim-0.11") == 1 then
-    vim.lsp.completion.enable(true, client.id, event.buf, {
+  vim.lsp.completion.enable(true, client.id, event.buf, {
       autotrigger = true,
       -- Convert LSP completion items to Vim completion items
       convert = function(item)
@@ -23,7 +19,6 @@ local on_lsp_attach = function(event)
         return item
       end,
     })
-  end
 
 
   local map = require("utils.keymap").map
@@ -166,16 +161,16 @@ local on_lsp_attach = function(event)
   end, "LSP", "Toggle diagnostic display mode", { buffer = event.buf })
 
   map("[e", function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+    vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR })
   end, "LSP", "Previous error", { buffer = event.buf })
   map("]e", function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+    vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
   end, "LSP", "Next error", { buffer = event.buf })
   map("[w", function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN })
+    vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.WARN })
   end, "LSP", "Previous warn", { buffer = event.buf })
   map("]w", function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN })
+    vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.WARN })
   end, "LSP", "Next warn", { buffer = event.buf })
 
   -- The following autocommands are used to highlight references of the word under your cursor when your cursor rests there for a little while.

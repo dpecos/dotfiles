@@ -75,7 +75,6 @@ local opts = {
   zen          = {
     enabled = true,
     toggles = {
-      ufo             = true,
       dim             = true,
       git_signs       = false,
       diagnostics     = false,
@@ -96,21 +95,12 @@ end
 require("snacks").setup(opts)
 
 Snacks.toggle.new({
-  id   = "ufo",
-  name = "Enable/Disable ufo",
-  get  = function()
-    return require("ufo").inspect()
-  end,
+  id   = "folding",
+  name = "Toggle Folding",
+  get  = function() return vim.o.foldenable end,
   set  = function(state)
-    if state == nil then
-      require("ufo").enable()
-      vim.o.foldenable = true
-      vim.o.foldcolumn = "1"
-    else
-      require("ufo").disable()
-      vim.o.foldenable = false
-      vim.o.foldcolumn = "0"
-    end
+    vim.o.foldenable  = state
+    vim.o.foldcolumn  = state and "1" or "0"
   end,
 })
 
