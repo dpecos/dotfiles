@@ -1,6 +1,3 @@
--- Add local plugins to runtimepath
-vim.opt.rtp:append(vim.fn.stdpath("config") .. "/lua/plugins/local/toggle_char.nvim")
-
 -- Build hook: run :TSUpdate after treesitter installs or updates
 -- Must be registered before vim.pack.add()
 vim.api.nvim_create_autocmd("PackChanged", {
@@ -39,10 +36,10 @@ vim.pack.add({
   "https://github.com/chrisgrieser/nvim-spider",
   "https://github.com/kylechui/nvim-surround",
   "https://github.com/kevinhwang91/nvim-ufo",
-  { src = "https://github.com/mrcjkb/rustaceanvim", version = vim.version.range(">=6") },
+  { src = "https://github.com/mrcjkb/rustaceanvim",                          version = vim.version.range(">=6") },
   "https://github.com/folke/snacks.nvim",
   "https://github.com/folke/todo-comments.nvim",
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter",              version = "main" },
   { src = "https://github.com/MeanderingProgrammer/treesitter-modules.nvim", version = "main" },
   "https://github.com/christoomey/vim-tmux-navigator",
   "https://github.com/Mofiqul/vscode.nvim",

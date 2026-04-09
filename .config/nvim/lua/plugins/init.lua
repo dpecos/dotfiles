@@ -1,8 +1,5 @@
--- Load plugin configurations in priority order.
--- All plugins are already on rtp via vim.pack.add(); these calls just run setup().
-
-require("plugins.vscode")       -- colorscheme first
-require("plugins.snacks")       -- high-priority UI (dashboard, picker, etc.)
+require("plugins.vscode")
+require("plugins.snacks")
 require("plugins.treesitter")
 require("plugins.lsp")
 require("plugins.mason")
@@ -21,4 +18,8 @@ require("plugins.crates-nvim")
 require("plugins.diffview")
 require("plugins.codecompanion")
 require("plugins.rustaceanvim")
-require("plugins.toggle_char")
+
+require('plugins.local.pack-ui')
+require('plugins.local.toggle_char').setup({
+  keys = { ",", ";" },
+})

@@ -1,7 +1,6 @@
 -- based on https://github.com/saifulapm/chartoggle.nvim
-local M = {}
 
-M.toggle = function(character)
+local function toggle(character)
   local buf = vim.api.nvim_get_current_buf()
   local modifiable = vim.api.nvim_buf_get_option(buf, "modifiable")
 
@@ -23,16 +22,18 @@ M.toggle = function(character)
   end
 end
 
-M.map = function(mode, target, source, opts)
+local function map(mode, target, source, opts)
   vim.keymap.set(mode, target, source, opts)
 end
 
+local M = {}
+
 M.setup = function(options)
   for _, key in ipairs(options.keys) do
-    M.map(
+    map(
       "n",
       key .. key,
-      ':lua require("toggle_char").toggle("' .. key .. '")<CR>',
+      function() toggle(key) end,
       { noremap = true, silent = true, desc = 'Toggle end char "' .. key .. '"' }
     )
   end
