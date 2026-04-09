@@ -1,15 +1,3 @@
--- Build hook: run :TSUpdate after treesitter installs or updates
-vim.api.nvim_create_autocmd("PackChanged", {
-  callback = function(ev)
-    local name, kind = ev.data.spec.name, ev.data.kind
-    if name == "nvim-treesitter" and (kind == "install" or kind == "update") then
-      vim.schedule(function()
-        pcall(vim.cmd, "TSUpdate")
-      end)
-    end
-  end,
-})
-
 vim.pack.add({
   { src = "https://github.com/nvim-treesitter/nvim-treesitter",              version = "main" },
   { src = "https://github.com/MeanderingProgrammer/treesitter-modules.nvim", version = "main" },
