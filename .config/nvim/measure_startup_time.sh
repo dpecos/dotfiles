@@ -6,7 +6,7 @@
 #
 # Takes no parameter.
 
-MEASUREMENT_COUNT=50
+MEASUREMENT_COUNT=10
 LOG_FILE="./log"
 SESSION_FILE="./test.vim"
 TIMES_FILE="./times"
