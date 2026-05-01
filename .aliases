@@ -49,5 +49,7 @@ fi
 
 alias dq="doqium-cli"
 
+unalias dtop
+
 [[ -f ~/.aliases.local ]] && . ~/.aliases.local
 
