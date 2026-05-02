@@ -1,160 +1,224 @@
 # dotfiles
 
-## Installing on a fresh box
+Home directory managed as a bare git repository.
 
-IMPORTANT: before initializing the home directory, setup ssh keys for GitLab and GitHub.
+---
 
-    alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
-    home init
-    home remote add origin git@github.com:dpecos/dotfiles.git
-    home fetch --all
-    home reset --hard origin/master
-    home branch --set-upstream-to=origin/master master
+## Fresh installation
 
-### Setup tweaks
+### 1. SSH keys
 
-Hide untracked files:
+Before anything else, set up SSH keys for GitHub and GitLab and make sure they are added to `ssh-agent`. The dotfiles repo is cloned over SSH.
 
-    home config --local status.showUntrackedFiles no
+### 2. Set zsh as default shell
 
-MacOSX: Enable repeating keys:
+```sh
+# Add zsh to the list of allowed shells if not already present
+which zsh | sudo tee -a /etc/shells
 
-    defaults write -g ApplePressAndHoldEnabled 0
+chsh -s $(which zsh)
+```
 
-### Manual steps after installation
+On Linux, fix the OhMyZsh security warning:
 
-#### (MacOSX only) HomeBrew
+```sh
+sudo chmod go-w /usr/local/share
+sudo chmod go-w /usr/local/share/zsh
+sudo chmod go-w /usr/local/share/zsh/site-function
+```
 
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+### 3. Install Oh My Zsh
 
-After that, we need to create the following content in `~/.zshrc.pre.local`:
+```sh
+git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+```
 
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+### 4. Install fonts
 
-#### ZSH
+**macOS:**
 
-    git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+```sh
+brew tap homebrew/cask-fonts
+brew install font-sauce-code-pro-nerd-font
+```
 
-#### tmux
+**Linux:**
 
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    prefix + I
+```sh
+paru -S ttf-sourcecodepro-nerd
+```
 
-#### Fonts
+### 5. Check out the dotfiles
 
-MacOSX:
+```sh
+alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
+home init
+home remote add origin git@github.com:dpecos/dotfiles.git
+home fetch --all
+home reset --hard origin/master
+home branch --set-upstream-to=origin/master master
+home config --local status.showUntrackedFiles no
+```
 
-    brew tap homebrew/cask-fonts
-    brew install font-sauce-code-pro-nerd-font
+### 6. Install packages
 
-Linux:
+**macOS** — install Homebrew first:
 
-    yay -S ttf-sourcecodepro-nerd
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
 
-#### Default Shell
+Then add to `~/.zshrc.pre.local`:
 
-Add `which zsh` to /etc/shells
+```sh
+eval "$(/opt/homebrew/bin/brew shellenv)"
+```
 
-    chsh -s $(which zsh)
+Then install packages:
 
-ZSH security warning
+```sh
+brew install tmux tmuxp nodejs go autojump zsh-autosuggestions zsh-syntax-highlighting \
+  zsh-completions eza neofetch fzf ripgrep the_silver_searcher neovim dust fd bat \
+  difftastic tokei tealdeer vladkens/tap/macmon starship direnv rustup fnm lazygit \
+  btop dtop
+```
 
-    sudo chmod go-w /usr/local/share
-    sudo chmod go-w /usr/local/share/zsh
-    sudo chmod go-w /usr/local/share/zsh/site-function
+**Linux:**
 
-#### Other apps
+```sh
+paru -S base-devel
 
-MacOS:
+paru -S paru tmux tmuxp nodejs npm go autojump-rs-bin zsh-syntax-highlighting \
+  zsh-autosuggestions zsh-completions eza fastfetch fzf ripgrep the_silver_searcher \
+  neovim neovim-symlinks dust ncdu fd duf bat difftastic tokei tealdeer kwalletcli \
+  starship direnv rustup unzip wl-clipboard fnm lazygit btop tree-sitter-cli dtop-bin
+```
 
-    brew install tmux tmuxp nodejs go autojump zsh-autosuggestions zsh-syntax-highlighting zsh-completions eza neofetch fzf ripgrep the_silver_searcher neovim dust fd bat difftastic tokei tealdeer vladkens/tap/macmon starship direnv rustup fnm lazygit btop dtop
+**Cargo (all platforms):**
 
-Linux:
+```sh
+cargo install ays
+```
 
-    paru tmux tmuxp nodejs go autojump-rs-bin zsh-syntax-highlighting zsh-autosuggestions zsh-completions eza fastfetch fzf ripgrep the_silver_searcher neovim neovim-symlinks dust ncdu fd duf bat difftastic tokei tealdeer kwalletcli starship direnv rustup unzip wl-clipboard fnm lazygit wl-clipboard btop tree-sitter-cli dtop
+### 7. Install tmux plugin manager
 
-Cargo / Rust:
+```sh
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
 
-    cargo install ays
+Then open tmux and press `prefix + I` to fetch plugins.
+
+### 8. Configure Alacritty (local overrides)
+
+Alacritty does not overwrite font settings defined in included files, so the font family and shell must be set in `~/.alacritty_local.toml`.
+
+**macOS:**
+
+```toml
+[font]
+size = 13
+
+[font.normal]
+family = "SauceCodePro Nerd Font"
+
+[terminal.shell]
+program = "/opt/homebrew/bin/tmux"
+args = ["new-session", "-A", "-D", "-s", "main"]
+
+[[hints.enabled]]
+regex = '[^ ]+(?:\s*)$'
+command = { program = "/opt/homebrew/bin/tmux", args = ["split-window", "-h", "-c", "#{pane_current_path}", "sh", "-c", "/opt/homebrew/bin/nvim \"$0\""] }
+binding = { key = "1", mods = "Control" }
+```
+
+**Linux:**
+
+```toml
+[font]
+size = 10
+
+[font.normal]
+family = "SauceCodePro Nerd Font Mono"
+
+[terminal.shell]
+program = "/usr/bin/tmux"
+args = ["new-session", "-A", "-D", "-s", "main"]
+
+[[hints.enabled]]
+regex = '[^ ]+(?:\s*)$'
+command = { program = "/usr/bin/tmux", args = ["split-window", "-h", "-c", "#{pane_current_path}", "sh", "-c", "nvim \"$0\""] }
+binding = { key = "1", mods = "Control" }
+```
+
+---
 
 ## Local overrides
 
-Creating any of these files, options can be localized to a local box:
+These files are gitignored and allow machine-specific configuration without touching the shared dotfiles:
 
-- `~/.alacritty_local.toml`
-- `~/.aliases.local`
-- `~/.zshrc.pre.local`
-- `~/.zshrc.local`
-- `~/.gitconfig.local`
-- `~/.gitignore_global`
+| File | Purpose |
+|------|---------|
+| `~/.zshrc.pre.local` | Sourced before Oh My Zsh loads (env vars, brew init) |
+| `~/.zshrc.local` | Sourced at the end of `.zshrc` |
+| `~/.aliases.local` | Extra aliases, appended to `.aliases` |
+| `~/.alacritty_local.toml` | Font, shell, platform-specific Alacritty settings |
+| `~/.gitconfig.local` | Local git overrides (included via `[include]`) |
+| `~/.gitignore_global` | Global gitignore patterns |
 
-### Disable GPG signing git commits
+### Load SSH identities automatically
 
-`.gitconfig.local`:
+`~/.zshrc.pre.local`:
 
-    [commit]
-      gpgsign = false
+```sh
+zstyle :omz:plugins:ssh-agent identities darkmatter-github darkmatter-gitlab
+zstyle :omz:plugins:ssh-agent lifetime 4h
+zstyle :omz:plugins:ssh-agent helper ksshaskpass
+```
 
-    [tag]
-      gpgsign = false
-      forceSignedAnnotated = false
+### Disable GPG signing
 
-### Git SSH to HTTPS
+`~/.gitconfig.local`:
 
-    [url "git@gitlab.xyz.com:"]
-      insteadOf = https://gitlab.xyz.com/
+```ini
+[commit]
+  gpgsign = false
 
-### Load SSH identities
+[tag]
+  gpgsign = false
+  forceSignedAnnotated = false
+```
 
-`.zshrc.pre.local`:
+### Rewrite HTTPS remotes to SSH
 
-    zstyle :omz:plugins:ssh-agent identities darkmatter-github darkmatter-gitlab
-    zstyle :omz:plugins:ssh-agent lifetime 4h
-    zstyle :omz:plugins:ssh-agent helper ksshaskpass
+`~/.gitconfig.local`:
 
-### Alacritty: fonts
+```ini
+[url "git@gitlab.xyz.com:"]
+  insteadOf = https://gitlab.xyz.com/
+```
 
-Alacritty does not overwrite font family defined in included files, so we have don't have a default in the root config. We need to define a `~/.alacritty_local.toml` file with the following contents:
+### macOS: enable key repeat
 
-For MacOS:
+```sh
+defaults write -g ApplePressAndHoldEnabled 0
+```
 
-    [font]
-    size = 13
+---
 
-    [font.normal]
-    family = "SauceCodePro Nerd Font"
+## Managing the dotfiles repo
 
-    [terminal.shell]
-    program = "/opt/homebrew/bin/tmux"
-    args = ["new-session", "-A", "-D", "-s", "main"]
+The `home` alias (defined in `.aliases`) wraps git for the bare repo:
 
-    [[hints.enabled]]
-    regex = '[^ ]+(?:\s*)$'
-    command = { program = "/opt/homebrew/bin/tmux", args = ["split-window", "-h", "-c", "#{pane_current_path}", "sh", "-c", "/opt/homebrew/bin/nvim \"$0\""] }
-    binding = { key = "1", mods = "Control" }
+```sh
+alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
+alias h="home"
+alias lazyhome="lazygit --work-tree=$HOME --git-dir=$HOME/.home.git"
+```
 
+### Add a new file
 
-For Linux:
+Everything is gitignored by default, so new files must be force-added:
 
-    [font]
-    size = 10
-
-    [font.normal]
-    family = "SauceCodePro Nerd Font Mono"
-
-    [terminal.shell]
-    program = "/usr/bin/tmux"
-    args = ["new-session", "-A", "-D", "-s", "main"]
-
-    [[hints.enabled]]
-    regex = '[^ ]+(?:\s*)$'
-    command = { program = "/usr/bin/tmux", args = ["split-window", "-h", "-c", "#{pane_current_path}", "sh", "-c", "nvim \"$0\""] }
-    binding = { key = "1", mods = "Control" }
-
-## Adding new content to the dotfiles repo
-
-### Files & directories
-
-You have to add the new content _forcing_ it because everything is matched by git-ignore:
-
-    home add -f FILE
+```sh
+home add -f FILE
+```
