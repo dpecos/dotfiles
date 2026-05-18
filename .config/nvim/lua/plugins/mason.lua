@@ -21,6 +21,7 @@ local function tools_to_autoinstall(servers, formatters, linters)
 end
 
 local tools_to_install = tools_to_autoinstall(mason_tools.servers, mason_tools.formatters, mason_tools.linters)
+tools_to_install = vim.list_extend(tools_to_install, mason_tools.mason_only or {})
 require("mason").setup()
 require("mason-tool-installer").setup({
 	ensure_installed = tools_to_install,

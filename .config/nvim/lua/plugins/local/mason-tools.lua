@@ -267,4 +267,10 @@ M.rust_analyzer_settings = {
   },
 }
 
+-- Tools that Mason should install but that are not configured via vim.lsp.config/enable
+-- (e.g. jdtls is managed by nvim-jdtls directly from ftplugin/java.lua)
+M.mason_only = {
+  "jdtls",
+}
+
 return M

@@ -9,6 +9,7 @@ local ensure_installed = {
   "cpp",
   "rust",
   "go",
+  "java",
 
   -- Scripting
   "lua",
