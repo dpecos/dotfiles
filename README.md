@@ -90,8 +90,9 @@ paru -S base-devel
 
 paru -S paru tmux tmuxp nodejs npm go autojump-rs-bin zsh-syntax-highlighting \
   zsh-autosuggestions zsh-completions eza fastfetch fzf ripgrep the_silver_searcher \
-  neovim neovim-symlinks dust ncdu fd duf bat difftastic tokei tealdeer kwalletcli \
-  starship direnv rustup unzip wl-clipboard fnm lazygit btop tree-sitter-cli dtop-bin
+  neovim neovim-symlinks dust ncdu fd duf bat difftastic tokei tealdeer \
+  starship direnv rustup unzip wl-clipboard fnm lazygit btop tree-sitter-cli dtop-bin \
+  kwalletcli-bin kcoreaddons5 ki18n5
 ```
 
 **Cargo (all platforms):**
