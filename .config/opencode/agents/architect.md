@@ -1,7 +1,7 @@
 ---
 description: Plans and analyzes development tasks, then delegates implementation to @developer.
 mode: primary
-model: github-copilot/claude-sonnet-4-6
+model: github-copilot/claude-sonnet-4.6
 permission:
   read: allow
   glob: allow
