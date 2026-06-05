@@ -13,7 +13,23 @@
 		"developer": {
 			"description": "Implements code changes delegated by @architect.",
 			"mode": "subagent"
+		},
+		"local": {
+			"description": "Agent running on local LLM",
+			"mode": "primary",
+			"model": "ollama/gemma4:12b-mlx"
+		}
+	},
+	"plugin": ["opencode-gemini-auth@latest"],
+	"provider": {
+		"ollama": {
+			"npm": "@ai-sdk/openai-compatible",
+			"options": {
+				"baseURL": "http://localhost:11434/v1"
+			},
+			"models": {
+				"gemma4:12b-mlx": {}
+			}
 		}
 	}
 }
-
