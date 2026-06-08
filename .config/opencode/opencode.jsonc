@@ -6,6 +6,34 @@
 			"model": "opencode/deepseek-v4-flash-free",
 			"color": "#32CD32"
 		},
+		"plan": {
+			"model": "opencode/deepseek-v4-flash-free",
+			"color": "#1E90FF"
+		},
+		"general": {
+			"model": "opencode/deepseek-v4-flash-free",
+			"color": "#FF69B4"
+		},
+		"explore": {
+			"model": "opencode/deepseek-v4-flash-free",
+			"color": "#FFD700"
+		},
+		"scout": {
+			"model": "opencode/deepseek-v4-flash-free",
+			"color": "#8A2BE2"
+		},
+		"compaction": {
+			"model": "opencode/deepseek-v4-flash-free",
+			"color": "#FF4500"
+		},
+		"title": {
+			"model": "opencode/deepseek-v4-flash-free",
+			"color": "#00CED1"
+		},
+		"summary": {
+			"model": "opencode/deepseek-v4-flash-free",
+			"color": "#FF1493"
+		},
 		"architect": {
 			"description": "Plans and analyzes dev tasks, delegates to @developer.",
 			"mode": "primary"

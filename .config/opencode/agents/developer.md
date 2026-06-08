@@ -2,6 +2,7 @@
 description: Implements code changes delegated by the architect agent.
 mode: subagent
 model: opencode/deepseek-v4-flash-free
+#model: google/gemini-3.1-flash-lite
 permission:
   read: allow
   glob: allow
