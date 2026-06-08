@@ -48,7 +48,7 @@
 			"model": "ollama/gemma4:12b-mlx"
 		}
 	},
-	"plugin": ["opencode-gemini-auth@latest"],
+	"plugin": ["opencode-gemini-auth@latest", "./plugins/caveman/plugin.js"],
 	"provider": {
 		"ollama": {
 			"npm": "@ai-sdk/openai-compatible",
@@ -58,6 +58,13 @@
 			"models": {
 				"gemma4:12b-mlx": {}
 			}
+		}
+	},
+	"mcp": {
+		"caveman-shrink": {
+			"type": "local",
+			"command": ["npx", "-y", "caveman-shrink"],
+			"enabled": true
 		}
 	}
 }
