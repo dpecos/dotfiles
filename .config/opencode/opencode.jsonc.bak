@@ -64,7 +64,7 @@
 		"caveman-shrink": {
 			"type": "local",
 			"command": ["npx", "-y", "caveman-shrink"],
-			"enabled": false
+			"enabled": true
 		}
 	}
 }
