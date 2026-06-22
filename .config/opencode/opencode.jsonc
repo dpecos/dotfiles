@@ -50,10 +50,11 @@
 		"fullstack-developer": {
 			//"model:": "github-copilot/claude-sonnet-4.6",
 			//"model": "google/gemini-3.1-flash-lite",
-			"model": "opencode/deepseek-v4-flash-free"
+			// "model": "opencode/deepseek-v4-flash-free"
+			"model": "opencode-go/deepseek-v4-flash"
 		}
 	},
-	"plugin": ["opencode-gemini-auth@latest", "./plugins/caveman/plugin.js"],
+	"plugin": ["./plugins/caveman/plugin.js"],
 	"provider": {
 		"ollama": {
 			"npm": "@ai-sdk/openai-compatible",
@@ -70,6 +71,11 @@
 			"type": "local",
 			"command": ["npx", "-y", "caveman-shrink"],
 			"enabled": false
+		},
+		"sentry": {
+			"type": "remote",
+			"url": "https://mcp.sentry.dev/mcp",
+			"oauth": {}
 		}
 	}
 }
