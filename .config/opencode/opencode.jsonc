@@ -8,11 +8,13 @@
 		},
 		"plan": {
 			"model": "opencode/deepseek-v4-flash-free",
-			"color": "#1E90FF"
+			"color": "#1E90FF",
+			"disable": true
 		},
 		"general": {
 			"model": "opencode/deepseek-v4-flash-free",
-			"color": "#FF69B4"
+			"color": "#FF69B4",
+			"disable": true
 		},
 		"explore": {
 			"model": "opencode/deepseek-v4-flash-free",
@@ -20,7 +22,8 @@
 		},
 		"scout": {
 			"model": "opencode/deepseek-v4-flash-free",
-			"color": "#8A2BE2"
+			"color": "#8A2BE2",
+			"disable": true
 		},
 		"compaction": {
 			"model": "opencode/deepseek-v4-flash-free",
@@ -34,18 +37,20 @@
 			"model": "opencode/deepseek-v4-flash-free",
 			"color": "#FF1493"
 		},
-		"architect": {
-			"description": "Plans and analyzes dev tasks, delegates to @developer.",
-			"mode": "primary"
-		},
-		"developer": {
-			"description": "Implements code changes delegated by @architect.",
-			"mode": "subagent"
-		},
 		"local": {
 			"description": "Agent running on local LLM",
 			"mode": "primary",
 			"model": "ollama/gemma4:12b-mlx"
+		},
+		"architect": {
+			//"model:": "github-copilot/claude-sonnet-4.6",
+			// "model": "google/gemini-3.1-flash-lite"
+			"model": "opencode-go/glm-5.2"
+		},
+		"fullstack-developer": {
+			//"model:": "github-copilot/claude-sonnet-4.6",
+			//"model": "google/gemini-3.1-flash-lite",
+			"model": "opencode/deepseek-v4-flash-free"
 		}
 	},
 	"plugin": ["opencode-gemini-auth@latest", "./plugins/caveman/plugin.js"],

@@ -1,0 +1,132 @@
+{
+  "version": 3,
+  "skills": {
+    "cypress-author": {
+      "source": "cypress-io/ai-toolkit",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/cypress-io/ai-toolkit.git",
+      "skillPath": "skills/cypress-author/SKILL.md",
+      "skillFolderHash": "6e5a5e802cfb2ebfebfc2470ea17ce0836b7cbf2",
+      "installedAt": "2026-06-10T08:12:24.163Z",
+      "updatedAt": "2026-06-10T08:12:24.163Z"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/skills.git",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "skillFolderHash": "3013fdeb8a11b10b1eb795ec3ae8bfca38f7c26d",
+      "installedAt": "2026-06-10T08:12:33.176Z",
+      "updatedAt": "2026-06-10T08:12:33.176Z"
+    },
+    "angular-developer": {
+      "source": "angular/angular",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/angular/angular.git",
+      "skillPath": "skills/dev-skills/angular-developer/SKILL.md",
+      "skillFolderHash": "0e06ba267e8034efbf7d2fc94b853f5ecd642aa5",
+      "installedAt": "2026-06-10T08:13:25.446Z",
+      "updatedAt": "2026-06-10T08:13:25.446Z"
+    },
+    "nodejs-backend-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/javascript-typescript/skills/nodejs-backend-patterns/SKILL.md",
+      "skillFolderHash": "81ed3d818cdcfc8ecc31751343ffe344c30a2c3b",
+      "installedAt": "2026-06-10T08:15:07.712Z",
+      "updatedAt": "2026-06-10T08:15:07.712Z"
+    },
+    "rust-engineer": {
+      "source": "jeffallan/claude-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jeffallan/claude-skills.git",
+      "skillPath": "skills/rust-engineer/SKILL.md",
+      "skillFolderHash": "f6de9e728f9380069c85d3ab49596a009bcaf959",
+      "installedAt": "2026-06-10T08:15:44.706Z",
+      "updatedAt": "2026-06-10T08:15:44.706Z"
+    },
+    "java-springboot": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/github/awesome-copilot.git",
+      "skillPath": "skills/java-springboot/SKILL.md",
+      "skillFolderHash": "1def6a95f59c924c9233774fbcf9be4c6fab7081",
+      "installedAt": "2026-06-10T08:16:14.194Z",
+      "updatedAt": "2026-06-10T08:16:14.194Z"
+    },
+    "improve-codebase-architecture": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/engineering/improve-codebase-architecture/SKILL.md",
+      "skillFolderHash": "688c17ec27fe9309d84987716aca37b5ce7f3a88",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-06-10T09:17:26.794Z",
+      "updatedAt": "2026-06-10T09:17:26.794Z"
+    },
+    "architecture-decision-records": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/documentation-generation/skills/architecture-decision-records/SKILL.md",
+      "skillFolderHash": "75227f18c39b855d72a328e3c4b5abc74144a4aa",
+      "installedAt": "2026-06-10T09:17:44.684Z",
+      "updatedAt": "2026-06-10T09:17:44.684Z"
+    },
+    "architecture-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/backend-development/skills/architecture-patterns/SKILL.md",
+      "skillFolderHash": "55717d572be0446247e43e1532542428d00093c8",
+      "installedAt": "2026-06-10T09:17:58.319Z",
+      "updatedAt": "2026-06-10T09:17:58.319Z"
+    },
+    "kotlin-springboot": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/github/awesome-copilot.git",
+      "skillPath": "skills/kotlin-springboot/SKILL.md",
+      "skillFolderHash": "008707336b83e6de0e2e40aa1870dda22354b14e",
+      "installedAt": "2026-06-11T12:29:23.570Z",
+      "updatedAt": "2026-06-11T12:29:23.570Z"
+    },
+    "kotlin-specialist": {
+      "source": "jeffallan/claude-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jeffallan/claude-skills.git",
+      "skillPath": "skills/kotlin-specialist/SKILL.md",
+      "skillFolderHash": "15c3c179587898cbb41e85ec2c525c56b619fcf8",
+      "installedAt": "2026-06-11T12:30:06.100Z",
+      "updatedAt": "2026-06-11T12:30:06.100Z"
+    },
+    "java-architect": {
+      "source": "jeffallan/claude-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jeffallan/claude-skills.git",
+      "skillPath": "skills/java-architect/SKILL.md",
+      "skillFolderHash": "e5db4f7b2093235feb263dd3a7ec47b5ad8bb828",
+      "installedAt": "2026-06-11T12:34:16.172Z",
+      "updatedAt": "2026-06-11T12:34:16.172Z"
+    }
+  },
+  "dismissed": {
+    "findSkillsPrompt": true
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "antigravity",
+    "antigravity-cli",
+    "cline",
+    "codex",
+    "cursor",
+    "deepagents",
+    "gemini-cli",
+    "github-copilot",
+    "kimi-code-cli",
+    "opencode",
+    "warp",
+    "zed"
+  ]
+}
