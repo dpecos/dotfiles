@@ -115,11 +115,7 @@ export MANPAGER='nvim +Man!'
 
 echo
 
-if [ "$(uname)" = "Darwin" ]; then
-  neofetch
-else
-  fastfetch
-fi
+fastfetch
 
 echo
 

@@ -51,6 +51,8 @@ paru -S ttf-sourcecodepro-nerd
 ### 5. Check out the dotfiles
 
 ```sh
+git config --global init.defaultBranch master
+
 alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 home init
 home remote add origin git@github.com:dpecos/dotfiles.git
@@ -78,9 +80,9 @@ Then install packages:
 
 ```sh
 brew install tmux tmuxp nodejs go autojump zsh-autosuggestions zsh-syntax-highlighting \
-  zsh-completions eza neofetch fzf ripgrep the_silver_searcher neovim dust fd bat \
+  zsh-completions eza fastfetch fzf ripgrep the_silver_searcher neovim dust fd bat \
   difftastic tokei tealdeer vladkens/tap/macmon starship direnv rustup fnm lazygit \
-  btop dtop
+  btop dtop tree-sitter-cli gnupg
 ```
 
 **Linux:**
