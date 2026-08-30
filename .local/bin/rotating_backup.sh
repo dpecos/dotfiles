@@ -23,7 +23,7 @@ BACKUP_FILE="$DEST/${SRC_NAME}_backup_${TIMESTAMP}.tar.xz"
 LOGFILE="$DEST/${SRC_NAME}_backup_${TIMESTAMP}.log"
 
 # Path to notification script
-NOTIFY_SCRIPT="$HOME/bin/send_notification.sh"
+NOTIFY_SCRIPT="$HOME/.local/bin/send_notification.sh"
 
 # Logging function
 log() {
@@ -72,7 +72,7 @@ LOGFILE="$DEST/${SRC_NAME}_backup_${TIMESTAMP}.log"
 log "Starting backup of $SRC to $BACKUP_FILE"
 
 # Use tar with fully quoted paths and -- to handle spaces and hidden files
-tar -cJf "$BACKUP_FILE" -C "$(dirname "$SRC")" -- "$(basename "$SRC")" 2>>"$LOGFILE"
+tar -cJf "$BACKUP_FILE" -h -C "$(dirname "$SRC")" -- "$(basename "$SRC")" 2>>"$LOGFILE"
 if [ $? -ne 0 ]; then
   log "ERROR: Backup failed!"
   notify "Backup FAILED: $SRC. Check log: $LOGFILE"
