@@ -126,7 +126,7 @@ Then install packages:
 brew install tmux tmuxp nodejs go autojump zsh-autosuggestions zsh-syntax-highlighting \
   zsh-completions eza fastfetch fzf ripgrep the_silver_searcher neovim dust fd bat \
   difftastic tokei tealdeer vladkens/tap/macmon starship direnv rustup fnm lazygit \
-  btop dtop tree-sitter-cli gnupg
+  btop dtop tree-sitter-cli gnupg pinentry-mac
 ```
 
 **Linux:**
@@ -229,6 +229,14 @@ zstyle :omz:plugins:ssh-agent helper ksshaskpass
 ```
 
 `HOST` is replaced with the machine hostname. On macOS, the `.local` suffix is automatically removed from the hostname.
+
+### GPG signing on mac
+
+```bash
+mkdir ~/.gnupg
+echo "pinentry-program $(brew --prefix)/bin/pinentry-mac" > ~/.gnupg/gpg-agent.conf
+echo 'use-agent' > ~/.gnupg/gpg.conf
+```
 
 ### Disable GPG signing
 
