@@ -6,9 +6,53 @@ Home directory managed as a bare git repository.
 
 ## Fresh installation
 
-### 1. SSH keys
+### 1. Generate SSH keys
 
-Before anything else, set up SSH keys for GitHub and GitLab and make sure they are added to `ssh-agent`. The dotfiles repo is cloned over SSH.
+Before checking out the dotfiles, generate separate SSH keys for GitHub, GitLab, and Forgejo.
+
+The helper script creates Ed25519 keys in `~/.ssh`, prefixed with the machine hostname:
+
+```sh
+~/.local/bin/generate_git_ssh_keys.sh
+```
+
+For example, on a machine named `macbook-pro`, it generates:
+
+```text
+~/.ssh/id_ed25519_macbook-pro_github
+~/.ssh/id_ed25519_macbook-pro_gitlab
+~/.ssh/id_ed25519_macbook-pro_forgejo
+```
+
+The script will, for each service:
+
+1. Generate the SSH key if it does not already exist.
+2. Copy the public key to the clipboard.
+3. Open the appropriate SSH-key settings page in the browser.
+4. Wait for confirmation before continuing to the next service.
+5. Add all generated identities to `~/.zshrc.local` for the Oh My Zsh `ssh-agent` plugin.
+
+The three services are:
+
+* GitHub — `https://github.com/settings/ssh/new`
+* GitLab — `https://gitlab.com/-/user_settings/ssh_keys`
+* Forgejo — `https://code.dplabs.dev/user/settings/keys`
+
+The script expects `pbcopy` on macOS. On Linux it can use `xclip` or `xsel`.
+
+Make sure the script is executable:
+
+```sh
+chmod +x ~/.local/bin/generate_git_ssh_keys.sh
+```
+
+Run it:
+
+```sh
+~/.local/bin/generate_git_ssh_keys.sh
+```
+
+The generated SSH identities will be configured automatically in `~/.zshrc.pre.local`.
 
 ### 2. Set zsh as default shell
 
@@ -159,24 +203,32 @@ binding = { key = "1", mods = "Control" }
 
 These files are gitignored and allow machine-specific configuration without touching the shared dotfiles:
 
-| File | Purpose |
-|------|---------|
-| `~/.zshrc.pre.local` | Sourced before Oh My Zsh loads (env vars, brew init) |
-| `~/.zshrc.local` | Sourced at the end of `.zshrc` |
-| `~/.aliases.local` | Extra aliases, appended to `.aliases` |
-| `~/.alacritty_local.toml` | Font, shell, platform-specific Alacritty settings |
-| `~/.gitconfig.local` | Local git overrides (included via `[include]`) |
-| `~/.gitignore_global` | Global gitignore patterns |
+| File                      | Purpose                                              |
+| ------------------------- | ---------------------------------------------------- |
+| `~/.zshrc.pre.local`      | Sourced before Oh My Zsh loads (env vars, brew init) |
+| `~/.zshrc.local`          | Sourced at the end of `.zshrc`                       |
+| `~/.aliases.local`        | Extra aliases, appended to `.aliases`                |
+| `~/.alacritty_local.toml` | Font, shell, platform-specific Alacritty settings    |
+| `~/.gitconfig.local`      | Local git overrides (included via `[include]`)       |
+| `~/.gitignore_global`     | Global gitignore patterns                            |
 
 ### Load SSH identities automatically
 
-`~/.zshrc.pre.local`:
+The SSH key generation script automatically adds the generated identities to `~/.zshrc.pre.local`.
+
+The resulting configuration looks like:
 
 ```sh
-zstyle :omz:plugins:ssh-agent identities darkmatter-github darkmatter-gitlab
+zstyle :omz:plugins:ssh-agent identities \
+  "$HOME/.ssh/id_ed25519_HOST_github" \
+  "$HOME/.ssh/id_ed25519_HOST_gitlab" \
+  "$HOME/.ssh/id_ed25519_HOST_forgejo"
+
 zstyle :omz:plugins:ssh-agent lifetime 4h
 zstyle :omz:plugins:ssh-agent helper ksshaskpass
 ```
+
+`HOST` is replaced with the machine hostname. On macOS, the `.local` suffix is automatically removed from the hostname.
 
 ### Disable GPG signing
 
